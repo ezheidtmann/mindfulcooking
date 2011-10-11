@@ -1,0 +1,27 @@
+[submodule "sites/all/modules/addressfield"]
+	path = sites/all/modules/addressfield
+	url = ./sites/all/modules/addressfield
+[submodule "sites/all/modules/auto_nodetitle"]
+	path = sites/all/modules/auto_nodetitle
+	url = ./sites/all/modules/auto_nodetitle
+[submodule "sites/all/modules/ctools"]
+	path = sites/all/modules/ctools
+	url = ./sites/all/modules/ctools
+[submodule "sites/all/modules/diff"]
+	path = sites/all/modules/diff
+	url = ./sites/all/modules/diff
+[submodule "sites/all/modules/email"]
+	path = sites/all/modules/email
+	url = ./sites/all/modules/email
+[submodule "sites/all/modules/field_group"]
+	path = sites/all/modules/field_group
+	url = ./sites/all/modules/field_group
+[submodule "sites/all/modules/pathauto"]
+	path = sites/all/modules/pathauto
+	url = ./sites/all/modules/pathauto
+[submodule "sites/all/modules/token"]
+	path = sites/all/modules/token
+	url = ./sites/all/modules/token
+[submodule "sites/all/modules/views"]
+	path = sites/all/modules/views
+	url = ./sites/all/modules/views
