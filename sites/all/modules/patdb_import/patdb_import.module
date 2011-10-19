@@ -1,0 +1,355 @@
+<?php
+
+// drush hook
+
+
+// Given a valid $filename, import data
+function _patdb_import_mdb($filename) {
+  //////// Clusters
+  $csv = _patdb_import_get_csv($filename, 'Cluster', $index);
+
+  $cluster_nids = array();
+  while ($row = fgetcsv($csv)) {
+    $cluster = array();
+    $cluster['name'] = $row[$index['Cluster']];
+    $cluster['director_name'] = $row[$index['DirectorName']];
+
+    $nid = _patdb_import_add_cluster($cluster);
+    // Save nids for referencing clusters from schools
+    $cluster_nids[$row[$index['ID']]] = $nid;
+    // Save director names for referencing director nodes (last step)
+    $cluster_directors[$row[$index['ID']]] = $cluster['director_name'];
+  }
+  drush_print('Created Clusters: '. count($cluster_nids));
+
+  //////// Schools
+  $csv = _patdb_import_get_csv($filename, 'Schools', $index);
+  while ($row = fgetcsv($csv)) {
+    $school = array();
+    $school['name'] = $row[$index['SchoolName']];
+    $school['phone'] = $row[$index['SchoolPhone']];
+    $school['fax'] = $row[$index['SchoolFax']];
+    $school['building_count'] = $row[$index['BuildingCount']];
+
+    $school['address']['administrative_area'] = $row[$index['SchoolState']];
+    $school['address']['locality'] = $row[$index['SchoolCity']];
+    $school['address']['postal_code'] = $row[$index['SchoolZip']];
+    $school['address']['thoroughfare'] = $row[$index['SchoolStreet']];
+
+    if (array_key_exists($row[$index['ClusterID']], $cluster_nids)) {
+      $school['cluster_nid'] = $cluster_nids[$row[$index['ClusterID']]];
+    } else {
+      $school['cluster_nid'] = 0;
+    }
+
+    // try to figure out school type
+    if (strpos($school['name'], ' HS') !== false) {
+      $school['type'] = 'HS';
+    }
+    elseif (strpos($school['name'], ' MS') !== false) {
+      $school['type'] = 'MS';
+    }
+    elseif (strpos($school['name'], ' ES') !== false) {
+      $school['type'] = 'K-5';
+    }
+    elseif (strpos($school['name'], ' K-5') !== false) {
+      $school['type'] = 'K-5';
+    }
+    elseif (strpos($school['name'], ' K-8') !== false) {
+      $school['type'] = 'K-8';
+    }
+    elseif (strpos($school['name'], ' K-12') !== false) {
+      $school['type'] = 'K-12';
+    }
+    elseif (strpos($school['name'], '@') !== false) {
+      $school['type'] = 'special';
+    }
+    elseif ($school['name'] == 'School Psychologists'
+        || $school['name'] == 'Substitute') {
+      $school['type'] = 'virtual';
+    }
+    else {
+      $school['type'] = 'other';
+    }
+
+    $nid = _patdb_import_add_school($school);
+    $school_nids[$row[$index['ID']]] = $nid;
+  }
+
+  drush_print('Created Schools: '. count($school_nids));
+
+  /////// Members
+  $csv = _patdb_import_get_csv($filename, 'Leaders', $index);
+  while ($row = fgetcsv($csv)) {
+    $member = array();
+    $member['first_name'] = $row[$index['FirstName']];
+    $member['last_name'] = $row[$index['LastName']];
+    $member['home_phone'] = $row[$index['HomePhone']];
+    $member['mobile_phone'] = $row[$index['CellPhone']];
+    if (!empty($row[$index['headrepemail']])) {
+      $member['email'] = $row[$index['headrepemail']];
+    }
+    elseif (!empty($row[$index['email']])) {
+      // The 'email' column contains entries like this:
+      // #mailto:wende@hevanet.com#
+      // jon.miller19@comcast.net#http://jon.miller19@comcast.net#
+      // This regex pulls out the latter copy of the email address.
+      $m = array();
+      if (preg_match('%:(//)?(\S+)@(\S+)#%', $row[$index['email']], $m)) {
+        $member['email'] = $m[2] .'@'. $m[3];
+      }
+    }
+    $member['mailed_home'] = $row[$index['mailed_home']];
+
+    $member['address']['administrative_area'] = $row[$index['HomeState']];
+    $member['address']['locality'] = $row[$index['HomeCity']];
+    $member['address']['postal_code'] = $row[$index['HomeZip']];
+    $member['address']['thoroughfare'] = $row[$index['HomeStreetAddress']];
+
+    if (array_key_exists($row[$index['SchoolName']], $school_nids)) {
+      $member['school_nid'] = $school_nids[$row[$index['SchoolName']]];
+    } else {
+      $member['school_nid'] = 0;
+    }
+
+    $member['roles_tids'] = array();
+    $member['committee_member_tids'] = array();
+    $terms = _patdb_import_get_terms_from_row($row, $index);
+    foreach ($terms as $term) {
+      if ($term->vocabulary_machine_name == 'roles') {
+        $member['roles_tids'][] = $term->tid;
+      }
+      elseif ($term->vocabulary_machine_name == 'committees') {
+        $member['committee_member_tids'][] = $term->tid;
+      }
+    }
+
+    $member['committee_chair_tid']
+      = _patdb_import_committee_tid($row[$index['LookuptoCommittee']]);
+    if ($member['committee_chair_tid']) {
+      $member['committee_member_tids'][] = $member['committee_chair_tid'];
+    }
+
+    $nid = _patdb_import_add_member($member);
+    $member_nids[] = $nid;
+    $member_names[] = $member['first_name'] .' '. $member['last_name'];
+  }
+
+  // Cluster Director X-ref
+  foreach ($cluster_nids as $i => $nid) {
+    if ($nid) {
+      $name = trim($cluster_directors[$i]);
+      $match_i = _patdb_best_match($member_names, $name);
+
+      $node = node_load($cluster_nids[$i]);
+      $node->revision = 1;
+      if ($match_i >= 0) {
+        drush_print('Matched "'. $name .'" as '. $member_names[$match_i] .' ['. $member_nids[$match_i] .']');
+        $node->field_director[$node->language][0]['nid'] = $member_nids[$match_i];
+        $node->log = 'Automatically selected director: was "'. $name .'", now refers to the member '. $member_names[$match_i] .' [nid:'. $member_nids[$match_i] .']';
+      }
+      else {
+        drush_print('Unable to find a match for "'. $name .'"');
+        $node->log = 'Failed to find a match for director "'. $name .'"';
+      }
+      node_submit($node);
+      node_save($node);
+    }
+  }
+
+  drush_print('Created Members: '. count($member_nids));
+}
+
+function _patdb_best_match($list, $needle) {
+  foreach ($list as $i => &$item) {
+    $item = array(
+      'i' => $i,
+      'value' => $item,
+      'lev' => levenshtein($needle, $item),
+    );
+  }
+
+  // FIXME: either use the results of the sort, or
+  // switch to an O(n) algorithm to find the best lev.
+  usort($list, '_patdb_best_match_cmp');
+  if ($list[0]['lev'] < 4) { // FIXME: make this configurable, or compute it
+    return $list[0]['i'];
+  }
+  else {
+    return -1;
+  }
+}
+
+function _patdb_best_match_cmp($a, $b) {
+  return $b['lev'] < $a['lev'];
+}
+
+function _patdb_import_get_terms_from_row($row, $index) {
+  $term_name_by_column = array(
+    'BuildingRep' => 'Building Rep',
+    'HeadRep' => 'Head Rep',
+    'ExecBoard' => 'Executive Board',
+    'PATOfficer' => 'PAT Officer',
+    'ClusterOrganizer' => 'Cluster Organizer',
+    'Bargaining Organizer' => 'Bargaining Organizer',
+    'HeadBargOrg' => 'Head Bargaining Organizer',
+    'CommunityOrg' => 'Community Organizer',
+    'IPD' => 'IPD',
+    'Legislative' => 'Legislative',
+    'Advocacy' => 'Advocacy',
+    'Bargaining' => 'Bargaining',
+    'Membership' => 'Membership',
+    'Nominations' => 'Nominations',
+    'TVIP' => 'TVIP',
+    'CHR' => 'CHR',
+    'Substitute' => 'Substitute',
+  );
+
+  $terms = array();
+  foreach ($term_name_by_column as $col => $term_name) {
+    if ($row[$index[$col]]) {
+      $terms = array_merge($terms, taxonomy_get_term_by_name($term_name));
+    }
+  }
+  return $terms;
+}
+
+function _patdb_import_committee_tid($mdb_id) {
+  if ($mdb_id == 0) { return 0; }
+  // TODO: check input values for being integers and within range.
+
+  // These values are copied from the Committees table in the MDB.
+  $committees_by_mdb_id = array(
+    1 => 'Advocacy',
+    2 => 'IPD',
+    3 => 'Legislative',
+    4 => 'CHR',
+    5 => 'TVIP',
+    6 => 'Membership',
+    7 => 'Nominations',
+    8 => 'Bargaining',
+    9 => 'Substitute',
+  );
+  $term_name = $committees_by_mdb_id[$mdb_id];
+
+  $terms = taxonomy_get_term_by_name($term_name);
+  foreach ($terms as $term) {
+    if ($term->vid == 2) {
+      return $term->tid;
+    }
+  }
+  return 0;
+}
+
+function _patdb_import_get_csv($filename, $table, &$index = 'none') {
+  $mdb_export = '/home2/ezheidtm/local/bin/mdb-export';
+  $csv = popen($mdb_export .' '. $filename .' '. $table, 'r');
+  if ($index != 'none') {
+    $index = array_flip(fgetcsv($csv));
+  }
+  return $csv;
+}
+
+function _patdb_import_node_init($type = 'cluster') {
+  $node = new stdClass();
+  $node->type = $type;
+  node_object_prepare($node);
+  $node->uid = 6;
+  $node->language = LANGUAGE_NONE;
+  return $node;
+}
+
+function _patdb_import_add_cluster($cluster) {
+  $node = _patdb_import_node_init('cluster');
+
+  $node->title = $cluster['name'];
+  $node->field_director[$node->language][0]['value']
+    = $cluster['director_name'];
+
+  node_submit($node);
+  node_save($node);
+
+  return $node->nid;
+}
+
+function _patdb_import_add_school($school) {
+  $node = _patdb_import_node_init('school');
+
+  $node->title = $school['name'];
+  $node->field_school_type[$node->language][0]['value'] = $school['type'];
+  $node->field_office_phone[$node->language][0]['value']
+    = _patdb_import_phone_number_prepare($school['phone']);
+  $node->field_office_fax[$node->language][0]['value']
+    = _patdb_import_phone_number_prepare($school['fax']);
+  $node->field_building_count[$node->language][0]['value']
+    = $school['building_count'] + 0;
+  $node->field_cluster[$node->language][0]['nid']
+    = $school['cluster_nid'];
+
+  $school['address']['country'] = 'US';
+  $node->field_address[$node->language][0]
+    = $school['address'];
+
+  node_submit($node);
+  node_save($node);
+  return $node->nid;
+}
+
+function _patdb_import_add_member($member) {
+  $node = _patdb_import_node_init('member');
+
+  $member['address']['first_name'] = $member['first_name'];
+  $member['address']['last_name'] = $member['last_name'];
+  $member['address']['country'] = 'US';
+
+  $node->field_address[$node->language][0] = $member['address'];
+  $node->field_school[$node->language][0]['nid'] = $member['school_nid'];
+  $node->field_home_phone[$node->language][0]['value']
+    = _patdb_import_phone_number_prepare($member['home_phone']);
+  $node->field_mobile_phone[$node->language][0]['value']
+    = _patdb_import_phone_number_prepare($member['mobile_phone']);
+
+  $member['email'] = trim($member['email']);
+  if (!empty($member['email']) && !valid_email_address($member['email'])) {
+    drush_print('Warning: bad email: '. $member['email']);
+    $member['email'] = check_plain($member['email']);
+  }
+  $node->field_email[$node->language][0]['email']
+    = $member['email'];
+
+  $node->field_mail_pref[$node->language][0]['value']
+    = $member['mailed_home'] ? 'home' : 'school';
+
+  foreach ($member['roles_tids'] as $tid) {
+    $node->field_roles[$node->language][] = array('tid' => $tid);
+  }
+  if (!isset($node->field_roles)) {
+    //$node->field_roles[$node->language][0]['tid'] = 0;
+    $node->field_roles = array();
+  }
+
+  foreach ($member['committee_member_tids'] as $tid) {
+    $node->field_committee_member[$node->language][] = array('tid' => $tid);
+  }
+  if (!isset($node->field_committee_member)) {
+    //$node->field_committee_member[$node->language][0]['tid'] = 0;
+    $node->field_committee_member = array();
+  }
+
+  $node->field_committee_chair[$node->language][0]['tid']
+    = $member['committee_chair_tid'];
+
+  node_submit($node);
+  node_save($node);
+  return $node->nid;
+}
+
+function _patdb_import_phone_number_prepare($number) {
+  // remove non-numerics, add area code if necessary.
+  $number = preg_replace('#[^0-9]*#', '', $number);
+  if (strlen($number) == 7) {
+     $number = '503'. $number;
+  }
+  return $number;
+}
+
