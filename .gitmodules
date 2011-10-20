@@ -25,3 +25,6 @@
 [submodule "sites/all/modules/views"]
 	path = sites/all/modules/views
 	url = ./sites/all/modules/views
+[submodule "sites/all/modules/nice_phone_numbers"]
+	path = sites/all/modules/nice_phone_numbers
+	url = ./sites/all/modules/nice_phone_numbers
