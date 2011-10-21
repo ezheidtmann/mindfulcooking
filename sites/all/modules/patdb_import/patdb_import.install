@@ -9,4 +9,34 @@ function patdb_import_install() {
     variable_set('patdb_import_uid', $acct->uid);
     unset($acct);
   }
+
+  // Populate the vocabularies
+  if (variable_get('patdb_import_committees_vid', 0) == 0) {
+    // Save our vids
+    $vocabs = taxonomy_get_vocabularies();
+    foreach ($vocabs as $v) {
+      if ($v->machine_name == 'committees') {
+        variable_set('patdb_import_committees_vid', $v->vid);
+      }
+      elseif ($v->machine_name == 'roles') {
+        variable_set('patdb_import_roles_vid', $v->vid);
+      }
+    }
+
+    // Populate committees
+    foreach (_patdb_import_committees() as $name) {
+      $term = new stdClass;
+      $term->vid = variable_get('patdb_import_committees_vid', 0);
+      $term->name = $name;
+      taxonomy_term_save($term);
+    }
+
+    // Populate roles
+    foreach (_patdb_import_roles() as $name) {
+      $term = new stdClass;
+      $term->vid = variable_get('patdb_import_roles_vid', 0);
+      $term->name = $name;
+      taxonomy_term_save($term);
+    }
+  }
 }
