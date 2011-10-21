@@ -1,0 +1,12 @@
+<?php
+
+function patdb_import_install() {
+  // Create the "Automatic Import" user
+  if (variable_get('patdb_import_uid', 0) == 0) {
+    $acct = new stdClass;
+    $acct->name = 'Automatic Import';
+    user_save($acct);
+    variable_set('patdb_import_uid', $acct->uid);
+    unset($acct);
+  }
+}
