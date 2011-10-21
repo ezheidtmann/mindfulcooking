@@ -4,4 +4,31 @@
  * Code for the PAT-DB Types feature.
  */
 
+// auto_nodetitle for member
+function patdb_types_form_node_form_alter(&$form, &$form_state, $form_id) {
+  if ($form['#node']->type == 'member') {
+    $form['title']['#type'] = 'value';
+    $form['title']['#required'] = FALSE;
+  }
+}
+
+function patdb_types_node_submit($node, $form, &$form_state) {
+  if ($node->type == 'member') {
+    patdb_types_set_member_title($node);
+  }
+}
+
+function patdb_types_node_presave($node) {
+  if ($node->type == 'member' && !$node->title_is_set) {
+    patdb_types_set_member_title($node);
+  }
+}
+
+function patdb_types_set_member_title($node) {
+  $node->title =
+    $node->field_address[$node->language][0]['last_name']
+    .', '. $node->field_address[$node->language][0]['first_name'];
+  $node->title_is_set = TRUE;
+}
+
 include_once('patdb_types.features.inc');
