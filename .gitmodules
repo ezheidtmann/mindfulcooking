@@ -28,3 +28,6 @@
 [submodule "sites/all/modules/nice_phone_numbers"]
 	path = sites/all/modules/nice_phone_numbers
 	url = ./sites/all/modules/nice_phone_numbers
+[submodule "sites/all/modules/references"]
+	path = sites/all/modules/references
+	url = ./sites/all/modules/references
