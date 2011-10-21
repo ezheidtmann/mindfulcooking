@@ -31,3 +31,6 @@
 [submodule "sites/all/modules/references"]
 	path = sites/all/modules/references
 	url = ./sites/all/modules/references
+[submodule "sites/all/modules/features"]
+	path = sites/all/modules/features
+	url = ./sites/all/modules/features
