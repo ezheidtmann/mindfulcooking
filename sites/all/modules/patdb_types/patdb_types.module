@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the PAT-DB Types feature.
+ */
+
+include_once('patdb_types.features.inc');
