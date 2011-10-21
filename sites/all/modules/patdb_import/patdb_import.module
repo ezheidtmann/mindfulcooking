@@ -254,7 +254,7 @@ function _patdb_import_node_init($type = 'cluster') {
   $node = new stdClass();
   $node->type = $type;
   node_object_prepare($node);
-  $node->uid = 6;
+  $node->uid = variable_get('patdb_import_uid', 0);
   $node->language = LANGUAGE_NONE;
   return $node;
 }
