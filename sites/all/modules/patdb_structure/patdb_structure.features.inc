@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * patdb_types.features.inc
+ * patdb_structure.features.inc
  */
 
 /**
  * Implements hook_node_info().
  */
-function patdb_types_node_info() {
+function patdb_structure_node_info() {
   $items = array(
     'cluster' => array(
       'name' => t('Cluster'),

@@ -2,7 +2,7 @@ name = PATDB Import
 description = Imports PAT leadership database contents from an Access database
 core = 7.x
 package = PAT-DB
-dependencies[] = patdb_types
+dependencies[] = patdb_structure
 ;files[] =
 ;configure =
 
