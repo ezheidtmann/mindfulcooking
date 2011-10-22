@@ -17,24 +17,37 @@ function patdb_import_install() {
     foreach ($vocabs as $v) {
       if ($v->machine_name == 'committees') {
         variable_set('patdb_import_committees_vid', $v->vid);
+        $committees_vid = $v->vid;
       }
       elseif ($v->machine_name == 'roles') {
         variable_set('patdb_import_roles_vid', $v->vid);
+        $roles_vid = $v->vid;
       }
     }
 
     // Populate committees
     foreach (_patdb_import_committees() as $name) {
       $term = new stdClass;
-      $term->vid = variable_get('patdb_import_committees_vid', 0);
+      $term->vid = $committees_vid;
       $term->name = $name;
       taxonomy_term_save($term);
     }
 
     // Populate roles
-    foreach (_patdb_import_roles() as $name) {
+    $roles = array(
+      'Building Rep',
+      'Head Rep',
+      'Executive Board',
+      'PAT Officer',
+      'Cluster Organizer',
+      'Bargaining Organizer',
+      'Head Bargaining Organizer',
+      'Community Organizer',
+    );
+
+    foreach ($roles as $name) {
       $term = new stdClass;
-      $term->vid = variable_get('patdb_import_roles_vid', 0);
+      $term->vid = $roles_vid;
       $term->name = $name;
       taxonomy_term_save($term);
     }
