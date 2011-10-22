@@ -34,3 +34,6 @@
 [submodule "sites/all/modules/features"]
 	path = sites/all/modules/features
 	url = ./sites/all/modules/features
+[submodule "sites/all/modules/taxonomy_views_switcher"]
+	path = sites/all/modules/taxonomy_views_switcher
+	url = ./sites/all/modules/taxonomy_views_switcher
