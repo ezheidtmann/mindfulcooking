@@ -184,8 +184,8 @@ function _patdb_best_match_cmp($a, $b) {
   return $b['lev'] < $a['lev'];
 }
 
-function _patdb_import_roles() {
-  return array(
+function _patdb_import_get_terms_from_row($row, $index) {
+  $term_name_by_column = array(
     'BuildingRep' => 'Building Rep',
     'HeadRep' => 'Head Rep',
     'ExecBoard' => 'Executive Board',
@@ -204,10 +204,6 @@ function _patdb_import_roles() {
     'CHR' => 'CHR',
     'Substitute' => 'Substitute',
   );
-}
-
-function _patdb_import_get_terms_from_row($row, $index) {
-  $term_name_by_column = _patdb_import_roles();
 
   $terms = array();
   foreach ($term_name_by_column as $col => $term_name) {
