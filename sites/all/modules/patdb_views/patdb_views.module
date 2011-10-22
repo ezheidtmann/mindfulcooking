@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the patdb_views feature.
+ */
+
+include_once('patdb_views.features.inc');
