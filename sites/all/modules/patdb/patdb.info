@@ -1,0 +1,9 @@
+name = PAT-DB
+description = Sets up database features and enforces data integrity policies
+core = 7.x
+package = PAT-DB
+dependencies[] = patdb_structure
+dependencies[] = patdb_views
+;files[] =
+;configure =
+
