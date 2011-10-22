@@ -9,8 +9,10 @@ drush si minimal \
   --site-name="PAT Membership Database" \
   --site-mail=evan.heidtmann@gmail.com
 
-drush en patdb_types
+drush en patdb_structure
+drush en patdb_views
 drush en patdb_import
+drush en patdb
 
 echo "Next step: Load an MDB! Ex: drush ipm ~/pat.mdb"
 
