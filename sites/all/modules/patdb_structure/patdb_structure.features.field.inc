@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * patdb_types.features.field.inc
+ * patdb_structure.features.field.inc
  */
 
 /**
  * Implements hook_field_default_fields().
  */
-function patdb_types_field_default_fields() {
+function patdb_structure_field_default_fields() {
   $fields = array();
 
   // Exported field: 'node-cluster-field_director'

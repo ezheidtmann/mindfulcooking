@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * patdb_types.features.taxonomy.inc
+ * patdb_structure.features.taxonomy.inc
  */
 
 /**
  * Implements hook_taxonomy_default_vocabularies().
  */
-function patdb_types_taxonomy_default_vocabularies() {
+function patdb_structure_taxonomy_default_vocabularies() {
   return array(
     'committees' => array(
       'name' => 'Committees',
