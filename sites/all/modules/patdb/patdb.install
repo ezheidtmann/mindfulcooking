@@ -24,4 +24,5 @@ function patdb_install() {
     ->execute();
 
   _patdb_setup_pathauto();
+  _patdb_setup_content();
 }
