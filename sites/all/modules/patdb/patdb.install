@@ -5,24 +5,7 @@ function patdb_install() {
   // TODO: Develop a multi-panel "dashboard" style front page
   variable_set('site_frontpage', 'schools-by-cluster');
 
-  // add views blocks to content area
-  // 1) get the weight of the main content
-  $main_weight = db_select('block')
-    ->fields('block', array('weight'))
-    ->condition('module', 'system')
-    ->condition('delta', 'main')
-    ->execute()->fetchField();
-
-  // 2) add the views blocks to the content area below the content
-  db_update('block')
-    ->fields(array(
-      'region' => 'content',
-      'status' => 1,
-      'weight' => $main_weight + 1, ))
-    ->condition('module', 'views')
-    ->condition('delta', array('members_by_school-block_1', 'schools_by_cluster-block_1'), 'IN')
-    ->execute();
-
+  _patdb_setup_views();
   _patdb_setup_pathauto();
   _patdb_setup_content();
 }
