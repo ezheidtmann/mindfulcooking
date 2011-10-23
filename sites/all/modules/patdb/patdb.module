@@ -1,3 +1,13 @@
 <?php
 
+function _patdb_setup_pathauto() {
+  // Set up pathauto patterns
+  variable_set('pathauto_taxonomy_term_committees_pattern', 'committee/[term:name]');
+  variable_set('pathauto_taxonomy_term_roles_pattern', 'role/[term:name]');
+  variable_set('pathauto_node_cluster_pattern', 'cluster/[node:title]');
+  variable_set('pathauto_node_member_pattern', 'member/[node:title]');
+  variable_set('pathauto_node_school_pattern', 'school/[node:title]');
 
+  // Ensure they're all up to date!
+
+}

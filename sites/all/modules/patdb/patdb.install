@@ -22,4 +22,6 @@ function patdb_install() {
     ->condition('module', 'views')
     ->condition('delta', array('members_by_school-block_1', 'schools_by_cluster-block_1'), 'IN')
     ->execute();
+
+  _patdb_setup_pathauto();
 }

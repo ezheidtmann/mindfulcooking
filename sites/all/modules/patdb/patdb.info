@@ -4,6 +4,8 @@ core = 7.x
 package = PAT-DB
 dependencies[] = patdb_structure
 dependencies[] = patdb_views
+dependencies[] = pathauto
+dependencies[] = taxonomy_views_switcher
 ;files[] =
 ;configure =
 

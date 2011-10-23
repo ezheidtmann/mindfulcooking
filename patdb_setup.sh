@@ -1,18 +1,18 @@
 #!/bin/bash
 
-drush sql-drop
+drush --yes sql-drop
 
-drush si minimal \
+drush --yes si minimal \
   --account-name=admin \
   --account-pass=asdf \
   --account-mail=evan.heidtmann@gmail.com \
   --site-name="PAT Membership Database" \
   --site-mail=evan.heidtmann@gmail.com
 
-drush en patdb_structure
-drush en patdb_views
-drush en patdb_import
-drush en patdb
+drush --yes en patdb_structure
+drush --yes en patdb_views
+drush --yes en patdb
+drush --yes en patdb_import
 
 echo "Next step: Load an MDB! Ex: drush ipm ~/pat.mdb"
 
