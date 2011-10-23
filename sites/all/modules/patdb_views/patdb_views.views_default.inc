@@ -227,9 +227,35 @@ function patdb_views_views_default_views() {
     'member' => 'member',
   );
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
+  /* Display: Page switch/committee */
+  $handler = $view->new_display('page', 'Page switch/committee', 'page');
   $handler->display->display_options['path'] = 'switch/committee';
+
+  /* Display: Page switch/roles */
+  $handler = $view->new_display('page', 'Page switch/roles', 'page_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Members by role';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Roles (field_roles) */
+  $handler->display->display_options['arguments']['field_roles_tid']['id'] = 'field_roles_tid';
+  $handler->display->display_options['arguments']['field_roles_tid']['table'] = 'field_data_field_roles';
+  $handler->display->display_options['arguments']['field_roles_tid']['field'] = 'field_roles_tid';
+  $handler->display->display_options['arguments']['field_roles_tid']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_roles_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_roles_tid']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['field_roles_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_roles_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_roles_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_roles_tid']['specify_validation'] = 1;
+  $handler->display->display_options['arguments']['field_roles_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_roles_tid']['validate_options']['vocabularies'] = array(
+    'roles' => 'roles',
+    'committees' => 0,
+  );
+  $handler->display->display_options['arguments']['field_roles_tid']['validate_options']['transform'] = 0;
+  $handler->display->display_options['arguments']['field_roles_tid']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['field_roles_tid']['not'] = 0;
+  $handler->display->display_options['path'] = 'switch/role';
   $export['members_by_committee'] = $view;
 
   $view = new view;
