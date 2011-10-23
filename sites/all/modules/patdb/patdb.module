@@ -11,3 +11,9 @@ function _patdb_setup_pathauto() {
   // Ensure they're all up to date!
 
 }
+
+function _patdb_setup_content() {
+  foreach (array('cluster', 'member', 'school') as $type) {
+    variable_set("node_options_$type", array('status', 'revision'));
+  }
+}
