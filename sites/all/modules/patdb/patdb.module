@@ -17,3 +17,25 @@ function _patdb_setup_content() {
     variable_set("node_options_$type", array('status', 'revision'));
   }
 }
+
+function _patdb_setup_views() {
+  // move views blocks to content area
+  // (assuming they exist already)
+  // FIXME: This fails silently if the blocks do not exist.
+  // 1) get the weight of the main content
+  $main_weight = db_select('block')
+    ->fields('block', array('weight'))
+    ->condition('module', 'system')
+    ->condition('delta', 'main')
+    ->execute()->fetchField();
+
+  // 2) add the views blocks to the content area below the content
+  db_update('block')
+    ->fields(array(
+      'region' => 'content',
+      'status' => 1,
+      'weight' => $main_weight + 1, ))
+    ->condition('module', 'views')
+    ->condition('delta', array('members_by_school-block_1', 'schools_by_cluster-block_1'), 'IN')
+    ->execute();
+}
