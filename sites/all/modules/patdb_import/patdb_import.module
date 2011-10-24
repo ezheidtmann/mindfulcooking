@@ -239,7 +239,7 @@ function _patdb_import_committee_tid($mdb_id) {
 
   $terms = taxonomy_get_term_by_name($term_name);
   foreach ($terms as $term) {
-    if ($term->vid == 2) {
+    if ($term->vid == variable_get('patdb_import_committees_vid', 0)) {
       return $term->tid;
     }
   }
