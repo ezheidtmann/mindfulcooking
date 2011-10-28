@@ -162,6 +162,7 @@ function patdb_structure_field_default_fields() {
           ),
           'format_handlers' => array(
             'address' => 'address',
+            'address-hide-country' => 'address-hide-country',
             'name-full' => 'name-full',
             'name-oneline' => 0,
             'organisation' => 0,
@@ -238,7 +239,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '6',
+        'weight' => '8',
       ),
     ),
   );
@@ -308,7 +309,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '7',
+        'weight' => '9',
       ),
     ),
   );
@@ -427,7 +428,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'nice_phone_numbers',
         'settings' => array(),
         'type' => 'nice_phone_number',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -489,7 +490,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '3',
+        'weight' => '2',
       ),
     ),
   );
@@ -554,7 +555,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'nice_phone_numbers',
         'settings' => array(),
         'type' => 'nice_phone_number',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -624,7 +625,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '5',
+        'weight' => '7',
       ),
     ),
   );
@@ -769,6 +770,7 @@ function patdb_structure_field_default_fields() {
           ),
           'format_handlers' => array(
             'address' => 'address',
+            'address-hide-country' => 'address-hide-country',
             'name-full' => 0,
             'name-oneline' => 0,
             'organisation' => 0,
