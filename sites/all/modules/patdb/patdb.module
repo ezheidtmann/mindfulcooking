@@ -57,3 +57,8 @@ function _patdb_setup_permissions() {
 
   return false;
 }
+
+function _patdb_setup_registration() {
+  // Ensure users can only be added by administrators
+  variable_set('user_register', USER_REGISTER_ADMINISTRATORS_ONLY);
+}
