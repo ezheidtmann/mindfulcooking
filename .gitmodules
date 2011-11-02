@@ -37,3 +37,6 @@
 [submodule "sites/all/modules/taxonomy_views_switcher"]
 	path = sites/all/modules/taxonomy_views_switcher
 	url = ./sites/all/modules/taxonomy_views_switcher
+[submodule "sites/all/modules/mailing_label"]
+	path = sites/all/modules/mailing_label
+	url = ./sites/all/modules/mailing_label
