@@ -41,6 +41,51 @@ function _patdb_setup_views() {
 }
 
 function _patdb_setup_permissions() {
+  _patdb_setup_roles();
+  $db_viewer    = user_role_load_by_name('database viewer');
+  $db_user      = user_role_load_by_name('database user');
+  $db_admin     = user_role_load_by_name('database admin');
+  $drupal_admin = user_role_load_by_name('drupal admin');
+
+  // reset all permissions
+  db_delete('role_permission')
+   ->condition('rid',
+     array($db_viewer->rid, $db_user->rid, $db_admin->rid, $db_admin->rid),
+     'IN')
+   ->execute();
+
+  // viewer permissions
+  // view content & revisions
+  $permissions = array('access content', 'view revisions');
+  user_role_grant_permissions($db_viewer->rid, $permissions);
+
+  // db user permissions
+  // edit or create any content, + viewer permissions
+  $permissions[] = 'revert revisions';
+  foreach (array('cluster', 'school', 'member') as $type) {
+    foreach (array('create', 'edit any') as $action) {
+      $permissions[] = $action .' '. $type .' content';
+    }
+  }
+  user_role_grant_permissions($db_user->rid, $permissions);
+
+  // db admin
+  // delete stuff, manage taxonomy, + user permissions
+  $permissions[] = 'delete revisions';
+  $permissions[] = 'administer taxonomy';
+  foreach (array('cluster', 'school', 'member') as $type) {
+    $permissions[] = 'delete any '. $type .' content';
+  }
+  user_role_grant_permissions($db_admin->rid, $permissions);
+
+  // drupal admin: all permissions!
+  $permissions = array_keys(module_invoke_all('permission'));
+  user_role_grant_permissions($drupal_admin->rid, $permissions);
+
+  return _patdb_remove_anon_permissions();
+}
+
+function _patdb_remove_anon_permissions() {
   // Find the role ID for anonymous users (usually 1)
   $anonymous_rid = db_select('role')
     ->fields('role', array('rid'))
@@ -61,4 +106,25 @@ function _patdb_setup_permissions() {
 function _patdb_setup_registration() {
   // Ensure users can only be added by administrators
   variable_set('user_register', USER_REGISTER_ADMINISTRATORS_ONLY);
+}
+
+function _patdb_setup_roles() {
+  $names = array(
+    'database viewer',
+    'database user',
+    'database admin',
+    'drupal admin',
+  );
+
+  $roles = user_roles();
+  foreach ($names as $name) {
+    if (!in_array($name, $roles)) {
+      $role = new stdClass;
+      $role->name = $name;
+
+      user_role_save($role);
+    }
+  }
+
+  variable_set('user_admin_role', user_role_load_by_name('drupal admin')->rid);
 }
