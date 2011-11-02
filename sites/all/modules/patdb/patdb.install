@@ -8,4 +8,5 @@ function patdb_install() {
   _patdb_setup_views();
   _patdb_setup_pathauto();
   _patdb_setup_content();
+  _patdb_setup_permissions(); // TODO: Check that this & others succeed
 }
