@@ -39,3 +39,21 @@ function _patdb_setup_views() {
     ->condition('delta', array('members_by_school-block_1', 'schools_by_cluster-block_1'), 'IN')
     ->execute();
 }
+
+function _patdb_setup_permissions() {
+  // Find the role ID for anonymous users (usually 1)
+  $anonymous_rid = db_select('role')
+    ->fields('role', array('rid'))
+    ->condition('name', 'anonymous user')
+    ->execute()->fetchField();
+
+  if ($anonymous_rid) {
+    // Ensure they have no permissions whatsoever
+    db_delete('role_permission')
+      ->condition('rid', $anonymous_rid)
+      ->execute();
+    return true;
+  }
+
+  return false;
+}
