@@ -15,7 +15,7 @@ function patdb_views_views_default_views() {
   $view->description = 'List of members, grouped by school';
   $view->tag = 'default';
   $view->base_table = 'node';
-  $view->human_name = 'Members by committee';
+  $view->human_name = 'Members by term';
   $view->core = 7;
   $view->api_version = '3.0-alpha1';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
