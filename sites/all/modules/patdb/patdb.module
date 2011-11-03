@@ -130,24 +130,24 @@ function _patdb_setup_roles() {
 }
 
 function _patdb_setup_users() {
-  $t = get_t();
-  $rick = (object) (array(
-     'name' => 'rkolinsky',
-     'pass' => '$S$DKtZTqr0MChN/R8ryRbwyfYbvkpGzmKQSt7sVHopo8j61eJiePzC',
-     'mail' => 'rick.kolinsky@gmail.com',
-     'status' => '1',
-     'timezone' => 'America/Los_Angeles',
-     'init' => 'rick.kolinsky@gmail.com',
-  ));
+  $rick = user_load_by_name('rkolinsky');
 
-  $db_rick = user_load_by_name('rkolinsky');
-  if (!$db_rick) {
-    user_save($rick);
-    $msg = $t('Created new user rkolinsky with default password.');
-  }
-  else {
-    $msg = $t('Found existing user rkolinsky; left him alone.');
+  if (!$rick) {
+    $rick = (object) (array(
+      'name' => 'rkolinsky',
+      'pass' => '$S$DKtZTqr0MChN/R8ryRbwyfYbvkpGzmKQSt7sVHopo8j61eJiePzC',
+      'mail' => 'rick.kolinsky@gmail.com',
+      'status' => '1',
+      'timezone' => 'America/Los_Angeles',
+      'init' => 'rick.kolinsky@gmail.com',
+      'roles' => array(
+        DRUPAL_AUTHENTICATED_RID => 'authenticated user',
+      ),
+    ));
   }
 
-  return array(array('success' => TRUE, 'query' => $msg));
+  $drupal_admin = user_role_load_by_name('drupal admin');
+  $rick->roles[$drupal_admin->rid] = $drupal_admin->name;
+
+  return user_save($rick);
 }
