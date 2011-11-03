@@ -13,6 +13,9 @@ function patdb_install() {
   _patdb_setup_users();
 }
 
+/**
+* Ensure Rick's user exists and put him in the 'drupal admin' role
+*/
 function patdb_update_7000(&$sandbox) {
   _patdb_setup_users();
 }
