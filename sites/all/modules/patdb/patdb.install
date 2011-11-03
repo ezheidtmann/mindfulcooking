@@ -10,4 +10,9 @@ function patdb_install() {
   _patdb_setup_content();
   _patdb_setup_permissions(); // TODO: Check that this & others succeed
   _patdb_setup_registration();
+  _patdb_setup_users();
+}
+
+function patdb_update_7000(&$sandbox) {
+  _patdb_setup_users();
 }
