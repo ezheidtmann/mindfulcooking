@@ -11,13 +11,142 @@ function patdb_views_views_default_views() {
   $export = array();
 
   $view = new view;
+  $view->name = 'mail_to_school_pony_';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Mail to school (PONY)';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Mail to school (PONY)';
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Relationship: Content: Roles (field_roles) */
+  $handler->display->display_options['relationships']['field_roles_tid']['id'] = 'field_roles_tid';
+  $handler->display->display_options['relationships']['field_roles_tid']['table'] = 'field_data_field_roles';
+  $handler->display->display_options['relationships']['field_roles_tid']['field'] = 'field_roles_tid';
+  $handler->display->display_options['relationships']['field_roles_tid']['required'] = 1;
+  /* Relationship: Content: Committee Member (field_committee_member) */
+  $handler->display->display_options['relationships']['field_committee_member_tid']['id'] = 'field_committee_member_tid';
+  $handler->display->display_options['relationships']['field_committee_member_tid']['table'] = 'field_data_field_committee_member';
+  $handler->display->display_options['relationships']['field_committee_member_tid']['field'] = 'field_committee_member_tid';
+  $handler->display->display_options['relationships']['field_committee_member_tid']['required'] = 0;
+  /* Relationship: Content: School (field_school) */
+  $handler->display->display_options['relationships']['field_school_nid']['id'] = 'field_school_nid';
+  $handler->display->display_options['relationships']['field_school_nid']['table'] = 'field_data_field_school';
+  $handler->display->display_options['relationships']['field_school_nid']['field'] = 'field_school_nid';
+  $handler->display->display_options['relationships']['field_school_nid']['required'] = 1;
+  $handler->display->display_options['relationships']['field_school_nid']['delta'] = '0';
+  /* Field: Content: School */
+  $handler->display->display_options['fields']['field_school']['id'] = 'field_school';
+  $handler->display->display_options['fields']['field_school']['table'] = 'field_data_field_school';
+  $handler->display->display_options['fields']['field_school']['field'] = 'field_school';
+  $handler->display->display_options['fields']['field_school']['label'] = '';
+  $handler->display->display_options['fields']['field_school']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_school']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_school']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_school']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_school']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_school']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_school']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_school']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_school']['field_api_classes'] = 0;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  /* Sort criterion: Content: Cluster (field_cluster) */
+  $handler->display->display_options['sorts']['field_cluster_nid']['id'] = 'field_cluster_nid';
+  $handler->display->display_options['sorts']['field_cluster_nid']['table'] = 'field_data_field_cluster';
+  $handler->display->display_options['sorts']['field_cluster_nid']['field'] = 'field_cluster_nid';
+  $handler->display->display_options['sorts']['field_cluster_nid']['relationship'] = 'field_school_nid';
+  /* Sort criterion: Content: School (field_school) */
+  $handler->display->display_options['sorts']['field_school_nid']['id'] = 'field_school_nid';
+  $handler->display->display_options['sorts']['field_school_nid']['table'] = 'field_data_field_school';
+  $handler->display->display_options['sorts']['field_school_nid']['field'] = 'field_school_nid';
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'member' => 'member',
+  );
+  /* Filter criterion: Content: Roles (field_roles) */
+  $handler->display->display_options['filters']['field_roles_tid']['id'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['table'] = 'field_data_field_roles';
+  $handler->display->display_options['filters']['field_roles_tid']['field'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['value'] = array(
+    10 => '10',
+  );
+  $handler->display->display_options['filters']['field_roles_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
+  /* Filter criterion: Content: School Type (field_school_type) */
+  $handler->display->display_options['filters']['field_school_type_value']['id'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['table'] = 'field_data_field_school_type';
+  $handler->display->display_options['filters']['field_school_type_value']['field'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['relationship'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_type_value']['value'] = array(
+    'HS' => 'HS',
+    'MS' => 'MS',
+    'K-5' => 'K-5',
+    'K-8' => 'K-8',
+    'K-12' => 'K-12',
+    'special' => 'special',
+  );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'mail-to-school';
+  $export['mail_to_school_pony_'] = $view;
+
+  $view = new view;
   $view->name = 'members_by_committee';
   $view->description = 'List of members, grouped by school';
   $view->tag = 'default';
   $view->base_table = 'node';
   $view->human_name = 'Members by term';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -265,7 +394,7 @@ function patdb_views_views_default_views() {
   $view->base_table = 'node';
   $view->human_name = 'Members by school';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -494,7 +623,7 @@ function patdb_views_views_default_views() {
   $view->base_table = 'node';
   $view->human_name = 'Schools by cluster';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -650,7 +779,6 @@ function patdb_views_views_default_views() {
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
   $handler->display->display_options['sorts']['title']['field'] = 'title';
-  $handler->display->display_options['sorts']['title']['order'] = 'DESC';
   /* Sort criterion: Content: Cluster (field_cluster) */
   $handler->display->display_options['sorts']['field_cluster_nid']['id'] = 'field_cluster_nid';
   $handler->display->display_options['sorts']['field_cluster_nid']['table'] = 'field_data_field_cluster';
