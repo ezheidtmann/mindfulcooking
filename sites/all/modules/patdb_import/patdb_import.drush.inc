@@ -40,13 +40,14 @@ function drush_patdb_import_import_pat_mdb($filename = NULL) {
     return drush_set_error('PATDB_IMPORT_INVALID_FILE', dt('!file does not exist', array('!file' => $filename)));
   }
 
-  if (drush_confirm('Delete all school, cluster, member nodes first?')) {
-    $nids =
-      db_select('node', 'n')
-      ->condition('n.type', array('school', 'cluster', 'member'), 'IN')
-      ->fields('n', array('nid'))
-      ->execute()
-      ->fetchCol();
+  $nids =
+    db_select('node', 'n')
+    ->condition('n.type', array('school', 'cluster', 'member'), 'IN')
+    ->fields('n', array('nid'))
+    ->execute()
+    ->fetchCol();
+  if (count($nids) > 0 &&
+    drush_confirm('Delete all school, cluster, member nodes first?')) {
 
      node_delete_multiple($nids);
   }
