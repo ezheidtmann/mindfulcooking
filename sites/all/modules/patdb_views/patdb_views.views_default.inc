@@ -87,6 +87,29 @@ function patdb_views_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  /* Field: Content: Mail School */
+  $handler->display->display_options['fields']['field_mail_school']['id'] = 'field_mail_school';
+  $handler->display->display_options['fields']['field_mail_school']['table'] = 'field_data_field_mail_school';
+  $handler->display->display_options['fields']['field_mail_school']['field'] = 'field_mail_school';
+  $handler->display->display_options['fields']['field_mail_school']['label'] = '';
+  $handler->display->display_options['fields']['field_mail_school']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_mail_school']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_mail_school']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_mail_school']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_mail_school']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_mail_school']['field_api_classes'] = 0;
   /* Sort criterion: Content: Cluster (field_cluster) */
   $handler->display->display_options['sorts']['field_cluster_nid']['id'] = 'field_cluster_nid';
   $handler->display->display_options['sorts']['field_cluster_nid']['table'] = 'field_data_field_cluster';
@@ -120,23 +143,21 @@ function patdb_views_views_default_views() {
   $handler->display->display_options['filters']['field_roles_tid']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
-  /* Filter criterion: Content: School Type (field_school_type) */
-  $handler->display->display_options['filters']['field_school_type_value']['id'] = 'field_school_type_value';
-  $handler->display->display_options['filters']['field_school_type_value']['table'] = 'field_data_field_school_type';
-  $handler->display->display_options['filters']['field_school_type_value']['field'] = 'field_school_type_value';
-  $handler->display->display_options['filters']['field_school_type_value']['relationship'] = 'field_school_nid';
-  $handler->display->display_options['filters']['field_school_type_value']['value'] = array(
-    'HS' => 'HS',
-    'MS' => 'MS',
-    'K-5' => 'K-5',
-    'K-8' => 'K-8',
-    'K-12' => 'K-12',
-    'special' => 'special',
-  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'mail-to-school';
+
+  /* Display: Mailing Labels */
+  $handler = $view->new_display('mailing', 'Mailing Labels', 'mailing_1');
+  $handler->display->display_options['defaults']['cache'] = FALSE;
+  $handler->display->display_options['cache']['type'] = 'time';
+  $handler->display->display_options['cache']['results_lifespan'] = '3600';
+  $handler->display->display_options['cache']['output_lifespan'] = '3600';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'mailing_avery';
+  $handler->display->display_options['path'] = 'mail-to-school/all-reps-5160';
   $export['mail_to_school_pony_'] = $view;
 
   $view = new view;
