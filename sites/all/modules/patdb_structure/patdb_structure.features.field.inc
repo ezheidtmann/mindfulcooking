@@ -122,7 +122,7 @@ function patdb_structure_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'addressfield',
           'settings' => array(
             'format_handlers' => array(
@@ -218,7 +218,7 @@ function patdb_structure_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -239,7 +239,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '8',
+        'weight' => '9',
       ),
     ),
   );
@@ -288,7 +288,7 @@ function patdb_structure_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -309,7 +309,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '9',
+        'weight' => '10',
       ),
     ),
   );
@@ -340,7 +340,7 @@ function patdb_structure_field_default_fields() {
           'module' => 'email',
           'settings' => array(),
           'type' => 'email_default',
-          'weight' => '2',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -406,7 +406,7 @@ function patdb_structure_field_default_fields() {
           'module' => 'nice_phone_numbers',
           'settings' => array(),
           'type' => 'nice_phone_number',
-          'weight' => '3',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -428,7 +428,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'nice_phone_numbers',
         'settings' => array(),
         'type' => 'nice_phone_number',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -469,7 +469,7 @@ function patdb_structure_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '1',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -491,6 +491,80 @@ function patdb_structure_field_default_fields() {
         'settings' => array(),
         'type' => 'options_select',
         'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-member-field_mail_school'
+  $fields['node-member-field_mail_school'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_mail_school',
+      'foreign keys' => array(
+        'nid' => array(
+          'columns' => array(
+            'nid' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'nid' => array(
+          0 => 'nid',
+        ),
+      ),
+      'module' => 'node_reference',
+      'settings' => array(
+        'referenceable_types' => array(
+          'cluster' => 0,
+          'member' => 0,
+          'school' => 'school',
+        ),
+        'view' => array(
+          'args' => array(),
+          'display_name' => '',
+          'view_name' => '',
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'node_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'member',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Select the school where this member receives mail. To use the school defined above, select "- None -" here.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'node_reference',
+          'settings' => array(),
+          'type' => 'node_reference_default',
+          'weight' => '2',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_mail_school',
+      'label' => 'Mail School',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '5',
       ),
     ),
   );
@@ -533,7 +607,7 @@ function patdb_structure_field_default_fields() {
           'module' => 'nice_phone_numbers',
           'settings' => array(),
           'type' => 'nice_phone_number',
-          'weight' => '4',
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -555,7 +629,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'nice_phone_numbers',
         'settings' => array(),
         'type' => 'nice_phone_number',
-        'weight' => '6',
+        'weight' => '7',
       ),
     ),
   );
@@ -604,7 +678,7 @@ function patdb_structure_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -625,7 +699,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '7',
+        'weight' => '8',
       ),
     ),
   );
@@ -678,7 +752,7 @@ function patdb_structure_field_default_fields() {
           'module' => 'node_reference',
           'settings' => array(),
           'type' => 'node_reference_default',
-          'weight' => '0',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1125,6 +1199,7 @@ function patdb_structure_field_default_fields() {
   t('Email Address');
   t('Home Phone');
   t('Mail Preference');
+  t('Mail School');
   t('Mobile Phone');
   t('Name and Address');
   t('Office Fax');
@@ -1134,6 +1209,7 @@ function patdb_structure_field_default_fields() {
   t('School');
   t('School Type');
   t('Select the cluster to which this school belongs.');
+  t('Select the school where this member receives mail. To use the school defined above, select "- None -" here.');
 
   return $fields;
 }
