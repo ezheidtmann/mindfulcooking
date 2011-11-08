@@ -4,5 +4,6 @@ package = EZH
 version = 1.x
 core = 7.x
 stylesheets[all][] = style.css
+stylesheets[all][] = custom.css
 stylesheets[print][] = print.css
 settings[joy_width] = fluid
