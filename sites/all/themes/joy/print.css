@@ -9,6 +9,13 @@ select {
   font-size: 11pt;
 }
 
+/* By EZH: print recipe + logo only */
+#comments,
+.terms,
+.breadcrumb,
+.tabs,
+.links,
+#footer, /* end EZH changes */
 ul.main-menu,
 ul.secondary-menu,
 #header-region,
