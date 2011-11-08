@@ -1,13 +1,8 @@
 name = Joy
-description = A (slightly) modified copy of garland.
-version = VERSION
-core = 6.x
-engine = phptemplate
+description = Adaptation of Garland for the Joy of Mindful Cooking
+package = EZH
+version = 1.x
+core = 7.x
 stylesheets[all][] = style.css
 stylesheets[print][] = print.css
-
-; Information added by drupal.org packaging script on 2009-07-01
-version = "6.13"
-project = "drupal"
-datestamp = "1246481719"
-
+settings[joy_width] = fluid
