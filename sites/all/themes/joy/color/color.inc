@@ -156,6 +156,16 @@ $info = array(
         'text' => '#2d2d2d',
       ),
     ),
+    'orange_peace' => array(
+      'title' => t('Orange Peace'),
+      'colors' => array(
+        'base' => '#009e0d',
+        'link' => '#990009',
+        'top' => '#f36f2d',
+        'bottom' => '#f36f2d',
+        'text' => '#214f22',
+      ),
+    ),
   ),
 
   // Images to copy over.
