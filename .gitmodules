@@ -43,3 +43,6 @@
 [submodule "sites/all/modules/views"]
 	path = sites/all/modules/views
 	url = ./sites/all/modules/views
+[submodule "sites/all/modules/features"]
+	path = sites/all/modules/features
+	url = ./sites/all/modules/features
