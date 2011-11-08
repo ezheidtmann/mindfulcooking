@@ -1,28 +1,4 @@
 <?php
-// $Id: template.php,v 1.16.2.1 2009/02/25 11:47:37 goba Exp $
-
-/**
- * Sets the body-tag class attribute.
- *
- * Adds 'sidebar-left', 'sidebar-right' or 'sidebars' classes as needed.
- */
-function phptemplate_body_class($left, $right) {
-  if ($left != '' && $right != '') {
-    $class = 'sidebars';
-  }
-  else {
-    if ($left != '') {
-      $class = 'sidebar-left';
-    }
-    if ($right != '') {
-      $class = 'sidebar-right';
-    }
-  }
-
-  if (isset($class)) {
-    print ' class="'. $class .'"';
-  }
-}
 
 /**
  * Return a themed breadcrumb trail.
@@ -31,30 +7,143 @@ function phptemplate_body_class($left, $right) {
  *   An array containing the breadcrumb links.
  * @return a string containing the breadcrumb output.
  */
-function phptemplate_breadcrumb($breadcrumb) {
+function joy_breadcrumb($variables) {
+  $breadcrumb = $variables['breadcrumb'];
+
   if (!empty($breadcrumb)) {
-    return '<div class="breadcrumb">'. implode(' › ', $breadcrumb) .'</div>';
+    // Provide a navigational heading to give context for breadcrumb links to
+    // screen-reader users. Make the heading invisible with .element-invisible.
+    $output = '<h2 class="element-invisible">' . t('You are here') . '</h2>';
+
+    $output .= '<div class="breadcrumb">' . implode(' › ', $breadcrumb) . '</div>';
+    return $output;
   }
 }
 
 /**
- * Allow themable wrapping of all comments.
+ * Override or insert variables into the maintenance page template.
  */
-function phptemplate_comment_wrapper($content, $node) {
-  if (!$content || $node->type == 'forum') {
-    return '<div id="comments">'. $content .'</div>';
+function joy_preprocess_maintenance_page(&$vars) {
+  // While markup for normal pages is split into page.tpl.php and html.tpl.php,
+  // the markup for the maintenance page is all in the single
+  // maintenance-page.tpl.php template. So, to have what's done in
+  // joy_preprocess_html() also happen on the maintenance page, it has to be
+  // called here.
+  joy_preprocess_html($vars);
+}
+
+/**
+ * Override or insert variables into the html template.
+ */
+function joy_preprocess_html(&$vars) {
+  // Toggle fixed or fluid width.
+  if (theme_get_setting('joy_width') == 'fluid') {
+    $vars['classes_array'][] = 'fluid-width';
+  }
+  // Add conditional CSS for IE6.
+  drupal_add_css(path_to_theme() . '/fix-ie.css', array('group' => CSS_THEME, 'browsers' => array('IE' => 'lt IE 7', '!IE' => FALSE), 'preprocess' => FALSE));
+}
+
+/**
+ * Override or insert variables into the html template.
+ */
+function joy_process_html(&$vars) {
+  // Hook into color.module
+  if (module_exists('color')) {
+    _color_html_alter($vars);
+  }
+}
+
+/**
+ * Override or insert variables into the page template.
+ */
+function joy_preprocess_page(&$vars) {
+  // Move secondary tabs into a separate variable.
+  $vars['tabs2'] = array(
+    '#theme' => 'menu_local_tasks',
+    '#secondary' => $vars['tabs']['#secondary'],
+  );
+  unset($vars['tabs']['#secondary']);
+
+  if (isset($vars['main_menu'])) {
+    $vars['primary_nav'] = theme('links__system_main_menu', array(
+      'links' => $vars['main_menu'],
+      'attributes' => array(
+        'class' => array('links', 'inline', 'main-menu'),
+      ),
+      'heading' => array(
+        'text' => t('Main menu'),
+        'level' => 'h2',
+        'class' => array('element-invisible'),
+      )
+    ));
   }
   else {
-    return '<div id="comments"><h2 class="comments">'. t('Comments') .'</h2>'. $content .'</div>';
+    $vars['primary_nav'] = FALSE;
   }
+  if (isset($vars['secondary_menu'])) {
+    $vars['secondary_nav'] = theme('links__system_secondary_menu', array(
+      'links' => $vars['secondary_menu'],
+      'attributes' => array(
+        'class' => array('links', 'inline', 'secondary-menu'),
+      ),
+      'heading' => array(
+        'text' => t('Secondary menu'),
+        'level' => 'h2',
+        'class' => array('element-invisible'),
+      )
+    ));
+  }
+  else {
+    $vars['secondary_nav'] = FALSE;
+  }
+
+  // Prepare header.
+  $site_fields = array();
+  if (!empty($vars['site_name'])) {
+    $site_fields[] = $vars['site_name'];
+  }
+  if (!empty($vars['site_slogan'])) {
+    $site_fields[] = $vars['site_slogan'];
+  }
+  $vars['site_title'] = implode(' ', $site_fields);
+  if (!empty($site_fields)) {
+    $site_fields[0] = '<span>' . $site_fields[0] . '</span>';
+  }
+  $vars['site_html'] = implode(' ', $site_fields);
+
+  // Set a variable for the site name title and logo alt attributes text.
+  $slogan_text = $vars['site_slogan'];
+  $site_name_text = $vars['site_name'];
+  $vars['site_name_and_slogan'] = $site_name_text . ' ' . $slogan_text;
 }
 
 /**
- * Override or insert PHPTemplate variables into the templates.
+ * Override or insert variables into the node template.
  */
-function phptemplate_preprocess_page(&$vars) {
-  $vars['tabs2'] = menu_secondary_local_tasks();
+function joy_preprocess_node(&$vars) {
+  $vars['submitted'] = $vars['date'] . ' — ' . $vars['name'];
+}
 
+/**
+ * Override or insert variables into the comment template.
+ */
+function joy_preprocess_comment(&$vars) {
+  $vars['submitted'] = $vars['created'] . ' — ' . $vars['author'];
+}
+
+/**
+ * Override or insert variables into the block template.
+ */
+function joy_preprocess_block(&$vars) {
+  $vars['title_attributes_array']['class'][] = 'title';
+  $vars['classes_array'][] = 'clearfix';
+}
+
+/**
+ * Override or insert variables into the page template.
+ */
+function joy_process_page(&$vars) {
   // Hook into color.module
   if (module_exists('color')) {
     _color_page_alter($vars);
@@ -62,118 +151,10 @@ function phptemplate_preprocess_page(&$vars) {
 }
 
 /**
- * Returns the rendered local tasks. The default implementation renders
- * them as tabs. Overridden to split the secondary tasks.
- *
- * @ingroup themeable
+ * Override or insert variables into the region template.
  */
-function phptemplate_menu_local_tasks() {
-  return menu_primary_local_tasks();
-}
-
-function phptemplate_comment_submitted($comment) {
-  return t('!datetime — !username',
-    array(
-      '!username' => theme('username', $comment),
-      '!datetime' => format_date($comment->timestamp)
-    ));
-}
-
-function phptemplate_node_submitted($node) {
-  return t('!datetime — !username',
-    array(
-      '!username' => theme('username', $node),
-      '!datetime' => format_date($node->created),
-    ));
-}
-
-/**
- * Generates IE CSS links for LTR and RTL languages.
- */
-function phptemplate_get_ie_styles() {
-  global $language;
-
-  $iecss = '<link type="text/css" rel="stylesheet" media="all" href="'. base_path() . path_to_theme() .'/fix-ie.css" />';
-  if ($language->direction == LANGUAGE_RTL) {
-    $iecss .= '<style type="text/css" media="all">@import "'. base_path() . path_to_theme() .'/fix-ie-rtl.css";</style>';
+function joy_preprocess_region(&$vars) {
+  if ($vars['region'] == 'header') {
+    $vars['classes_array'][] = 'clearfix';
   }
-
-  return $iecss;
-}
-
-/**
- * Formats recipe ingredients
- */
-function phptemplate_format_ingredients($ingred) {
-	return $ingred;
-	return check_markup($ingred, FILTER_FORMAT_DEFAULT, FALSE);
-}
-
-function joy_cmp_link_by_weight($a, $b)
-{
-  if ($a['weight'] == $b['weight']) {
-    return 0;
-  }
-  return ($a['weight'] < $b['weight']) ? -1 : 1;
-}
-
-/**
- * Return a themed set of links, sorted by weight attribute
- */
-function joy_links($links, $attributes = array('class' => 'links')) {
-  global $language;
-  $output = '';
-
-  if (count($links) > 0) {
-    $output = '<ul'. drupal_attributes($attributes) .'>';
-
-    $num_links = count($links);
-    $i = 1;
-
-    #foreach ($links as $key => $link) {
-    #  $links[$key]['class'] = $key;
-    #}
-
-    uasort($links, "joy_cmp_link_by_weight");
-
-    foreach ($links as $key => $link) {
-      $class = $key;
-
-      // Add first, last and active classes to the list of links to help out themers.
-      if ($i == 1) {
-        $class .= ' first';
-      }
-      if ($i == $num_links) {
-        $class .= ' last';
-      }
-      if (isset($link['href']) && ($link['href'] == $_GET['q'] || ($link['href'] == '<front>' && drupal_is_front_page()))
-          && (empty($link['language']) || $link['language']->language == $language->language)) {
-        $class .= ' active';
-      }
-      $output .= '<li'. drupal_attributes(array('class' => $class)) .'>';
-
-      if (isset($link['href'])) {
-        // Pass in $link as $options, they share the same keys.
-        $output .= l($link['title'], $link['href'], $link);
-      }
-      else if (!empty($link['title'])) {
-        // Some links are actually not links, but we wrap these in <span> for adding title and class attributes
-        if (empty($link['html'])) {
-          $link['title'] = check_plain($link['title']);
-        }
-        $span_attributes = '';
-        if (isset($link['attributes'])) {
-          $span_attributes = drupal_attributes($link['attributes']);
-        }
-        $output .= '<span'. $span_attributes .'>'. $link['title'] .'</span>';
-      }
-
-      $i++;
-      $output .= "</li>\n";
-    }
-
-    $output .= '</ul>';
-  }
-
-  return $output;
 }
