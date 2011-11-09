@@ -1,0 +1,48 @@
+<?php
+
+// TODO: check if we can achieve this with content type settings instead.
+function ezh_node_view($node, $build_mode = 'full') {
+  if ($node->type == 'srecipe') {
+    $node->readmore = true;
+  }
+}
+
+function ezh_filter_info() {
+  $filters = array();
+  $filters['ezh_local_links'] = array(
+    'title' => t('Convert local URLs to named links'),
+    'description' => t('URLs which refer to local resources will be replaced by named links to those resources.'),
+    'process callback' => 'ezh_local_links_process',
+  );
+  return $filters;
+}
+
+function ezh_local_links_process($text, $filter, $format, $langcode, $cache, $cache_id) {
+  global $base_url;
+  
+  // Look for local URLs by $base_url
+  // 1) Remove http[s]:// from $base_url
+  $base = preg_replace("`^https?://`", '', $base_url);
+
+  // 2) Search for URLs that start with this $base
+  $text = ' '. $text .' ';
+  $text = preg_replace_callback("`(<p>|<li>|<br\s*/?>|[ \n\r\t\(])((http://|https://)($base/)([a-zA-Z0-9@:%_+*~#?&=.,/;-]*[a-zA-Z0-9@:%_+*~#&=/;-]))([.,?!]*?)(?=(</p>|</li>|<br\s*/?>|[ \n\r\t\)]))`i", '_ezh_url_parse_full_links', $text);
+
+  return $text;
+}
+
+function _ezh_url_parse_full_links($match) {
+  $match[2] = decode_entities($match[2]);
+  $url = check_url(decode_entities($match[2]));
+  $path = drupal_get_normal_path($match[5]);
+  
+  if (preg_match("#^node/([0-9]+)#", $path, $m)) {
+    $node = node_load($m[1]);
+    $caption = $node->title;
+    return $match[1] .'<a href="'. $url .'" title="'. $match[5] .'">'. $caption .'</a>'. $match[6];
+  } 
+  else {
+    return $match[0];
+  }
+}
+
