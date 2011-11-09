@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Joy Features feature.
+ */
+
+include_once('joy_features.features.inc');
