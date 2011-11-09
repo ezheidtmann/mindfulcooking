@@ -16,7 +16,10 @@ function joy_features_default_page_manager_pages() {
   $page->admin_title = 'About us';
   $page->admin_description = 'The "about us" page';
   $page->path = 'about';
-  $page->access = array();
+  $page->access = array(
+    'type' => 'none',
+    'settings' => NULL,
+  );
   $page->menu = array(
     'type' => 'normal',
     'title' => 'About Us',
@@ -51,15 +54,7 @@ function joy_features_default_page_manager_pages() {
   $display = new panels_display;
   $display->layout = 'twocol_stacked';
   $display->layout_settings = array();
-  $display->panel_settings = array(
-    'style_settings' => array(
-      'default' => NULL,
-      'top' => NULL,
-      'left' => NULL,
-      'right' => NULL,
-      'bottom' => NULL,
-    ),
-  );
+  $display->panel_settings = array();
   $display->cache = array();
   $display->title = '';
   $display->content = array();
@@ -85,12 +80,9 @@ function joy_features_default_page_manager_pages() {
       'display' => 'default',
       'override_title' => 0,
       'override_title_text' => '',
-      'override_pager_settings' => 1,
     );
     $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
+    $pane->style = array();
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
@@ -113,9 +105,7 @@ function joy_features_default_page_manager_pages() {
       'override_title_text' => '',
     );
     $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
+    $pane->style = array();
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
@@ -138,9 +128,7 @@ function joy_features_default_page_manager_pages() {
       'override_title_text' => 'Who we are',
     );
     $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
+    $pane->style = array();
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
@@ -163,9 +151,7 @@ function joy_features_default_page_manager_pages() {
       'override_title_text' => 'Why we are doing this',
     );
     $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
+    $pane->style = array();
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
@@ -368,8 +354,9 @@ function joy_features_default_page_manager_pages() {
       'args' => '',
       'url' => '',
       'display' => 'default',
-      'override_title' => 0,
-      'override_title_text' => '',
+      'override_title' => 1,
+      'override_title_text' => 'Recipe of the Week',
+      'override_pager_settings' => 1,
     );
     $pane->cache = array();
     $pane->style = array(
@@ -497,7 +484,7 @@ function joy_features_default_page_manager_pages() {
     $pane->pid = 'new-1';
     $pane->panel = 'middle';
     $pane->type = 'block';
-    $pane->subtype = 'search-form';
+    $pane->subtype = 'search-0';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -533,8 +520,8 @@ function joy_features_default_page_manager_pages() {
       'args' => '',
       'url' => '',
       'display' => 'default',
-      'override_title' => 0,
-      'override_title_text' => '',
+      'override_title' => 1,
+      'override_title_text' => 'Search by attributes',
     );
     $pane->cache = array();
     $pane->style = array(
