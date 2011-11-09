@@ -1,5 +1,7 @@
 core = "7.x"
+dependencies[] = "nodequeue"
 dependencies[] = "page_manager"
+dependencies[] = "taxonomy"
 dependencies[] = "views"
 description = "Views & Panels for Joy of Mindful Cooking"
 features[ctools][] = "page_manager:pages_default:1"
