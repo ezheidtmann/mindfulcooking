@@ -1,0 +1,7 @@
+name = EZH
+description = Enables certain little features
+package = EZH
+version = 1.x
+core = 7.x
+
+
