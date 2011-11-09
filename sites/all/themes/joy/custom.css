@@ -2,3 +2,14 @@ body, #wrapper {
   background-color: #a9ddad;
 }
 
+#front-rotw .pane-title {
+  margin-bottom: 0.8ex;
+}
+
+#front-rotw .node h2 {
+  font-size: 130%;
+}
+
+.admin-panel h3 {
+  margin-bottom: 1ex;
+}
