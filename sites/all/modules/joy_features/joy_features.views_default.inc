@@ -916,10 +916,6 @@ function joy_features_views_default_views() {
   $handler->display->display_options['fields']['title_1']['id'] = 'title_1';
   $handler->display->display_options['fields']['title_1']['table'] = 'node';
   $handler->display->display_options['fields']['title_1']['field'] = 'title';
-  /* Field: Broken/missing handler */
-  $handler->display->display_options['fields']['body']['id'] = 'body';
-  $handler->display->display_options['fields']['body']['table'] = 'field_revision_data';
-  $handler->display->display_options['fields']['body']['field'] = 'body-revision_id';
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -943,6 +939,11 @@ function joy_features_views_default_views() {
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = '1';
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Photo (field_recipe_photo:fid) */
+  $handler->display->display_options['filters']['field_recipe_photo_fid']['id'] = 'field_recipe_photo_fid';
+  $handler->display->display_options['filters']['field_recipe_photo_fid']['table'] = 'field_data_field_recipe_photo';
+  $handler->display->display_options['filters']['field_recipe_photo_fid']['field'] = 'field_recipe_photo_fid';
+  $handler->display->display_options['filters']['field_recipe_photo_fid']['operator'] = 'not empty';
 
   /* Display: Random Single Image Block */
   $handler = $view->new_display('block', 'Random Single Image Block', 'block_1');
