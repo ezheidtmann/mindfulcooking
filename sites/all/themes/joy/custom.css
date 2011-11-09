@@ -14,6 +14,13 @@ body, #wrapper {
   margin-bottom: 1ex;
 }
 
-.field-name-field-recipe-photo {
+.field-name-body img,
+.field-name-field-recipe-photo img {
   float: right;
+  margin-left: 1em;
+  margin-bottom: 1ex;
+}
+
+textarea#edit-body-und-0-value {
+  height: 15ex;
 }
