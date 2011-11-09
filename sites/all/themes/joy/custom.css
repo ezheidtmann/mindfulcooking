@@ -13,3 +13,7 @@ body, #wrapper {
 .admin-panel h3 {
   margin-bottom: 1ex;
 }
+
+.field-name-field-recipe-photo {
+  float: right;
+}
