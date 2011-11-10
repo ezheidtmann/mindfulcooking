@@ -135,14 +135,15 @@ function joy_structure_field_default_fields() {
       'label' => 'Description',
       'required' => 0,
       'settings' => array(
-        'display_summary' => TRUE,
-        'text_processing' => 1,
+        'display_summary' => 0,
+        'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => 20,
+          'rows' => '20',
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
@@ -199,7 +200,7 @@ function joy_structure_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '4',
+          'weight' => '3',
         ),
         'full' => array(
           'label' => 'above',
@@ -295,7 +296,7 @@ function joy_structure_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '4',
         ),
         'full' => array(
           'label' => 'above',
@@ -390,7 +391,7 @@ function joy_structure_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '5',
         ),
         'full' => array(
           'label' => 'above',
@@ -441,7 +442,7 @@ function joy_structure_field_default_fields() {
   $fields['node-srecipe-field_recipe_photo'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_recipe_photo',
@@ -460,7 +461,7 @@ function joy_structure_field_default_fields() {
       ),
       'module' => 'image',
       'settings' => array(
-        'default_image' => NULL,
+        'default_image' => 0,
         'description_field' => '0',
         'list_default' => 1,
         'list_field' => '0',
@@ -484,7 +485,7 @@ function joy_structure_field_default_fields() {
             'image_style' => 'medium',
           ),
           'type' => 'image',
-          'weight' => '3',
+          'weight' => '2',
         ),
         'full' => array(
           'label' => 'hidden',
@@ -520,25 +521,24 @@ function joy_structure_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_recipe_photo',
       'label' => 'Photo',
-      'required' => FALSE,
+      'required' => 0,
       'settings' => array(
         'alt_field' => 0,
         'file_directory' => 'recipe-images',
         'file_extensions' => 'png gif jpg jpeg',
         'max_filesize' => '',
         'max_resolution' => '400x600',
-        'min_resolution' => '0',
+        'min_resolution' => '',
         'title_field' => 0,
         'user_register_form' => FALSE,
       ),
       'weight' => '-2',
       'widget' => array(
-        'active' => '0',
+        'active' => 1,
         'module' => 'image',
         'settings' => array(
           'preview_image_style' => 'thumbnail',
           'progress_indicator' => 'bar',
-          'use_default_image' => 0,
         ),
         'type' => 'image_image',
         'weight' => '-2',
@@ -675,7 +675,7 @@ function joy_structure_field_default_fields() {
       'description' => 'Include all major ingredients used in this recipe. People can search for recipes based on these ingredients.',
       'display' => array(
         'default' => array(
-          'label' => 'inline',
+          'label' => 'above',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
@@ -703,7 +703,7 @@ function joy_structure_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => 9,
+        'weight' => '9',
       ),
     ),
   );
@@ -741,7 +741,7 @@ function joy_structure_field_default_fields() {
       'description' => 'Choose the best season(s) for this recipe, based on seasonality of ingredients.',
       'display' => array(
         'default' => array(
-          'label' => 'inline',
+          'label' => 'above',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
@@ -766,7 +766,7 @@ function joy_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => 8,
+        'weight' => '8',
       ),
     ),
   );
@@ -804,11 +804,11 @@ function joy_structure_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'inline',
+          'label' => 'hidden',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '9',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -828,85 +828,7 @@ function joy_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => 7,
-      ),
-    ),
-  );
-
-  // Exported field: 'node-srecipe-upload'
-  $fields['node-srecipe-upload'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'upload',
-      'indexes' => array(
-        'fid' => array(
-          0 => 'fid',
-        ),
-      ),
-      'module' => 'file',
-      'settings' => array(
-        'default_file' => 0,
-        'display_default' => '0',
-        'display_field' => 1,
-        'uri_scheme' => 'public',
-      ),
-      'translatable' => '0',
-      'type' => 'file',
-    ),
-    'field_instance' => array(
-      'bundle' => 'srecipe',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'hidden',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_table',
-          'weight' => '2',
-        ),
-        'full' => array(
-          'label' => 'hidden',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_table',
-          'weight' => 0,
-        ),
-        'rss' => array(
-          'label' => 'hidden',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_table',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'hidden',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '7',
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'upload',
-      'label' => 'File attachments',
-      'required' => 0,
-      'settings' => array(
-        'description_field' => 1,
-        'file_directory' => '',
-        'file_extensions' => 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp',
-        'max_filesize' => '50 MB',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'module' => 'file',
-        'settings' => array(
-          'progress_indicator' => 'throbber',
-        ),
-        'type' => 'file_generic',
-        'weight' => '1',
+        'weight' => '7',
       ),
     ),
   );
