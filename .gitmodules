@@ -46,3 +46,6 @@
 [submodule "sites/all/modules/features"]
 	path = sites/all/modules/features
 	url = ./sites/all/modules/features
+[submodule "sites/all/modules/redirect"]
+	path = sites/all/modules/redirect
+	url = ./sites/all/modules/redirect
