@@ -11,6 +11,223 @@ function patdb_views_views_default_views() {
   $export = array();
 
   $view = new view;
+  $view->name = 'mail_to_home';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Mail to home';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Mail to home';
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Relationship: Content: School (field_school) */
+  $handler->display->display_options['relationships']['field_school_nid']['id'] = 'field_school_nid';
+  $handler->display->display_options['relationships']['field_school_nid']['table'] = 'field_data_field_school';
+  $handler->display->display_options['relationships']['field_school_nid']['field'] = 'field_school_nid';
+  $handler->display->display_options['relationships']['field_school_nid']['required'] = 1;
+  $handler->display->display_options['relationships']['field_school_nid']['delta'] = '-1';
+  /* Field: Content: Address */
+  $handler->display->display_options['fields']['field_address']['id'] = 'field_address';
+  $handler->display->display_options['fields']['field_address']['table'] = 'field_data_field_address';
+  $handler->display->display_options['fields']['field_address']['field'] = 'field_address';
+  $handler->display->display_options['fields']['field_address']['label'] = '';
+  $handler->display->display_options['fields']['field_address']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_address']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_address']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_address']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_address']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_address']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_address']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_address']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_address']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_address']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_address']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_address']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_address']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_address']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_address']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_address']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_address']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_address']['click_sort_column'] = 'country';
+  $handler->display->display_options['fields']['field_address']['settings'] = array(
+    'use_widget_handlers' => 0,
+    'format_handlers' => array(
+      'address' => 'address',
+      'address-hide-country' => 'address-hide-country',
+      'name-full' => 'name-full',
+    ),
+  );
+  $handler->display->display_options['fields']['field_address']['field_api_classes'] = 0;
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Roles (field_roles) */
+  $handler->display->display_options['filters']['field_roles_tid']['id'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['table'] = 'field_data_field_roles';
+  $handler->display->display_options['filters']['field_roles_tid']['field'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['value'] = array(
+    10 => '10',
+  );
+  $handler->display->display_options['filters']['field_roles_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'member' => 'member',
+  );
+  /* Filter criterion: Content: School Type (field_school_type) */
+  $handler->display->display_options['filters']['field_school_type_value']['id'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['table'] = 'field_data_field_school_type';
+  $handler->display->display_options['filters']['field_school_type_value']['field'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['relationship'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_type_value']['value'] = array(
+    'K-5' => 'K-5',
+  );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['enabled'] = FALSE;
+  $handler->display->display_options['path'] = 'reports/mail-to-home';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Mail to home';
+  $handler->display->display_options['menu']['name'] = 'main-menu';
+
+  /* Display: ES Reps */
+  $handler = $view->new_display('mailing', 'ES Reps', 'mailing_1');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['style_plugin'] = 'mailing_avery';
+  $handler->display->display_options['path'] = 'reports/mail-to-home/es-all.pdf';
+
+  /* Display: All Preferring Home */
+  $handler = $view->new_display('mailing', 'All Preferring Home', 'mailing_2');
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'mailing_avery';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'member' => 'member',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 0;
+  /* Filter criterion: Content: Roles (field_roles) */
+  $handler->display->display_options['filters']['field_roles_tid']['id'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['table'] = 'field_data_field_roles';
+  $handler->display->display_options['filters']['field_roles_tid']['field'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['value'] = array(
+    10 => '10',
+  );
+  $handler->display->display_options['filters']['field_roles_tid']['group'] = 0;
+  $handler->display->display_options['filters']['field_roles_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
+  /* Filter criterion: Content: Mail Preference (field_mail_pref) */
+  $handler->display->display_options['filters']['field_mail_pref_value']['id'] = 'field_mail_pref_value';
+  $handler->display->display_options['filters']['field_mail_pref_value']['table'] = 'field_data_field_mail_pref';
+  $handler->display->display_options['filters']['field_mail_pref_value']['field'] = 'field_mail_pref_value';
+  $handler->display->display_options['filters']['field_mail_pref_value']['value'] = array(
+    'home' => 'home',
+  );
+  $handler->display->display_options['filters']['field_mail_pref_value']['group'] = 0;
+  $handler->display->display_options['path'] = 'reports/mail-to-home/all-preferring-home.pdf';
+
+  /* Display: Executive Board */
+  $handler = $view->new_display('mailing', 'Executive Board', 'mailing_3');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['style_plugin'] = 'mailing_avery';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'member' => 'member',
+  );
+  /* Filter criterion: Content: Roles (field_roles) */
+  $handler->display->display_options['filters']['field_roles_tid']['id'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['table'] = 'field_data_field_roles';
+  $handler->display->display_options['filters']['field_roles_tid']['field'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['value'] = array(
+    12 => '12',
+  );
+  $handler->display->display_options['filters']['field_roles_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
+  $handler->display->display_options['path'] = 'reports/mail-to-home/executive-board.pdf';
+
+  /* Display: Bargaining Committee */
+  $handler = $view->new_display('mailing', 'Bargaining Committee', 'mailing_4');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['style_plugin'] = 'mailing_avery';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'member' => 'member',
+  );
+  /* Filter criterion: Content: Committee Member (field_committee_member) */
+  $handler->display->display_options['filters']['field_committee_member_tid']['id'] = 'field_committee_member_tid';
+  $handler->display->display_options['filters']['field_committee_member_tid']['table'] = 'field_data_field_committee_member';
+  $handler->display->display_options['filters']['field_committee_member_tid']['field'] = 'field_committee_member_tid';
+  $handler->display->display_options['filters']['field_committee_member_tid']['value'] = array(
+    8 => '8',
+  );
+  $handler->display->display_options['filters']['field_committee_member_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_committee_member_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_committee_member_tid']['vocabulary'] = 'committees';
+  $handler->display->display_options['path'] = 'reports/mail-to-home/executive-board.pdf';
+  $export['mail_to_home'] = $view;
+
+  $view = new view;
   $view->name = 'mail_to_school_pony_';
   $view->description = '';
   $view->tag = 'default';
@@ -23,6 +240,7 @@ function patdb_views_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Mail to school (PONY)';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -43,7 +261,7 @@ function patdb_views_views_default_views() {
 PDF: <a href="mail-to-school/all-reps.pdf">All Building Reps (PONY)</a>: School / Full Name / PPS Mail Destination
 PDF: <a href="mail-to-school/head-reps.pdf">Head Reps (PONY)</a>: School / Full Name / Building Count
 
-Both lists exclude substitutes, but include even those members who are listed as preferring that mail be sent to their home address.
+Both lists exclude members from virtual schools (except when they have a PPS mail destination listed), but include even those members who are listed as preferring that mail be sent to their home address.
 
 This page allows you to preview which members will be printed on the labels. Select a role from the drop-down and hit "Apply" to change the result set. Be aware that the address format shown here does not necessarily match what is printed on the labels.';
   $handler->display->display_options['header']['area']['format'] = 'plain_text';
@@ -164,6 +382,10 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['sorts']['field_school_nid']['id'] = 'field_school_nid';
   $handler->display->display_options['sorts']['field_school_nid']['table'] = 'field_data_field_school';
   $handler->display->display_options['sorts']['field_school_nid']['field'] = 'field_school_nid';
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    0 => 'AND',
+    1 => 'OR',
+  );
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -178,6 +400,7 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['filters']['type']['value'] = array(
     'member' => 'member',
   );
+  $handler->display->display_options['filters']['type']['group'] = 0;
   /* Filter criterion: Content: Roles (field_roles) */
   $handler->display->display_options['filters']['field_roles_tid']['id'] = 'field_roles_tid';
   $handler->display->display_options['filters']['field_roles_tid']['table'] = 'field_data_field_roles';
@@ -185,7 +408,7 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['filters']['field_roles_tid']['value'] = array(
     10 => '10',
   );
-  $handler->display->display_options['filters']['field_roles_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_roles_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_roles_tid']['expose']['operator_id'] = 'field_roles_tid_op';
   $handler->display->display_options['filters']['field_roles_tid']['expose']['label'] = 'Roles (field_roles)';
   $handler->display->display_options['filters']['field_roles_tid']['expose']['use_operator'] = FALSE;
@@ -197,17 +420,30 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['filters']['field_roles_tid']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
-  /* Filter criterion: Content: School (field_school) */
-  $handler->display->display_options['filters']['field_school_nid']['id'] = 'field_school_nid';
-  $handler->display->display_options['filters']['field_school_nid']['table'] = 'field_data_field_school';
-  $handler->display->display_options['filters']['field_school_nid']['field'] = 'field_school_nid';
-  $handler->display->display_options['filters']['field_school_nid']['operator'] = 'not in';
-  $handler->display->display_options['filters']['field_school_nid']['value'] = array(
-    63 => '63',
+  /* Filter criterion: Content: PPS Mail Destination (field_pps_mail) */
+  $handler->display->display_options['filters']['field_pps_mail_value']['id'] = 'field_pps_mail_value';
+  $handler->display->display_options['filters']['field_pps_mail_value']['table'] = 'field_data_field_pps_mail';
+  $handler->display->display_options['filters']['field_pps_mail_value']['field'] = 'field_pps_mail_value';
+  $handler->display->display_options['filters']['field_pps_mail_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_pps_mail_value']['group'] = 1;
+  /* Filter criterion: Content: School Type (field_school_type) */
+  $handler->display->display_options['filters']['field_school_type_value']['id'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['table'] = 'field_data_field_school_type';
+  $handler->display->display_options['filters']['field_school_type_value']['field'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['relationship'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_type_value']['operator'] = 'not in';
+  $handler->display->display_options['filters']['field_school_type_value']['value'] = array(
+    'other' => 'other',
+    'virtual' => 'virtual',
   );
+  $handler->display->display_options['filters']['field_school_type_value']['group'] = 1;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    0 => 'AND',
+    1 => 'OR',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -223,6 +459,7 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['filters']['type']['value'] = array(
     'member' => 'member',
   );
+  $handler->display->display_options['filters']['type']['group'] = 0;
   /* Filter criterion: Content: Roles (field_roles) */
   $handler->display->display_options['filters']['field_roles_tid']['id'] = 'field_roles_tid';
   $handler->display->display_options['filters']['field_roles_tid']['table'] = 'field_data_field_roles';
@@ -231,6 +468,7 @@ This page allows you to preview which members will be printed on the labels. Sel
     10 => '10',
     11 => '11',
   );
+  $handler->display->display_options['filters']['field_roles_tid']['group'] = 0;
   $handler->display->display_options['filters']['field_roles_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_roles_tid']['expose']['operator_id'] = 'field_roles_tid_op';
   $handler->display->display_options['filters']['field_roles_tid']['expose']['label'] = 'Roles';
@@ -242,25 +480,39 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
   $handler->display->display_options['filters']['field_roles_tid']['error_message'] = 1;
-  /* Filter criterion: Content: School (field_school) */
-  $handler->display->display_options['filters']['field_school_nid']['id'] = 'field_school_nid';
-  $handler->display->display_options['filters']['field_school_nid']['table'] = 'field_data_field_school';
-  $handler->display->display_options['filters']['field_school_nid']['field'] = 'field_school_nid';
-  $handler->display->display_options['filters']['field_school_nid']['operator'] = 'not in';
-  $handler->display->display_options['filters']['field_school_nid']['value'] = array(
-    63 => '63',
+  /* Filter criterion: Content: School Type (field_school_type) */
+  $handler->display->display_options['filters']['field_school_type_value']['id'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['table'] = 'field_data_field_school_type';
+  $handler->display->display_options['filters']['field_school_type_value']['field'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['relationship'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_type_value']['operator'] = 'not in';
+  $handler->display->display_options['filters']['field_school_type_value']['value'] = array(
+    'other' => 'other',
+    'virtual' => 'virtual',
   );
+  $handler->display->display_options['filters']['field_school_type_value']['group'] = 1;
+  /* Filter criterion: Content: PPS Mail Destination (field_pps_mail) */
+  $handler->display->display_options['filters']['field_pps_mail_value']['id'] = 'field_pps_mail_value';
+  $handler->display->display_options['filters']['field_pps_mail_value']['table'] = 'field_data_field_pps_mail';
+  $handler->display->display_options['filters']['field_pps_mail_value']['field'] = 'field_pps_mail_value';
+  $handler->display->display_options['filters']['field_pps_mail_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_pps_mail_value']['group'] = 1;
   $handler->display->display_options['path'] = 'reports/mail-to-school';
+  $handler->display->display_options['menu']['title'] = 'Mail to school';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'main-menu';
 
   /* Display: All Reps (PDF) */
   $handler = $view->new_display('mailing', 'All Reps (PDF)', 'mailing_1');
-  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'mailing_avery';
   $handler->display->display_options['path'] = 'reports/mail-to-school/all-reps.pdf';
 
   /* Display: Head Reps (PDF) */
   $handler = $view->new_display('mailing', 'Head Reps (PDF)', 'mailing_2');
-  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'mailing_avery';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: School */
@@ -353,6 +605,62 @@ This page allows you to preview which members will be printed on the labels. Sel
     'prefix_suffix' => 0,
   );
   $handler->display->display_options['fields']['field_building_count']['field_api_classes'] = 0;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    0 => 'AND',
+    1 => 'OR',
+  );
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'member' => 'member',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 0;
+  /* Filter criterion: Content: Roles (field_roles) */
+  $handler->display->display_options['filters']['field_roles_tid']['id'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['table'] = 'field_data_field_roles';
+  $handler->display->display_options['filters']['field_roles_tid']['field'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['value'] = array(
+    11 => '11',
+  );
+  $handler->display->display_options['filters']['field_roles_tid']['group'] = 0;
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['operator_id'] = 'field_roles_tid_op';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['label'] = 'Roles (field_roles)';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['use_operator'] = FALSE;
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['operator'] = 'field_roles_tid_op';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['identifier'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['required'] = FALSE;
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['remember'] = FALSE;
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['multiple'] = FALSE;
+  $handler->display->display_options['filters']['field_roles_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
+  /* Filter criterion: Content: PPS Mail Destination (field_pps_mail) */
+  $handler->display->display_options['filters']['field_pps_mail_value']['id'] = 'field_pps_mail_value';
+  $handler->display->display_options['filters']['field_pps_mail_value']['table'] = 'field_data_field_pps_mail';
+  $handler->display->display_options['filters']['field_pps_mail_value']['field'] = 'field_pps_mail_value';
+  $handler->display->display_options['filters']['field_pps_mail_value']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_pps_mail_value']['group'] = 1;
+  /* Filter criterion: Content: School Type (field_school_type) */
+  $handler->display->display_options['filters']['field_school_type_value']['id'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['table'] = 'field_data_field_school_type';
+  $handler->display->display_options['filters']['field_school_type_value']['field'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['relationship'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_type_value']['operator'] = 'not in';
+  $handler->display->display_options['filters']['field_school_type_value']['value'] = array(
+    'other' => 'other',
+    'virtual' => 'virtual',
+  );
+  $handler->display->display_options['filters']['field_school_type_value']['group'] = 1;
   $handler->display->display_options['path'] = 'reports/mail-to-school/head-reps.pdf';
   $export['mail_to_school_pony_'] = $view;
 
