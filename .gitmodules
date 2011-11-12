@@ -49,3 +49,6 @@
 [submodule "sites/all/modules/redirect"]
 	path = sites/all/modules/redirect
 	url = ./sites/all/modules/redirect
+[submodule "sites/all/modules/views_php"]
+	path = sites/all/modules/views_php
+	url = ./sites/all/modules/views_php
