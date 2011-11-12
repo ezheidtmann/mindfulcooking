@@ -264,17 +264,83 @@ function joy_features_views_default_views() {
   $handler->display->display_options['fields']['comment']['field'] = 'comment_body';
   $handler->display->display_options['fields']['comment']['relationship'] = 'cid';
   $handler->display->display_options['fields']['comment']['label'] = '';
+  $handler->display->display_options['fields']['comment']['exclude'] = TRUE;
   $handler->display->display_options['fields']['comment']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['comment']['alter']['text'] = '"[comment]"';
   $handler->display->display_options['fields']['comment']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['comment']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['comment']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['comment']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['comment']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['comment']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['comment']['alter']['max_length'] = '70';
   $handler->display->display_options['fields']['comment']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['comment']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['comment']['alter']['strip_tags'] = 1;
   $handler->display->display_options['fields']['comment']['alter']['trim'] = 1;
   $handler->display->display_options['fields']['comment']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['comment']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['comment']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['comment']['hide_empty'] = 0;
   $handler->display->display_options['fields']['comment']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['comment']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['comment']['field_api_classes'] = 0;
+  /* Field: Content: Body */
+  $handler->display->display_options['fields']['body']['id'] = 'body';
+  $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
+  $handler->display->display_options['fields']['body']['field'] = 'body';
+  $handler->display->display_options['fields']['body']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['body']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['body']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['body']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['body']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['body']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['body']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['body']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['body']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['body']['field_api_classes'] = 0;
+  /* Field: Global: PHP */
+  $handler->display->display_options['fields']['php']['id'] = 'php';
+  $handler->display->display_options['fields']['php']['table'] = 'views';
+  $handler->display->display_options['fields']['php']['field'] = 'php';
+  $handler->display->display_options['fields']['php']['label'] = '';
+  $handler->display->display_options['fields']['php']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['php']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['php']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['php']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['php']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['php']['alter']['trim_whitespace'] = 1;
+  $handler->display->display_options['fields']['php']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['php']['alter']['max_length'] = '72';
+  $handler->display->display_options['fields']['php']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['php']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['php']['alter']['strip_tags'] = 1;
+  $handler->display->display_options['fields']['php']['alter']['trim'] = 1;
+  $handler->display->display_options['fields']['php']['alter']['html'] = 1;
+  $handler->display->display_options['fields']['php']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['php']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['php']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['php']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['php']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['php']['use_php_setup'] = 0;
+  $handler->display->display_options['fields']['php']['php_output'] = '<?php
+if ($data->node_changed < $data->node_comment_statistics_last_comment_timestamp && isset($data->comment_node_cid)) {
+print $data->field_comment[0][\'rendered\'][\'#markup\'];
+} else {
+print $data->field_body[0][\'rendered\'][\'#markup\'];
+}
+?>';
+  $handler->display->display_options['fields']['php']['use_php_click_sortable'] = '0';
+  $handler->display->display_options['fields']['php']['php_click_sortable'] = '';
   /* Sort criterion: Content: Updated/commented date */
   $handler->display->display_options['sorts']['last_updated']['id'] = 'last_updated';
   $handler->display->display_options['sorts']['last_updated']['table'] = 'node_comment_statistics';
