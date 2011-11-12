@@ -495,80 +495,6 @@ function patdb_structure_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-member-field_mail_school'
-  $fields['node-member-field_mail_school'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_mail_school',
-      'foreign keys' => array(
-        'nid' => array(
-          'columns' => array(
-            'nid' => 'nid',
-          ),
-          'table' => 'node',
-        ),
-      ),
-      'indexes' => array(
-        'nid' => array(
-          0 => 'nid',
-        ),
-      ),
-      'module' => 'node_reference',
-      'settings' => array(
-        'referenceable_types' => array(
-          'cluster' => 0,
-          'member' => 0,
-          'school' => 'school',
-        ),
-        'view' => array(
-          'args' => array(),
-          'display_name' => '',
-          'view_name' => '',
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'node_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'member',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Select the school where this member receives mail. To use the school defined above, select "- None -" here.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'node_reference',
-          'settings' => array(),
-          'type' => 'node_reference_default',
-          'weight' => '2',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_mail_school',
-      'label' => 'Mail School',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '5',
-      ),
-    ),
-  );
-
   // Exported field: 'node-member-field_mobile_phone'
   $fields['node-member-field_mobile_phone'] = array(
     'field_config' => array(
@@ -630,6 +556,74 @@ function patdb_structure_field_default_fields() {
         'settings' => array(),
         'type' => 'nice_phone_number',
         'weight' => '7',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-member-field_pps_mail'
+  $fields['node-member-field_pps_mail'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_pps_mail',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'member',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Any text entered here is printed on the third line of any "PONY" mailing labels for this member. If the school (entered above) accurately describes this member\'s PPS mail address, leave this field blank. ',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '2',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_pps_mail',
+      'label' => 'PPS Mail Destination',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '5',
       ),
     ),
   );
@@ -1191,6 +1185,7 @@ function patdb_structure_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Address');
+  t('Any text entered here is printed on the third line of any "PONY" mailing labels for this member. If the school (entered above) accurately describes this member\'s PPS mail address, leave this field blank. ');
   t('Building Count');
   t('Cluster');
   t('Committee Chair');
@@ -1199,17 +1194,16 @@ function patdb_structure_field_default_fields() {
   t('Email Address');
   t('Home Phone');
   t('Mail Preference');
-  t('Mail School');
   t('Mobile Phone');
   t('Name and Address');
   t('Office Fax');
   t('Office Phone');
+  t('PPS Mail Destination');
   t('Please specify the nature of this school. For example, speech pathologists organize independent of their home school, so would be in a "virtual school" of their own. TODO: Add info about special programs & address requirements.');
   t('Roles');
   t('School');
   t('School Type');
   t('Select the cluster to which this school belongs.');
-  t('Select the school where this member receives mail. To use the school defined above, select "- None -" here.');
 
   return $fields;
 }

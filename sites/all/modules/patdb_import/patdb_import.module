@@ -119,8 +119,10 @@ function _patdb_import_mdb($filename) {
       $member['school_nid'] = 0;
     }
 
-    // We need to look up a school by name.
-    $member['mail_school_nid'] = _patdb_bldg_nid($school_names_by_nid, $row[$index['bldg']]);
+    // third line of PONY mailing labels, for "virtual schools"
+    if (strlen($row[$index['bldg']]) > 0) {
+      $member['pps_mail_dest'] = $row[$index['bldg']];
+    }
 
     $member['roles_tids'] = array();
     $member['committee_member_tids'] = array();
@@ -357,7 +359,7 @@ function _patdb_import_add_member($member) {
 
   $node->field_address[$node->language][0] = $member['address'];
   $node->field_school[$node->language][0]['nid'] = $member['school_nid'];
-  $node->field_mail_school[$node->language][0]['nid'] = $member['mail_school_nid'];
+  $node->field_pps_mail[$node->language][0]['value'] = $member['pps_mail_dest'];
   $node->field_home_phone[$node->language][0]['value']
     = _patdb_import_phone_number_prepare($member['home_phone']);
   $node->field_mobile_phone[$node->language][0]['value']
