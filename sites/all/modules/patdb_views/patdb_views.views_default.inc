@@ -32,6 +32,22 @@ function patdb_views_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'list';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['label'] = 'Intro & links to PDF';
+  $handler->display->display_options['header']['area']['empty'] = FALSE;
+  $handler->display->display_options['header']['area']['content'] = 'This view allows you to print mailing labels for mail to be sent to members\' schools. Please be patient when clicking each link; the output is generated dynamically.
+
+PDF: <a href="mail-to-school/all-reps.pdf">All Building Reps (PONY)</a>: School / Full Name / PPS Mail Destination
+PDF: <a href="mail-to-school/head-reps.pdf">Head Reps (PONY)</a>: School / Full Name / Building Count
+
+Both lists exclude substitutes, but include even those members who are listed as preferring that mail be sent to their home address.
+
+This page allows you to preview which members will be printed on the labels. Select a role from the drop-down and hit "Apply" to change the result set. Be aware that the address format shown here does not necessarily match what is printed on the labels.';
+  $handler->display->display_options['header']['area']['format'] = 'plain_text';
+  $handler->display->display_options['header']['area']['tokenize'] = 0;
   /* Relationship: Content: Roles (field_roles) */
   $handler->display->display_options['relationships']['field_roles_tid']['id'] = 'field_roles_tid';
   $handler->display->display_options['relationships']['field_roles_tid']['table'] = 'field_data_field_roles';
@@ -87,29 +103,58 @@ function patdb_views_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Content: Mail School */
-  $handler->display->display_options['fields']['field_mail_school']['id'] = 'field_mail_school';
-  $handler->display->display_options['fields']['field_mail_school']['table'] = 'field_data_field_mail_school';
-  $handler->display->display_options['fields']['field_mail_school']['field'] = 'field_mail_school';
-  $handler->display->display_options['fields']['field_mail_school']['label'] = '';
-  $handler->display->display_options['fields']['field_mail_school']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_mail_school']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_mail_school']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_mail_school']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_mail_school']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['field_mail_school']['field_api_classes'] = 0;
+  /* Field: Content: PPS Mail Destination */
+  $handler->display->display_options['fields']['field_pps_mail']['id'] = 'field_pps_mail';
+  $handler->display->display_options['fields']['field_pps_mail']['table'] = 'field_data_field_pps_mail';
+  $handler->display->display_options['fields']['field_pps_mail']['field'] = 'field_pps_mail';
+  $handler->display->display_options['fields']['field_pps_mail']['label'] = '';
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_pps_mail']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_pps_mail']['hide_empty'] = 1;
+  $handler->display->display_options['fields']['field_pps_mail']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['field_api_classes'] = 0;
+  /* Field: Content: Building Count */
+  $handler->display->display_options['fields']['field_building_count']['id'] = 'field_building_count';
+  $handler->display->display_options['fields']['field_building_count']['table'] = 'field_data_field_building_count';
+  $handler->display->display_options['fields']['field_building_count']['field'] = 'field_building_count';
+  $handler->display->display_options['fields']['field_building_count']['relationship'] = 'field_school_nid';
+  $handler->display->display_options['fields']['field_building_count']['label'] = '';
+  $handler->display->display_options['fields']['field_building_count']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_building_count']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_building_count']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_building_count']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_building_count']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_building_count']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['settings'] = array(
+    'thousand_separator' => ' ',
+    'prefix_suffix' => 1,
+  );
+  $handler->display->display_options['fields']['field_building_count']['field_api_classes'] = 0;
   /* Sort criterion: Content: Cluster (field_cluster) */
   $handler->display->display_options['sorts']['field_cluster_nid']['id'] = 'field_cluster_nid';
   $handler->display->display_options['sorts']['field_cluster_nid']['table'] = 'field_data_field_cluster';
@@ -140,24 +185,175 @@ function patdb_views_views_default_views() {
   $handler->display->display_options['filters']['field_roles_tid']['value'] = array(
     10 => '10',
   );
+  $handler->display->display_options['filters']['field_roles_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['operator_id'] = 'field_roles_tid_op';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['label'] = 'Roles (field_roles)';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['use_operator'] = FALSE;
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['operator'] = 'field_roles_tid_op';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['identifier'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['required'] = FALSE;
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['remember'] = FALSE;
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['multiple'] = FALSE;
   $handler->display->display_options['filters']['field_roles_tid']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
+  /* Filter criterion: Content: School (field_school) */
+  $handler->display->display_options['filters']['field_school_nid']['id'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_nid']['table'] = 'field_data_field_school';
+  $handler->display->display_options['filters']['field_school_nid']['field'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_nid']['operator'] = 'not in';
+  $handler->display->display_options['filters']['field_school_nid']['value'] = array(
+    63 => '63',
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'mail-to-school';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'member' => 'member',
+  );
+  /* Filter criterion: Content: Roles (field_roles) */
+  $handler->display->display_options['filters']['field_roles_tid']['id'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['table'] = 'field_data_field_roles';
+  $handler->display->display_options['filters']['field_roles_tid']['field'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['value'] = array(
+    10 => '10',
+    11 => '11',
+  );
+  $handler->display->display_options['filters']['field_roles_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['operator_id'] = 'field_roles_tid_op';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['label'] = 'Roles';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['operator'] = 'field_roles_tid_op';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['identifier'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['required'] = 1;
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['reduce'] = 1;
+  $handler->display->display_options['filters']['field_roles_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
+  $handler->display->display_options['filters']['field_roles_tid']['error_message'] = 1;
+  /* Filter criterion: Content: School (field_school) */
+  $handler->display->display_options['filters']['field_school_nid']['id'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_nid']['table'] = 'field_data_field_school';
+  $handler->display->display_options['filters']['field_school_nid']['field'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_nid']['operator'] = 'not in';
+  $handler->display->display_options['filters']['field_school_nid']['value'] = array(
+    63 => '63',
+  );
+  $handler->display->display_options['path'] = 'reports/mail-to-school';
 
-  /* Display: Mailing Labels */
-  $handler = $view->new_display('mailing', 'Mailing Labels', 'mailing_1');
-  $handler->display->display_options['defaults']['cache'] = FALSE;
-  $handler->display->display_options['cache']['type'] = 'time';
-  $handler->display->display_options['cache']['results_lifespan'] = '3600';
-  $handler->display->display_options['cache']['output_lifespan'] = '3600';
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
+  /* Display: All Reps (PDF) */
+  $handler = $view->new_display('mailing', 'All Reps (PDF)', 'mailing_1');
+  $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['style_plugin'] = 'mailing_avery';
-  $handler->display->display_options['path'] = 'mail-to-school/all-reps-5160';
+  $handler->display->display_options['path'] = 'reports/mail-to-school/all-reps.pdf';
+
+  /* Display: Head Reps (PDF) */
+  $handler = $view->new_display('mailing', 'Head Reps (PDF)', 'mailing_2');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['style_plugin'] = 'mailing_avery';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: School */
+  $handler->display->display_options['fields']['field_school']['id'] = 'field_school';
+  $handler->display->display_options['fields']['field_school']['table'] = 'field_data_field_school';
+  $handler->display->display_options['fields']['field_school']['field'] = 'field_school';
+  $handler->display->display_options['fields']['field_school']['label'] = '';
+  $handler->display->display_options['fields']['field_school']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_school']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_school']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_school']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_school']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_school']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_school']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_school']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_school']['field_api_classes'] = 0;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  /* Field: Content: PPS Mail Destination */
+  $handler->display->display_options['fields']['field_pps_mail']['id'] = 'field_pps_mail';
+  $handler->display->display_options['fields']['field_pps_mail']['table'] = 'field_data_field_pps_mail';
+  $handler->display->display_options['fields']['field_pps_mail']['field'] = 'field_pps_mail';
+  $handler->display->display_options['fields']['field_pps_mail']['label'] = '';
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_pps_mail']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_pps_mail']['hide_empty'] = 1;
+  $handler->display->display_options['fields']['field_pps_mail']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_pps_mail']['field_api_classes'] = 0;
+  /* Field: Content: Building Count */
+  $handler->display->display_options['fields']['field_building_count']['id'] = 'field_building_count';
+  $handler->display->display_options['fields']['field_building_count']['table'] = 'field_data_field_building_count';
+  $handler->display->display_options['fields']['field_building_count']['field'] = 'field_building_count';
+  $handler->display->display_options['fields']['field_building_count']['relationship'] = 'field_school_nid';
+  $handler->display->display_options['fields']['field_building_count']['label'] = '';
+  $handler->display->display_options['fields']['field_building_count']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_building_count']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_building_count']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_building_count']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_building_count']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['field_building_count']['settings'] = array(
+    'thousand_separator' => ' ',
+    'prefix_suffix' => 0,
+  );
+  $handler->display->display_options['fields']['field_building_count']['field_api_classes'] = 0;
+  $handler->display->display_options['path'] = 'reports/mail-to-school/head-reps.pdf';
   $export['mail_to_school_pony_'] = $view;
 
   $view = new view;
