@@ -1065,6 +1065,7 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['field_school']['id'] = 'field_school';
   $handler->display->display_options['fields']['field_school']['table'] = 'field_data_field_school';
   $handler->display->display_options['fields']['field_school']['field'] = 'field_school';
+  $handler->display->display_options['fields']['field_school']['label'] = '';
   $handler->display->display_options['fields']['field_school']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_school']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_school']['alter']['make_link'] = 0;
@@ -1078,12 +1079,17 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['field_school']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_school']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_school']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_school']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_school']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_school']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_school']['empty'] = '[no school]';
   $handler->display->display_options['fields']['field_school']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_school']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_school']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['field_school']['field_api_classes'] = 0;
+  /* Sort criterion: Content: School (field_school) */
+  $handler->display->display_options['sorts']['field_school_nid']['id'] = 'field_school_nid';
+  $handler->display->display_options['sorts']['field_school_nid']['table'] = 'field_data_field_school';
+  $handler->display->display_options['sorts']['field_school_nid']['field'] = 'field_school_nid';
   /* Sort criterion: Content: Title */
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
@@ -1120,6 +1126,64 @@ This page allows you to preview which members will be printed on the labels. Sel
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['grouping'] = 'field_school';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'title' => 'title',
+    'field_roles' => 'field_roles',
+    'field_address' => 'field_address',
+    'field_committee_chair' => 'field_committee_chair',
+    'field_committee_member' => 'field_committee_member',
+    'field_school' => 'field_school',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'title' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_roles' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_address' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_committee_chair' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_committee_member' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_school' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['override'] = 1;
+  $handler->display->display_options['style_options']['sticky'] = 0;
+  $handler->display->display_options['style_options']['empty_table'] = 0;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: School (field_school) */
   $handler->display->display_options['arguments']['field_school_nid']['id'] = 'field_school_nid';
