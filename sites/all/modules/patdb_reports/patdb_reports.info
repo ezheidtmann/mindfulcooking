@@ -1,0 +1,8 @@
+name = PAT-DB Reports
+description = All reps report for meeting sign-ins
+core = 7.x
+package = PAT-DB
+dependencies[] = patdb
+;files[] =
+;configure =
+
