@@ -5,18 +5,18 @@ function patdb_reports_reps_query() {
   $building_rep = array_pop(taxonomy_get_term_by_name('Building Rep'));
   $head_rep = array_pop(taxonomy_get_term_by_name('Head Rep'));
 
-  if ($head_rep->tid > $building_rep->tid) {
-    $tid_order = 'DESC';
-  } 
-  else {
-    $tid_order = 'ASC';
-  }
+  $tid_order = ($head_rep->tid > $building_rep->tid) ? 'DESC' : 'ASC';
   
   $q = db_select('node', 'n');
   $q->join('field_data_field_school', 's', "n.nid = s.entity_id AND s.entity_type = 'node' AND s.deleted = 0");
   $q->join('field_data_field_cluster', 'c', "s.field_school_nid = c.entity_id AND c.entity_type = 'node' AND c.deleted = 0");
   $q->join('field_data_field_roles', 'r', "n.nid = r.entity_id AND r.entity_type = 'node' AND r.deleted = 0");
+  $q->join('field_data_field_home_phone', 'p', "n.nid = p.entity_id AND p.entity_type = 'node' AND p.deleted = 0");
+  $q->join('field_data_field_email', 'e', "n.nid = e.entity_id AND e.entity_type = 'node' AND e.deleted = 0");
   $q->addField('n', 'nid', 'nid');
+  $q->addField('n', 'title', 'title');
+  $q->addField('p', 'field_home_phone_value', 'home_phone');
+  $q->addField('e', 'field_email_email', 'email');
   $q->addField('s', 'field_school_nid', 'school_nid');
   $q->addField('c', 'field_cluster_nid', 'cluster_nid');
   $q->condition('n.status', 1)
@@ -38,21 +38,30 @@ function patdb_reports_print() {
   $result = $q->execute();
 
   $school = $cluster = NULL;
+  $members = array();
   while ($member = $result->fetchObject()) {
     if (is_null($cluster) || $member->cluster_nid != $cluster->nid) {
+      if (count($members)) {
+        patdb_reports_print_members($members);
+        $members = array();
+      }
       $cluster = node_load($member->cluster_nid);
       print "Cluster: ". $cluster->title ."\n";
     }
     if (is_null($school) || $member->school_nid != $school->nid) {
       // finish up previous school
-      if (!is_null($school)) {
+      if (count($members)) {
         patdb_reports_print_members($members);
+        $members = array();
       }
-      $members = array();
       $school = node_load($member->school_nid);
       print "  School: ". $school->title ."\n";
     }
-    $members['nid_'. $member->nid] = node_load($member->nid);
+    $members['nid_'. $member->nid] = $member;
+  }
+  
+  if (count($members)) {
+    patdb_reports_print_members($members);
   }
 }
 
@@ -60,9 +69,12 @@ function patdb_reports_print_members($members) {
   foreach ($members as $member) {
     print "    Member: ". $member->title ."\n";
     print "      http://d/patdb1/node/". $member->nid ."\n";
-    foreach ($member->field_roles[$member->language] as $role) {
-      $role = taxonomy_term_load($role['tid']);
-      print "      ". $role->name ."\n";
+    $phone = theme('nice_phone_number', array('number' => $member->home_phone));
+    if (!empty($phone)) {
+      print "      ". $phone ." (h)\n";
+    }
+    if (!empty($member->email)) {
+      print "      ". $member->email ."\n";
     }
   }
 }
