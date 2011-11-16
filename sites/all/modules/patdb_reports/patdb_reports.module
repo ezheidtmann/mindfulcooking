@@ -1,0 +1,68 @@
+<?php
+
+function patdb_reports_reps_query() {
+  // Get building rep tid
+  $building_rep = array_pop(taxonomy_get_term_by_name('Building Rep'));
+  $head_rep = array_pop(taxonomy_get_term_by_name('Head Rep'));
+
+  if ($head_rep->tid > $building_rep->tid) {
+    $tid_order = 'DESC';
+  } 
+  else {
+    $tid_order = 'ASC';
+  }
+  
+  $q = db_select('node', 'n');
+  $q->join('field_data_field_school', 's', "n.nid = s.entity_id AND s.entity_type = 'node' AND s.deleted = 0");
+  $q->join('field_data_field_cluster', 'c', "s.field_school_nid = c.entity_id AND c.entity_type = 'node' AND c.deleted = 0");
+  $q->join('field_data_field_roles', 'r', "n.nid = r.entity_id AND r.entity_type = 'node' AND r.deleted = 0");
+  $q->addField('n', 'nid', 'nid');
+  $q->addField('s', 'field_school_nid', 'school_nid');
+  $q->addField('c', 'field_cluster_nid', 'cluster_nid');
+  $q->condition('n.status', 1)
+    ->condition('n.type', 'member')
+    ->condition('s.field_school_nid', 0, '>') // omit members with no school
+    ->condition('c.field_cluster_nid', 0, '>') // omit schools with no cluster
+    ->condition('r.field_roles_tid', array($building_rep->tid, $head_rep->tid), 'IN')
+    ->orderBy('cluster_nid')
+    ->orderBy('school_nid')
+    ->orderBy('r.field_roles_tid', $tid_order)
+    ->orderBy('n.title');
+
+  return $q;
+}
+
+function patdb_reports_print() {
+  $q = patdb_reports_reps_query();
+  print (string) $q . "\n";
+  $result = $q->execute();
+
+  $school = $cluster = NULL;
+  while ($member = $result->fetchObject()) {
+    if (is_null($cluster) || $member->cluster_nid != $cluster->nid) {
+      $cluster = node_load($member->cluster_nid);
+      print "Cluster: ". $cluster->title ."\n";
+    }
+    if (is_null($school) || $member->school_nid != $school->nid) {
+      // finish up previous school
+      if (!is_null($school)) {
+        patdb_reports_print_members($members);
+      }
+      $members = array();
+      $school = node_load($member->school_nid);
+      print "  School: ". $school->title ."\n";
+    }
+    $members['nid_'. $member->nid] = node_load($member->nid);
+  }
+}
+
+function patdb_reports_print_members($members) {
+  foreach ($members as $member) {
+    print "    Member: ". $member->title ."\n";
+    print "      http://d/patdb1/node/". $member->nid ."\n";
+    foreach ($member->field_roles[$member->language] as $role) {
+      $role = taxonomy_term_load($role['tid']);
+      print "      ". $role->name ."\n";
+    }
+  }
+}
