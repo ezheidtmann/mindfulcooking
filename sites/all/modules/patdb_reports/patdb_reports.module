@@ -32,7 +32,18 @@ function patdb_reports_reps_query() {
   return $q;
 }
 
+function &_patdb_reports_pdf() {
+  static $pdf = NULL;
+  if (is_null($pdf)) {
+    require_once DRUPAL_ROOT . '/sites/all/libraries/tcpdf/tcpdf.php';
+    require_once DRUPAL_ROOT .'/sites/all/modules/patdb_reports/rep_report.inc';
+    $pdf = new rep_report_pdf();
+  }
+  return $pdf;
+}
+
 function patdb_reports_print() {
+  $pdf = &_patdb_reports_pdf();
   $q = patdb_reports_reps_query();
   print (string) $q . "\n";
   $result = $q->execute();
@@ -47,6 +58,7 @@ function patdb_reports_print() {
       }
       $cluster = node_load($member->cluster_nid);
       print "Cluster: ". $cluster->title ."\n";
+      $pdf->newCluster($cluster->title, 'Unknown');
     }
     if (is_null($school) || $member->school_nid != $school->nid) {
       // finish up previous school
@@ -56,6 +68,7 @@ function patdb_reports_print() {
       }
       $school = node_load($member->school_nid);
       print "  School: ". $school->title ."\n";
+      $pdf->newSchool($school->title, '123-456-7890');
     }
     $members['nid_'. $member->nid] = $member;
   }
@@ -63,9 +76,12 @@ function patdb_reports_print() {
   if (count($members)) {
     patdb_reports_print_members($members);
   }
+
+  $pdf->Output('output.pdf', 'F');
 }
 
 function patdb_reports_print_members($members) {
+  $pdf = &_patdb_reports_pdf();
   foreach ($members as $member) {
     print "    Member: ". $member->title ."\n";
     print "      http://d/patdb1/node/". $member->nid ."\n";
@@ -76,5 +92,7 @@ function patdb_reports_print_members($members) {
     if (!empty($member->email)) {
       print "      ". $member->email ."\n";
     }
+
+    $pdf->addMember($member->title, $phone, $member->email);
   }
 }
