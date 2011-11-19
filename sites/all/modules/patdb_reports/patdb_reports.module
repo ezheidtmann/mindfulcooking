@@ -57,8 +57,10 @@ function patdb_reports_print() {
         $members = array();
       }
       $cluster = node_load($member->cluster_nid);
+      $director = node_load($cluster->field_director[$cluster->language][0]['nid']);
       print "Cluster: ". $cluster->title ."\n";
-      $pdf->newCluster($cluster->title, 'Unknown');
+      $director = $director ? $director->title : '[none]';
+      $pdf->newCluster($cluster->title, $director);
     }
     if (is_null($school) || $member->school_nid != $school->nid) {
       // finish up previous school
@@ -68,7 +70,9 @@ function patdb_reports_print() {
       }
       $school = node_load($member->school_nid);
       print "  School: ". $school->title ."\n";
-      $pdf->newSchool($school->title, '123-456-7890');
+      $phone = $school->field_office_phone[$school->language][0]['value'];
+      $phone = theme('nice_phone_number', array('number' => $phone));
+      $pdf->newSchool($school->title, $phone);
     }
     $members['nid_'. $member->nid] = $member;
   }
