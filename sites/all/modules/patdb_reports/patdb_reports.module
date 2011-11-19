@@ -93,6 +93,6 @@ function patdb_reports_print_members($members) {
       print "      ". $member->email ."\n";
     }
 
-    $pdf->addMember($member->title, $phone, $member->email);
+    $pdf->newMember($member->title, $phone, $member->email);
   }
 }
