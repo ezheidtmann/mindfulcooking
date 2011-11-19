@@ -19,7 +19,7 @@ class rep_report_pdf extends TCPDF {
     // landscape, measurements in millimeters, letter size paper
     parent::__construct('L', 'mm', 'letter');
     
-    $this->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    $this->SetMargins(PDF_MARGIN_LEFT, 18, PDF_MARGIN_RIGHT);
     $this->SetHeaderMargin(PDF_MARGIN_HEADER);
     $this->SetFooterMargin(PDF_MARGIN_FOOTER);
 
@@ -52,7 +52,7 @@ class rep_report_pdf extends TCPDF {
 
     $left_text = 'PAT Association Representatives';
     $center_text = $this->cluster_name .' HS Area Cluster';
-    $right_text = $this->cluster_director_name .', Director';
+    $right_text = 'Director: '. $this->cluster_director_name;
 
     $this->setFont('', 'B', 10);
     $x = $this->getX();
