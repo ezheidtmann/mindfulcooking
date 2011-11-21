@@ -34,8 +34,6 @@ class rep_report_pdf extends TCPDF {
     $this->email_width = $this->column_width * 0.4;
     $this->phone_width = 23;
     $this->name_width = $this->column_width - $this->email_width - $this->phone_width;
-
-    print_r($margins);
   }
 
   function newCluster($cluster, $director) {
@@ -82,11 +80,11 @@ class rep_report_pdf extends TCPDF {
     if (isset($this->school['name'])) {
       // print old school, ensuring it stays on one column, if possible
       $this->startTransaction();
-      if ($this->printSchoolBlock()) { // wrapped column or page 
+      if ($this->printSchoolBlock(TRUE)) { // wrapped column or page 
         $this->rollbackTransaction(TRUE); // TRUE => modify self
         $this->startTransaction();
         $this->nextColumn(); // try the next column (this page or next)
-        if ($this->printSchoolBlock()) { // still wrapping!
+        if ($this->printSchoolBlock(TRUE)) { // still wrapping!
           $this->rollbackTransaction(TRUE);
           $this->printSchoolBlock(); // print in original position
         }
@@ -118,7 +116,7 @@ class rep_report_pdf extends TCPDF {
     }
   }
 
-  private function printSchoolBlock() {
+  private function printSchoolBlock($abort_if_wrap = FALSE) {
     $col = $this->getColumn();
     $wrapped = FALSE;
     $this->addSchool($this->school['name'], $this->school['phone']);
@@ -126,6 +124,9 @@ class rep_report_pdf extends TCPDF {
       $this->addMember($member['name'], $member['phone'], $member['email']);
       if (!$wrapped && $col != $this->getColumn()) {
         $wrapped = TRUE;
+        if ($abort_if_wrap) {
+          return $wrapped;
+        }
       }
     }
     return $wrapped;
@@ -142,7 +143,6 @@ class rep_report_pdf extends TCPDF {
 
 
     $this->line_height = $this->getFontSize();
-    print "DEBUG: line height : ". $this->line_height ."\n";
     $this->addLineFragment($school, $this->column_width - $this->phone_width);
     $new_font = $this->getFont();
     $this->setFontObj($old_font);
