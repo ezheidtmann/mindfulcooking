@@ -1,4 +1,5 @@
 core = "7.x"
+dependencies[] = "mailing_label"
 dependencies[] = "views"
 description = "Basic views for PAT-DB"
 features[ctools][] = "views:views_default:3.0"

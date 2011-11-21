@@ -7,6 +7,7 @@ function patdb_reports_menu() {
     'page callback' => 'patdb_reports_reps_by_cluster',
     'page arguments' => array(1, 'I'),
     'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
   );
 
   return $items;

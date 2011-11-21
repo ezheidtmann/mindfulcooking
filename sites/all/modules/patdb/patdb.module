@@ -7,6 +7,7 @@ function _patdb_setup_pathauto() {
   variable_set('pathauto_node_cluster_pattern', 'cluster/[node:title]');
   variable_set('pathauto_node_member_pattern', 'member/[node:title]');
   variable_set('pathauto_node_school_pattern', 'school/[node:title]');
+  variable_set('pathauto_node_page_pattern', '[node:title]');
 
   // Ensure they're all up to date!
 
@@ -31,7 +32,7 @@ function _patdb_setup_content() {
 
 function _patdb_setup_menu() {
   $link = array(
-    'link_path' => 'node/'. variable_get('patdb_report_nid', 0),
+    'link_path' => 'node/'. variable_get('patdb_reports_nid', 0),
     'link_title' => 'Reports',
     'menu_name' => 'main-menu',
     'weight' => 10, // want this after other links added by features

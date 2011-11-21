@@ -7,7 +7,18 @@ function _patdb_node_reports() {
     'type' => 'page',
     'language' => LANGUAGE_NONE,
     'body' => array(LANGUAGE_NONE => array(0 => array('value' =>
-'<h2>Mail to School</h2>
+'<h2>All Reps by Cluster</h2>
+
+This is the report used as a sign-in sheet at meetings.
+
+<ul>
+ <li><a href="reports/all-reps-by-cluster.pdf">All Reps by Cluster</a></li>
+</ul>
+
+This report includes all building reps and head reps who have a valid
+school with valid cluster.
+
+<h2>Mail to School</h2>
 
 These two reports print mailing labels for mail to be sent to members\' schools. Please be patient when clicking each link; the output is generated dynamically.
 
