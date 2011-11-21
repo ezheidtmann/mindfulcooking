@@ -1,5 +1,17 @@
 <?php
 
+function patdb_reports_menu() {
+  $items = array();
+  $items['reports/all-reps-by-cluster.pdf'] = array(
+    'title' => 'All Reps by Cluster (PDF)',
+    'page callback' => 'patdb_reports_reps_by_cluster',
+    'page arguments' => array(1, 'I'),
+    'access arguments' => array('access content'),
+  );
+
+  return $items;
+}
+
 /**
 * @brief Ensure TCPDF and rep_report_pdf are both present
 *
