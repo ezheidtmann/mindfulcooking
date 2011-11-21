@@ -11,6 +11,7 @@ drush --yes si minimal \
 
 drush --yes en patdb_structure
 drush --yes en patdb_views
+drush --yes en patdb_misc
 drush --yes en patdb
 drush --yes en patdb_import
 
