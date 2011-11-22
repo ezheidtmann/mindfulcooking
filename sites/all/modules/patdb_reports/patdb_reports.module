@@ -5,7 +5,7 @@ function patdb_reports_menu() {
   $items['reports/all-reps-by-cluster.pdf'] = array(
     'title' => 'All Reps by Cluster (PDF)',
     'page callback' => 'patdb_reports_reps_by_cluster',
-    'page arguments' => array(1, 'I'),
+    'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
@@ -74,45 +74,54 @@ function patdb_reports_reps_query() {
 *        rep_report_pdf class to do the PDF layout.
 *
 * @param $filename Name of output filename
-* @param $mode TCPDF output mode -- 'F' for local file, 'I' for browser
 *
 * @return No return value.
 */
-function patdb_reports_reps_by_cluster($filename, $mode = 'I') {
-  $q = patdb_reports_reps_query();
-  $result = $q->execute();
-
-  // Query results will contain duplicates because we are matching
-  // two "role" tids. So we save members as we iterate, indexed by
-  // nid to eliminate dupes. A helper function lets us easily
-  // output & clear the $members array whenever we reach the end
-  // of a school or cluster.
-  patdb_reports_require_tcpdf();
-  $pdf = new rep_report_pdf();
-  $school = $cluster = NULL;
-  $members = array();
-  while ($member = $result->fetchObject()) {
-    if (is_null($cluster) || $member->cluster_nid != $cluster->nid) {
-      _patdb_reports_rbc_add_members($pdf, $members);
-      $cluster = node_load($member->cluster_nid);
-      $director = node_load($cluster->field_director[$cluster->language][0]['nid']);
-      $director = $director ? $director->title : '[none]';
-      $pdf->newCluster($cluster->title, $director);
-    }
-    if (is_null($school) || $member->school_nid != $school->nid) {
-      _patdb_reports_rbc_add_members($pdf, $members);
-      $school = node_load($member->school_nid);
-      $phone = $school->field_office_phone[$school->language][0]['value'];
-      $phone = theme('nice_phone_number', array('number' => $phone));
-      $pdf->newSchool($school->title, $phone);
-    }
-    $members['nid_'. $member->nid] = $member;
+function patdb_reports_reps_by_cluster($filename) {
+  if ($cache = cache_get('patdb_reports_reps_by_cluster')) {
+    $output = $cache->data;
   }
-  _patdb_reports_rbc_add_members($pdf, $members);
+  else {
+    $q = patdb_reports_reps_query();
+    $result = $q->execute();
 
-  $pdf->Output($filename, $mode);
+    // Query results will contain duplicates because we are matching
+    // two "role" tids. So we save members as we iterate, indexed by
+    // nid to eliminate dupes. A helper function lets us easily
+    // output & clear the $members array whenever we reach the end
+    // of a school or cluster.
+    patdb_reports_require_tcpdf();
+    $pdf = new rep_report_pdf();
+    $school = $cluster = NULL;
+    $members = array();
+    while ($member = $result->fetchObject()) {
+      if (is_null($cluster) || $member->cluster_nid != $cluster->nid) {
+        _patdb_reports_rbc_add_members($pdf, $members);
+        $cluster = node_load($member->cluster_nid);
+        $director = node_load($cluster->field_director[$cluster->language][0]['nid']);
+        $director = $director ? $director->title : '[none]';
+        $pdf->newCluster($cluster->title, $director);
+      }
+      if (is_null($school) || $member->school_nid != $school->nid) {
+        _patdb_reports_rbc_add_members($pdf, $members);
+        $school = node_load($member->school_nid);
+        $phone = $school->field_office_phone[$school->language][0]['value'];
+        $phone = theme('nice_phone_number', array('number' => $phone));
+        $pdf->newSchool($school->title, $phone);
+      }
+      $members['nid_'. $member->nid] = $member;
+    }
+    _patdb_reports_rbc_add_members($pdf, $members);
+
+    $output = $pdf->Output($filename, 'S');
+    cache_set('patdb_reports_reps_by_cluster', $output);
+  }
+
+  drupal_add_http_header('Content-type', 'application/pdf');
+  drupal_add_http_header('Content-disposition', 'inline; filename="'. $filename .'"');
+
+  print $output;
 }
-
 
 /**
 * @brief Add $members to $pdf and clear $members.
@@ -132,5 +141,17 @@ function _patdb_reports_rbc_add_members(&$pdf, &$members) {
       $pdf->newMember($member->title, $phone, $member->email);
     }
     $members = array();
+  }
+}
+
+function patdb_reports_node_delete($node) {
+  if (in_array($node->type, array('member', 'school', 'cluster'))) {
+    cache_clear_all('patdb_reports_reps_by_cluster', 'cache');
+  }
+}
+
+function patdb_reports_node_presave($node) {
+  if (in_array($node->type, array('member', 'school', 'cluster'))) {
+    cache_clear_all('patdb_reports_reps_by_cluster', 'cache');
   }
 }
