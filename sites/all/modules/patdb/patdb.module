@@ -38,6 +38,13 @@ function _patdb_setup_menu() {
     'weight' => 10, // want this after other links added by features
   );
   menu_link_save($link);
+
+  // Remove "management" block
+  db_update('block')
+    ->fields(array('status' => 0))
+    ->condition('module', 'system')
+    ->condition('delta', 'management')
+    ->execute();
 }
 
 function _patdb_setup_views() {
