@@ -142,6 +142,8 @@ function _patdb_import_mdb($filename) {
       $member['committee_member_tids'][] = $member['committee_chair_tid'];
     }
 
+    $member['date_entered'] = $row[$index['DateEntered']];
+
     $nid = _patdb_import_add_member($member);
     $member_nids[] = $nid;
     $member_names[] = $member['first_name'] .' '. $member['last_name'];
@@ -394,6 +396,8 @@ function _patdb_import_add_member($member) {
 
   $node->field_committee_chair[$node->language][0]['tid']
     = $member['committee_chair_tid'];
+
+  $node->date = $member['date_entered'];
 
   node_submit($node);
   node_save($node);
