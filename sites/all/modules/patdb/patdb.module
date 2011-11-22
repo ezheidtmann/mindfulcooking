@@ -180,3 +180,22 @@ function _patdb_setup_users() {
 
   return user_save($rick);
 }
+
+function patdb_node_validate($node) {
+  if ($node->type == 'member') {
+    $chair_tid = $node->field_committee_chair[$node->language][0]['tid'];
+    if (!$chair_tid) { return; }
+    foreach ($node->field_committee_member[$node->language] as $term) {
+      if ($term['tid'] == $chair_tid) {
+        return;
+      }
+    }
+
+    // We require that the user select the membership as well as
+    // being a committee chair.
+    form_set_error(
+      'field_committee_member]['. $node->language .']['. $chair_tid,
+      t('A committee chair must also be a member of that committee. Please check your input.')
+    );
+  }
+}
