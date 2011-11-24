@@ -440,10 +440,7 @@ This page allows you to preview which members will be printed on the labels. Sel
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    0 => 'AND',
-    1 => 'OR',
-  );
+  $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -605,10 +602,6 @@ This page allows you to preview which members will be printed on the labels. Sel
     'prefix_suffix' => 0,
   );
   $handler->display->display_options['fields']['field_building_count']['field_api_classes'] = 0;
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    0 => 'AND',
-    1 => 'OR',
-  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
