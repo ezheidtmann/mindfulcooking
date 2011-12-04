@@ -12,7 +12,7 @@ function patdb_misc_node_info() {
     'page' => array(
       'name' => t('Page'),
       'base' => 'node_content',
-      'description' => t('Simple page with no window dressing'),
+      'description' => '',
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',
