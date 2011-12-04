@@ -28,6 +28,24 @@ function patdb_misc_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-48',
   );
+  // Exported menu link: main-menu:node/add
+  $menu_links['main-menu:node/add'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'node/add',
+    'router_path' => 'node/add',
+    'link_title' => 'Add data',
+    'options' => array(
+      'attributes' => array(
+        'title' => 'Add new schools, clusters, or members',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '26',
+  );
   // Exported menu link: main-menu:schools-by-cluster
   $menu_links['main-menu:schools-by-cluster'] = array(
     'menu_name' => 'main-menu',
@@ -48,6 +66,7 @@ function patdb_misc_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
+  t('Add data');
   t('Members');
   t('Schools');
 
