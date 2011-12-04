@@ -24,3 +24,7 @@ body, #wrapper {
 textarea#edit-body-und-0-value {
   height: 15ex;
 }
+
+fieldset.filter-wrapper {
+  display: none;
+}

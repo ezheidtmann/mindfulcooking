@@ -200,12 +200,13 @@ function joy_features_views_default_views() {
   );
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   /* Footer: Global: Text area */
-  $handler->display->display_options['footer']['text']['id'] = 'area';
+  $handler->display->display_options['footer']['text']['id'] = 'text';
   $handler->display->display_options['footer']['text']['table'] = 'views';
   $handler->display->display_options['footer']['text']['field'] = 'area';
   $handler->display->display_options['footer']['text']['empty'] = FALSE;
-  $handler->display->display_options['footer']['text']['content'] = '<a href="/node/add/forum/113">Post new forum topic</a> - add your voice.';
+  $handler->display->display_options['footer']['text']['content'] = '<a href="/kitchen/add">Post new forum topic</a> - add your voice.';
   $handler->display->display_options['footer']['text']['format'] = '1';
+  $handler->display->display_options['footer']['text']['tokenize'] = 0;
   /* Relationship: Comment: Comments of the node */
   $handler->display->display_options['relationships']['cid']['id'] = 'cid';
   $handler->display->display_options['relationships']['cid']['table'] = 'node';
@@ -820,13 +821,16 @@ print $data->field_body[0][\'rendered\'][\'#markup\'];
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'grid';
-  $handler->display->display_options['style_options']['grouping'] = 'name';
+  $handler->display->display_options['style_options']['grouping'] = 'taxonomy_vocabulary_3';
   $handler->display->display_options['style_options']['columns'] = '5';
+  $handler->display->display_options['style_options']['fill_single_line'] = 1;
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Content: Taxonomy terms on node */
-  $handler->display->display_options['relationships']['term_node_tid']['id'] = 'term_node_tid';
-  $handler->display->display_options['relationships']['term_node_tid']['table'] = 'node';
-  $handler->display->display_options['relationships']['term_node_tid']['field'] = 'term_node_tid';
+  /* Relationship: Content: Dish Type (taxonomy_vocabulary_3) */
+  $handler->display->display_options['relationships']['taxonomy_vocabulary_3_tid']['id'] = 'taxonomy_vocabulary_3_tid';
+  $handler->display->display_options['relationships']['taxonomy_vocabulary_3_tid']['table'] = 'field_data_taxonomy_vocabulary_3';
+  $handler->display->display_options['relationships']['taxonomy_vocabulary_3_tid']['field'] = 'taxonomy_vocabulary_3_tid';
+  $handler->display->display_options['relationships']['taxonomy_vocabulary_3_tid']['label'] = 'dish type';
+  $handler->display->display_options['relationships']['taxonomy_vocabulary_3_tid']['required'] = 0;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -843,28 +847,36 @@ print $data->field_body[0][\'rendered\'][\'#markup\'];
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Taxonomy term: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['relationship'] = 'term_node_tid';
-  $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['name']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['name']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['name']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['name']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['name']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['name']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = 0;
+  /* Field: Content: Dish Type */
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['id'] = 'taxonomy_vocabulary_3';
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['table'] = 'field_data_taxonomy_vocabulary_3';
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['field'] = 'taxonomy_vocabulary_3';
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['label'] = '';
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['type'] = 'taxonomy_term_reference_plain';
+  $handler->display->display_options['fields']['taxonomy_vocabulary_3']['field_api_classes'] = 0;
   /* Sort criterion: Taxonomy term: Weight */
   $handler->display->display_options['sorts']['weight']['id'] = 'weight';
   $handler->display->display_options['sorts']['weight']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['sorts']['weight']['field'] = 'weight';
-  $handler->display->display_options['sorts']['weight']['relationship'] = 'term_node_tid';
+  $handler->display->display_options['sorts']['weight']['relationship'] = 'taxonomy_vocabulary_3_tid';
   /* Sort criterion: Content: Title */
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
@@ -877,35 +889,24 @@ print $data->field_body[0][\'rendered\'][\'#markup\'];
     'srecipe' => 'srecipe',
   );
   $handler->display->display_options['filters']['type']['expose']['operator'] = FALSE;
-  /* Filter criterion: Taxonomy term: Vocabulary */
-  $handler->display->display_options['filters']['vid']['id'] = 'vid';
-  $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['filters']['vid']['field'] = 'vid';
-  $handler->display->display_options['filters']['vid']['relationship'] = 'term_node_tid';
-  $handler->display->display_options['filters']['vid']['value'] = array(
-    3 => '3',
-  );
-  $handler->display->display_options['filters']['vid']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Has taxonomy term */
-  $handler->display->display_options['filters']['tid']['id'] = 'tid';
-  $handler->display->display_options['filters']['tid']['table'] = 'taxonomy_index';
-  $handler->display->display_options['filters']['tid']['field'] = 'tid';
-  $handler->display->display_options['filters']['tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['tid']['expose']['operator_id'] = 'tid_op';
-  $handler->display->display_options['filters']['tid']['expose']['label'] = 'Browse by dish type';
-  $handler->display->display_options['filters']['tid']['expose']['operator'] = 'tid_op';
-  $handler->display->display_options['filters']['tid']['expose']['identifier'] = 'tid';
-  $handler->display->display_options['filters']['tid']['expose']['required'] = FALSE;
-  $handler->display->display_options['filters']['tid']['expose']['multiple'] = FALSE;
-  $handler->display->display_options['filters']['tid']['expose']['reduce'] = 0;
-  $handler->display->display_options['filters']['tid']['reduce_duplicates'] = 0;
-  $handler->display->display_options['filters']['tid']['type'] = 'select';
-  $handler->display->display_options['filters']['tid']['vocabulary'] = 'vocabulary_3';
   /* Filter criterion: Content: Published or admin */
   $handler->display->display_options['filters']['status_extra']['id'] = 'status_extra';
   $handler->display->display_options['filters']['status_extra']['table'] = 'node';
   $handler->display->display_options['filters']['status_extra']['field'] = 'status_extra';
-  $handler->display->display_options['filters']['status_extra']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Dish Type (taxonomy_vocabulary_3) */
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['id'] = 'taxonomy_vocabulary_3_tid';
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['table'] = 'field_data_taxonomy_vocabulary_3';
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['field'] = 'taxonomy_vocabulary_3_tid';
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['expose']['operator_id'] = 'taxonomy_vocabulary_3_tid_op';
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['expose']['label'] = 'Browse by dish type';
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['expose']['operator'] = 'taxonomy_vocabulary_3_tid_op';
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['expose']['identifier'] = 'taxonomy_vocabulary_3_tid';
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['expose']['reduce'] = 0;
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['vocabulary'] = 'vocabulary_3';
+  $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['error_message'] = 1;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
