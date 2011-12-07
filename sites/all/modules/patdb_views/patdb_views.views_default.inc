@@ -931,9 +931,11 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['grouping'] = 'field_school';
   $handler->display->display_options['style_options']['columns'] = array(
     'title' => 'title',
-    'delete_node' => 'title',
+    'edit_node' => 'edit_node',
+    'delete_node' => 'edit_node',
     'field_roles' => 'field_roles',
     'field_address' => 'field_address',
     'field_committee_chair' => 'field_committee_chair',
@@ -947,6 +949,11 @@ This page allows you to preview which members will be printed on the labels. Sel
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
+      'empty_column' => 0,
+    ),
+    'edit_node' => array(
+      'align' => '',
+      'separator' => '<br />',
       'empty_column' => 0,
     ),
     'delete_node' => array(
@@ -987,7 +994,7 @@ This page allows you to preview which members will be printed on the labels. Sel
     ),
   );
   $handler->display->display_options['style_options']['override'] = 1;
-  $handler->display->display_options['style_options']['sticky'] = 0;
+  $handler->display->display_options['style_options']['sticky'] = 1;
   $handler->display->display_options['style_options']['empty_table'] = 0;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
@@ -1012,6 +1019,28 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['edit_node']['text'] = '[edit]';
   /* Field: Content: Delete link */
   $handler->display->display_options['fields']['delete_node']['id'] = 'delete_node';
   $handler->display->display_options['fields']['delete_node']['table'] = 'node';
@@ -1147,6 +1176,7 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['field_school']['label'] = '';
   $handler->display->display_options['fields']['field_school']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_school']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_school']['alter']['text'] = 'School: [field_school]';
   $handler->display->display_options['fields']['field_school']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_school']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['field_school']['alter']['external'] = 0;
@@ -1217,70 +1247,6 @@ This page allows you to preview which members will be printed on the labels. Sel
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'table';
-  $handler->display->display_options['style_options']['grouping'] = 'field_school';
-  $handler->display->display_options['style_options']['columns'] = array(
-    'title' => 'title',
-    'delete_node' => 'title',
-    'field_roles' => 'field_roles',
-    'field_address' => 'field_address',
-    'field_committee_chair' => 'field_committee_chair',
-    'field_committee_member' => 'field_committee_member',
-    'field_school' => 'field_school',
-  );
-  $handler->display->display_options['style_options']['default'] = '-1';
-  $handler->display->display_options['style_options']['info'] = array(
-    'title' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'delete_node' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_roles' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_address' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_committee_chair' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_committee_member' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_school' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-  );
-  $handler->display->display_options['style_options']['override'] = 1;
-  $handler->display->display_options['style_options']['sticky'] = 0;
-  $handler->display->display_options['style_options']['empty_table'] = 0;
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: School (field_school) */
   $handler->display->display_options['arguments']['field_school_nid']['id'] = 'field_school_nid';
@@ -1342,6 +1308,75 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'title' => 'title',
+    'edit_node' => 'edit_node',
+    'delete_node' => 'edit_node',
+    'field_roles' => 'field_roles',
+    'field_address' => 'field_address',
+    'field_committee_chair' => 'field_committee_chair',
+    'field_committee_member' => 'field_committee_member',
+    'field_school' => 'field_school',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'title' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'edit_node' => array(
+      'align' => '',
+      'separator' => '<br />',
+      'empty_column' => 0,
+    ),
+    'delete_node' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_roles' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_address' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_committee_chair' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_committee_member' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_school' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['override'] = 1;
+  $handler->display->display_options['style_options']['sticky'] = 1;
+  $handler->display->display_options['style_options']['empty_table'] = 0;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -1398,9 +1433,11 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['style_options']['grouping'] = 'field_cluster';
   $handler->display->display_options['style_options']['columns'] = array(
     'title' => 'title',
-    'edit_node' => 'title',
+    'edit_node' => 'edit_node',
+    'delete_node' => 'edit_node',
     'field_building_count' => 'field_building_count',
     'field_cluster' => 'field_cluster',
+    'field_address' => 'field_address',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -1409,22 +1446,38 @@ This page allows you to preview which members will be printed on the labels. Sel
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
+      'empty_column' => 0,
     ),
     'edit_node' => array(
       'align' => '',
+      'separator' => '<br />',
+      'empty_column' => 0,
+    ),
+    'delete_node' => array(
+      'align' => '',
       'separator' => '',
+      'empty_column' => 0,
     ),
     'field_building_count' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
+      'empty_column' => 0,
     ),
     'field_cluster' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_address' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
     ),
   );
   $handler->display->display_options['style_options']['override'] = 1;
@@ -1453,6 +1506,50 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['edit_node']['text'] = '[edit]';
+  /* Field: Content: Delete link */
+  $handler->display->display_options['fields']['delete_node']['id'] = 'delete_node';
+  $handler->display->display_options['fields']['delete_node']['table'] = 'node';
+  $handler->display->display_options['fields']['delete_node']['field'] = 'delete_node';
+  $handler->display->display_options['fields']['delete_node']['label'] = '';
+  $handler->display->display_options['fields']['delete_node']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['delete_node']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['delete_node']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['delete_node']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['delete_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['delete_node']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['delete_node']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['delete_node']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['delete_node']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['delete_node']['text'] = '[delete]';
   /* Field: Content: Building Count */
   $handler->display->display_options['fields']['field_building_count']['id'] = 'field_building_count';
   $handler->display->display_options['fields']['field_building_count']['table'] = 'field_data_field_building_count';
@@ -1631,9 +1728,11 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'title' => 'title',
-    'edit_node' => 'title',
+    'edit_node' => 'edit_node',
+    'delete_node' => 'edit_node',
     'field_building_count' => 'field_building_count',
     'field_cluster' => 'field_cluster',
+    'field_address' => 'field_address',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -1642,22 +1741,38 @@ This page allows you to preview which members will be printed on the labels. Sel
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
+      'empty_column' => 0,
     ),
     'edit_node' => array(
       'align' => '',
+      'separator' => '<br />',
+      'empty_column' => 0,
+    ),
+    'delete_node' => array(
+      'align' => '',
       'separator' => '',
+      'empty_column' => 0,
     ),
     'field_building_count' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
+      'empty_column' => 0,
     ),
     'field_cluster' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_address' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
     ),
   );
   $handler->display->display_options['style_options']['override'] = 1;
@@ -1666,111 +1781,6 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = 'School';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = 0;
-  $handler->display->display_options['fields']['title']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Content: Building Count */
-  $handler->display->display_options['fields']['field_building_count']['id'] = 'field_building_count';
-  $handler->display->display_options['fields']['field_building_count']['table'] = 'field_data_field_building_count';
-  $handler->display->display_options['fields']['field_building_count']['field'] = 'field_building_count';
-  $handler->display->display_options['fields']['field_building_count']['label'] = 'Count';
-  $handler->display->display_options['fields']['field_building_count']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_building_count']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_building_count']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_building_count']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_building_count']['empty'] = '- unknown -';
-  $handler->display->display_options['fields']['field_building_count']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['empty_zero'] = 1;
-  $handler->display->display_options['fields']['field_building_count']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['field_building_count']['settings'] = array(
-    'thousand_separator' => '',
-    'prefix_suffix' => 1,
-  );
-  $handler->display->display_options['fields']['field_building_count']['field_api_classes'] = 0;
-  /* Field: Content: Cluster */
-  $handler->display->display_options['fields']['field_cluster']['id'] = 'field_cluster';
-  $handler->display->display_options['fields']['field_cluster']['table'] = 'field_data_field_cluster';
-  $handler->display->display_options['fields']['field_cluster']['field'] = 'field_cluster';
-  $handler->display->display_options['fields']['field_cluster']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_cluster']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_cluster']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_cluster']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['element_label_colon'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_cluster']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['field_cluster']['field_api_classes'] = 0;
-  /* Field: Content: Address */
-  $handler->display->display_options['fields']['field_address']['id'] = 'field_address';
-  $handler->display->display_options['fields']['field_address']['table'] = 'field_data_field_address';
-  $handler->display->display_options['fields']['field_address']['field'] = 'field_address';
-  $handler->display->display_options['fields']['field_address']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_address']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_address']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_address']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_address']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_address']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_address']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_address']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_address']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_address']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_address']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_address']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_address']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_address']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_address']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_address']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_address']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_address']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['field_address']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_address']['settings'] = array(
-    'use_widget_handlers' => 1,
-    'format_handlers' => array(
-      'address' => 'address',
-    ),
-  );
-  $handler->display->display_options['fields']['field_address']['field_api_classes'] = 0;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Cluster (field_cluster) */
   $handler->display->display_options['arguments']['field_cluster_nid']['id'] = 'field_cluster_nid';
