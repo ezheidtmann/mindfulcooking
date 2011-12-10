@@ -70,11 +70,10 @@ function patdb_views_views_default_views() {
     ),
   );
   $handler->display->display_options['fields']['field_address']['field_api_classes'] = 0;
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Sort criterion: Content: Title */
+  $handler->display->display_options['sorts']['title']['id'] = 'title';
+  $handler->display->display_options['sorts']['title']['table'] = 'node';
+  $handler->display->display_options['sorts']['title']['field'] = 'title';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -373,15 +372,15 @@ This page allows you to preview which members will be printed on the labels. Sel
     'prefix_suffix' => 1,
   );
   $handler->display->display_options['fields']['field_building_count']['field_api_classes'] = 0;
-  /* Sort criterion: Content: Cluster (field_cluster) */
-  $handler->display->display_options['sorts']['field_cluster_nid']['id'] = 'field_cluster_nid';
-  $handler->display->display_options['sorts']['field_cluster_nid']['table'] = 'field_data_field_cluster';
-  $handler->display->display_options['sorts']['field_cluster_nid']['field'] = 'field_cluster_nid';
-  $handler->display->display_options['sorts']['field_cluster_nid']['relationship'] = 'field_school_nid';
-  /* Sort criterion: Content: School (field_school) */
-  $handler->display->display_options['sorts']['field_school_nid']['id'] = 'field_school_nid';
-  $handler->display->display_options['sorts']['field_school_nid']['table'] = 'field_data_field_school';
-  $handler->display->display_options['sorts']['field_school_nid']['field'] = 'field_school_nid';
+  /* Sort criterion: Content: Title */
+  $handler->display->display_options['sorts']['title']['id'] = 'title';
+  $handler->display->display_options['sorts']['title']['table'] = 'node';
+  $handler->display->display_options['sorts']['title']['field'] = 'title';
+  $handler->display->display_options['sorts']['title']['relationship'] = 'field_school_nid';
+  /* Sort criterion: Content: Title */
+  $handler->display->display_options['sorts']['title_1']['id'] = 'title_1';
+  $handler->display->display_options['sorts']['title_1']['table'] = 'node';
+  $handler->display->display_options['sorts']['title_1']['field'] = 'title';
   $handler->display->display_options['filter_groups']['groups'] = array(
     0 => 'AND',
     1 => 'OR',
