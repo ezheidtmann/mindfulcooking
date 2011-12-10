@@ -223,7 +223,45 @@ function patdb_views_views_default_views() {
   $handler->display->display_options['filters']['field_committee_member_tid']['reduce_duplicates'] = 0;
   $handler->display->display_options['filters']['field_committee_member_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_committee_member_tid']['vocabulary'] = 'committees';
-  $handler->display->display_options['path'] = 'reports/mail-to-home/executive-board.pdf';
+  $handler->display->display_options['path'] = 'reports/mail-to-home/bargaining-committee.pdf';
+
+  /* Display: All Reps */
+  $handler = $view->new_display('mailing', 'All Reps', 'mailing_5');
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'mailing_avery';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Roles (field_roles) */
+  $handler->display->display_options['filters']['field_roles_tid']['id'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['table'] = 'field_data_field_roles';
+  $handler->display->display_options['filters']['field_roles_tid']['field'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['value'] = array(
+    10 => '10',
+  );
+  $handler->display->display_options['filters']['field_roles_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'member' => 'member',
+  );
+  /* Filter criterion: Content: Address (field_address:thoroughfare) */
+  $handler->display->display_options['filters']['field_address_thoroughfare']['id'] = 'field_address_thoroughfare';
+  $handler->display->display_options['filters']['field_address_thoroughfare']['table'] = 'field_data_field_address';
+  $handler->display->display_options['filters']['field_address_thoroughfare']['field'] = 'field_address_thoroughfare';
+  $handler->display->display_options['filters']['field_address_thoroughfare']['operator'] = 'longerthan';
+  $handler->display->display_options['filters']['field_address_thoroughfare']['value'] = '0';
+  $handler->display->display_options['path'] = 'reports/mail-to-home/all-reps.pdf';
   $export['mail_to_home'] = $view;
 
   $view = new view;
