@@ -300,7 +300,7 @@ function _patdb_import_committee_tid($mdb_id) {
 
 function _patdb_import_get_csv($filename, $table, &$index = 'none') {
   $mdb_export = 'mdb-export';
-  $csv = popen($mdb_export .' '. $filename .' '. $table, 'r');
+  $csv = popen($mdb_export .' "'. $filename .'" '. $table, 'r');
   if ($index != 'none') {
     $index = array_flip(fgetcsv($csv));
   }
