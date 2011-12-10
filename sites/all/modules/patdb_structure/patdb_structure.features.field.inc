@@ -149,7 +149,7 @@ function patdb_structure_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_address',
       'label' => 'Name and Address',
-      'required' => 1,
+      'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),

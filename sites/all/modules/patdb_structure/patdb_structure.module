@@ -25,9 +25,16 @@ function patdb_structure_node_presave($node) {
 }
 
 function patdb_structure_set_member_title($node) {
-  $node->title =
-    $node->field_address[$node->language][0]['last_name']
-    .', '. $node->field_address[$node->language][0]['first_name'];
+  if (empty($node->title_is_set)) {
+    $node->title = '[Unnamed Member]';
+    $last = $node->field_address[$node->language][0]['last_name'];
+    $first = $node->field_address[$node->language][0]['first_name'];
+    if ($last || $first) {
+      $first = $last && $first ? ', ' . $first : $first;
+      $node->title = $last . $first;
+    }
+  }
+
   $node->title_is_set = TRUE;
 }
 
