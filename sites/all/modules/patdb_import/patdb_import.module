@@ -34,6 +34,9 @@ function _patdb_import_mdb($filename) {
     $school['fax'] = $row[$index['SchoolFax']];
     $school['building_count'] = $row[$index['BuildingCount']];
 
+    // mail needs to be sent to head rep *iff* the school does not accept PONY
+    $school['pony'] = $row[$index['Mailed']] == 'h' ? 0 : 1;
+
     $school['address']['administrative_area'] = $row[$index['SchoolState']];
     $school['address']['locality'] = $row[$index['SchoolCity']];
     $school['address']['postal_code'] = $row[$index['SchoolZip']];
@@ -334,6 +337,7 @@ function _patdb_import_add_school($school) {
 
   $node->title = $school['name'];
   $node->field_school_type[$node->language][0]['value'] = $school['type'];
+  $node->field_pony[$node->language][0]['value'] = $school['pony'];
   $node->field_office_phone[$node->language][0]['value']
     = _patdb_import_phone_number_prepare($school['phone']);
   $node->field_office_fax[$node->language][0]['value']
