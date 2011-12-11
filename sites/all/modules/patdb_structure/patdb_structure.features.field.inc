@@ -813,7 +813,7 @@ function patdb_structure_field_default_fields() {
             'use_widget_handlers' => 1,
           ),
           'type' => 'addressfield_default',
-          'weight' => '2',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -845,7 +845,7 @@ function patdb_structure_field_default_fields() {
           ),
         ),
         'type' => 'addressfield_standard',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -881,7 +881,7 @@ function patdb_structure_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_integer',
-          'weight' => '5',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -906,7 +906,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -958,7 +958,7 @@ function patdb_structure_field_default_fields() {
           'module' => 'node_reference',
           'settings' => array(),
           'type' => 'node_reference_default',
-          'weight' => '1',
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -979,7 +979,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '6',
+        'weight' => '7',
       ),
     ),
   );
@@ -1022,7 +1022,7 @@ function patdb_structure_field_default_fields() {
           'module' => 'nice_phone_numbers',
           'settings' => array(),
           'type' => 'nice_phone_number',
-          'weight' => '4',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1044,7 +1044,7 @@ function patdb_structure_field_default_fields() {
         'module' => 'nice_phone_numbers',
         'settings' => array(),
         'type' => 'nice_phone_number',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -1087,7 +1087,7 @@ function patdb_structure_field_default_fields() {
           'module' => 'nice_phone_numbers',
           'settings' => array(),
           'type' => 'nice_phone_number',
-          'weight' => '3',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1109,7 +1109,75 @@ function patdb_structure_field_default_fields() {
         'module' => 'nice_phone_numbers',
         'settings' => array(),
         'type' => 'nice_phone_number',
-        'weight' => '3',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-school-field_pony'
+  $fields['node-school-field_pony'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_pony',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => '[NP]',
+          1 => ' ',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'school',
+      'default_value' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => 'If unchecked, the "NP" designation will be added to mailing labels intended for this school.',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => '1',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_pony',
+      'label' => 'Accepts PONY mail',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 1,
+        ),
+        'type' => 'options_onoff',
+        'weight' => '2',
       ),
     ),
   );
@@ -1184,6 +1252,7 @@ function patdb_structure_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Accepts PONY mail');
   t('Address');
   t('Any text entered here is printed on the third line of any "PONY" mailing labels for this member. If the school (entered above) accurately describes this member\'s PPS mail address, leave this field blank. ');
   t('Building Count');
@@ -1193,6 +1262,7 @@ function patdb_structure_field_default_fields() {
   t('Director');
   t('Email Address');
   t('Home Phone');
+  t('If unchecked, the "NP" designation will be added to mailing labels intended for this school.');
   t('Mail Preference');
   t('Mobile Phone');
   t('Name and Address');
