@@ -350,7 +350,7 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['field_pony']['relationship'] = 'field_school_nid';
   $handler->display->display_options['fields']['field_pony']['label'] = '';
   $handler->display->display_options['fields']['field_pony']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_pony']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['field_pony']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_pony']['alter']['text'] = ' ';
   $handler->display->display_options['fields']['field_pony']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_pony']['alter']['absolute'] = 0;
@@ -369,7 +369,6 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['field_pony']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_pony']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_pony']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['field_pony']['type'] = 'list_key';
   $handler->display->display_options['fields']['field_pony']['field_api_classes'] = 0;
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
@@ -631,7 +630,7 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['field_pony']['relationship'] = 'field_school_nid';
   $handler->display->display_options['fields']['field_pony']['label'] = '';
   $handler->display->display_options['fields']['field_pony']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_pony']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['field_pony']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_pony']['alter']['text'] = ' ';
   $handler->display->display_options['fields']['field_pony']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_pony']['alter']['absolute'] = 0;
@@ -650,7 +649,6 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['field_pony']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_pony']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_pony']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['field_pony']['type'] = 'list_key';
   $handler->display->display_options['fields']['field_pony']['field_api_classes'] = 0;
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
