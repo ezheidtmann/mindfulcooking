@@ -37,6 +37,7 @@ class rep_report_pdf extends TCPDF {
   }
 
   function newCluster($cluster, $director) {
+    $this->printSchoolWithWrappingControl();
     $this->cluster_name = $cluster;
     $this->cluster_director_name = $director;
     $this->addPage('L');
@@ -77,6 +78,14 @@ class rep_report_pdf extends TCPDF {
   }
 
   function newSchool($school, $phone) {
+    $this->printSchoolWithWrappingControl();
+
+    $this->school['name' ] = $school;
+    $this->school['phone'] = $phone;
+    $this->members = array();
+  }
+
+  function printSchoolWithWrappingControl() {
     if (isset($this->school['name'])) {
       // print old school, ensuring it stays on one column, if possible
       $this->startTransaction();
@@ -93,10 +102,7 @@ class rep_report_pdf extends TCPDF {
         }
       }
     }
-
-    $this->school['name' ] = $school;
-    $this->school['phone'] = $phone;
-    $this->members = array();
+    unset($this->school['name']);
   }
 
   function newMember($name, $phone, $email) {

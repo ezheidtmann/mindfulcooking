@@ -45,24 +45,54 @@ function patdb_reports_reps_query() {
   $tid_order = ($head_rep->tid > $building_rep->tid) ? 'DESC' : 'ASC';
 
   $q = db_select('node', 'n');
-  $q->join('field_data_field_school', 's', "n.nid = s.entity_id AND s.entity_type = 'node' AND s.deleted = 0");
-  $q->join('field_data_field_cluster', 'c', "s.field_school_nid = c.entity_id AND c.entity_type = 'node' AND c.deleted = 0");
-  $q->join('field_data_field_roles', 'r', "n.nid = r.entity_id AND r.entity_type = 'node' AND r.deleted = 0");
-  $q->join('field_data_field_home_phone', 'p', "n.nid = p.entity_id AND p.entity_type = 'node' AND p.deleted = 0");
-  $q->join('field_data_field_email', 'e', "n.nid = e.entity_id AND e.entity_type = 'node' AND e.deleted = 0");
   $q->addField('n', 'nid', 'nid');
   $q->addField('n', 'title', 'title');
+
+  // Get home phone and email, if present
+  $q->leftJoin('field_data_field_home_phone', 'p',
+    "n.nid = p.entity_id AND p.entity_type = 'node' AND p.deleted = 0");
   $q->addField('p', 'field_home_phone_value', 'home_phone');
+
+  $q->leftJoin('field_data_field_email', 'e',
+    "n.nid = e.entity_id AND e.entity_type = 'node' AND e.deleted = 0");
   $q->addField('e', 'field_email_email', 'email');
+
+  // Get the school nid first:
+  $q->join('field_data_field_school', 's',
+    "n.nid = s.entity_id AND s.entity_type = 'node' AND s.deleted = 0");
   $q->addField('s', 'field_school_nid', 'school_nid');
+
+  // Then the school's title:
+  $q->join('node', 'ns', "ns.nid = s.field_school_nid");
+  $q->addField('ns', 'title', 'school_title');
+  // And the school's office phone, if present:
+  $q->leftJoin('field_data_field_office_phone', 'sp',
+    "ns.nid = sp.entity_id AND sp.entity_type = 'node' AND sp.deleted = 0");
+  $q->addField('sp', 'field_office_phone_value', 'school_office_phone');
+
+  // Cluster field in 'c', node row in 'nc':
+  $q->join('field_data_field_cluster', 'c',
+    "s.field_school_nid = c.entity_id AND c.entity_type = 'node' AND c.deleted = 0");
   $q->addField('c', 'field_cluster_nid', 'cluster_nid');
+
+  $q->join('node', 'nc', "nc.nid = c.field_cluster_nid");
+  $q->addField('nc', 'title', 'cluster_title');
+
+  // Cluster director requires another two-step join:
+  $q->leftJoin('field_data_field_director', 'd', "nc.nid = d.entity_id AND d.entity_type = 'node' AND s.deleted = 0");
+  $q->leftJoin('node', 'nd', "nd.nid = d.field_director_nid");
+  $q->addField('nd', 'title', 'cluster_director_name');
+
+  // Roles are used for ordering, but not in result records.
+  $q->join('field_data_field_roles', 'r',
+    "n.nid = r.entity_id AND r.entity_type = 'node' AND r.deleted = 0");
+
+  // Finally, conditions and ordering.
   $q->condition('n.status', 1)
     ->condition('n.type', 'member')
-    ->condition('s.field_school_nid', 0, '>') // omit members with no school
-    ->condition('c.field_cluster_nid', 0, '>') // omit schools with no cluster
     ->condition('r.field_roles_tid', array($building_rep->tid, $head_rep->tid), 'IN')
-    ->orderBy('cluster_nid')
-    ->orderBy('school_nid')
+    ->orderBy('cluster_title')
+    ->orderBy('school_title')
     ->orderBy('r.field_roles_tid', $tid_order)
     ->orderBy('n.title');
 
@@ -83,6 +113,7 @@ function patdb_reports_reps_by_cluster($filename) {
   }
   else {
     $q = patdb_reports_reps_query();
+    print $q . "\n";
     $result = $q->execute();
 
     // Query results will contain duplicates because we are matching
@@ -97,16 +128,21 @@ function patdb_reports_reps_by_cluster($filename) {
     while ($member = $result->fetchObject()) {
       if (is_null($cluster) || $member->cluster_nid != $cluster->nid) {
         _patdb_reports_rbc_add_members($pdf, $members);
-        $cluster = node_load($member->cluster_nid);
-        $director = node_load($cluster->field_director[$cluster->language][0]['nid']);
-        $director = $director ? $director->title : '[none]';
-        $pdf->newCluster($cluster->title, $director);
+        $cluster = new stdClass;
+        $cluster->nid = $member->cluster_nid;
+        $cluster->title = $member->cluster_title;
+        $cluster->director = $member->cluster_director_name;
+        if (empty($cluster->director)) { $cluster->director = '[none]'; }
+        $pdf->newCluster($cluster->title, $cluster->director);
       }
       if (is_null($school) || $member->school_nid != $school->nid) {
         _patdb_reports_rbc_add_members($pdf, $members);
-        $school = node_load($member->school_nid);
-        $phone = $school->field_office_phone[$school->language][0]['value'];
+        $school = new stdClass;
+        $school->nid = $member->school_nid;
+        $school->title = $member->school_title;
+        $phone = $member->school_office_phone;
         $phone = theme('nice_phone_number', array('number' => $phone));
+
         $pdf->newSchool($school->title, $phone);
       }
       $members['nid_'. $member->nid] = $member;
