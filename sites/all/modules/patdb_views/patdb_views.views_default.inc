@@ -1340,7 +1340,6 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
   $handler->display->display_options['sorts']['title']['field'] = 'title';
-  $handler->display->display_options['sorts']['title']['order'] = 'DESC';
   /* Contextual filter: Content: School (field_school) */
   $handler->display->display_options['arguments']['field_school_nid']['id'] = 'field_school_nid';
   $handler->display->display_options['arguments']['field_school_nid']['table'] = 'field_data_field_school';
