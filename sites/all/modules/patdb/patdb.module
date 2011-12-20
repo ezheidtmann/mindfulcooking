@@ -181,6 +181,13 @@ function _patdb_setup_users() {
   return user_save($rick);
 }
 
+// Set up session_expire module
+function _patdb_setup_sessions() {
+  variable_set('session_expire_age', 1800);
+  variable_set('session_expire_interval', 0);
+  variable_set('session_expire_mode', 1);
+}
+
 function patdb_node_validate($node) {
   if ($node->type == 'member') {
     $chair_tid = $node->field_committee_chair[$node->language][0]['tid'];

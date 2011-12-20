@@ -12,6 +12,7 @@ function patdb_install() {
   _patdb_setup_permissions(); // TODO: Check that this & others succeed
   _patdb_setup_registration();
   _patdb_setup_users();
+  _patdb_setup_sessions();
 }
 
 /**

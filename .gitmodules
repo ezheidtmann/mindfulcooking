@@ -40,3 +40,6 @@
 [submodule "sites/all/modules/mailing_label"]
 	path = sites/all/modules/mailing_label
 	url = ./sites/all/modules/mailing_label
+[submodule "sites/all/modules/session_expire"]
+	path = sites/all/modules/session_expire
+	url = ./sites/all/modules/session_expire

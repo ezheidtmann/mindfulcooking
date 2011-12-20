@@ -8,6 +8,7 @@ dependencies[] = patdb_views
 dependencies[] = patdb_reports
 dependencies[] = pathauto
 dependencies[] = taxonomy_views_switcher
+dependencies[] = session_expire
 ;files[] =
 ;configure =
 
