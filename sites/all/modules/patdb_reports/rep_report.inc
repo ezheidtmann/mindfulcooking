@@ -212,4 +212,10 @@ class rep_report_pdf extends TCPDF {
   private function setFontObj($font) {
     $this->setFont($font->family, $font->style, $font->size_pt);
   }
+
+  // Ensure that the last school is printed.
+  function Close() {
+    $this->printSchoolWithWrappingControl();
+    parent::Close();
+  }
 }
