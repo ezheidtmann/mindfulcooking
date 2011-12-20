@@ -188,6 +188,10 @@ function _patdb_setup_sessions() {
   variable_set('session_expire_mode', 1);
 }
 
+function _patdb_setup_cron() {
+  variable_set('cron_safe_threshold', 3600);
+}
+
 function patdb_node_validate($node) {
   if ($node->type == 'member') {
     $chair_tid = $node->field_committee_chair[$node->language][0]['tid'];

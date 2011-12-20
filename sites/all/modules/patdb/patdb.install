@@ -13,6 +13,7 @@ function patdb_install() {
   _patdb_setup_registration();
   _patdb_setup_users();
   _patdb_setup_sessions();
+  _patdb_setup_cron();
 }
 
 /**
@@ -20,4 +21,11 @@ function patdb_install() {
 */
 function patdb_update_7000(&$sandbox) {
   _patdb_setup_users();
+}
+
+/**
+* Ensure cron is set to once-an-hour
+*/
+function patdb_update_7001(&$sandbox) {
+  _patdb_setup_cron();
 }
