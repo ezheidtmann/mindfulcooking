@@ -39,11 +39,11 @@ function _patdb_setup_menu() {
   );
   menu_link_save($link);
 
-  // Remove "management" block
+  // Remove "management" and "navigation" blocks
   db_update('block')
     ->fields(array('status' => 0))
     ->condition('module', 'system')
-    ->condition('delta', 'management')
+    ->condition('delta', array('management', 'navigation'), 'IN')
     ->execute();
 }
 
