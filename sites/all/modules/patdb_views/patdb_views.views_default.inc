@@ -32,12 +32,6 @@ function patdb_views_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'list';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Content: School (field_school) */
-  $handler->display->display_options['relationships']['field_school_nid']['id'] = 'field_school_nid';
-  $handler->display->display_options['relationships']['field_school_nid']['table'] = 'field_data_field_school';
-  $handler->display->display_options['relationships']['field_school_nid']['field'] = 'field_school_nid';
-  $handler->display->display_options['relationships']['field_school_nid']['required'] = 1;
-  $handler->display->display_options['relationships']['field_school_nid']['delta'] = '-1';
   /* Field: Content: Address */
   $handler->display->display_options['fields']['field_address']['id'] = 'field_address';
   $handler->display->display_options['fields']['field_address']['table'] = 'field_data_field_address';
@@ -117,8 +111,16 @@ function patdb_views_views_default_views() {
 
   /* Display: ES Reps */
   $handler = $view->new_display('mailing', 'ES Reps', 'mailing_1');
-  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'mailing_avery';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Content: School (field_school) */
+  $handler->display->display_options['relationships']['field_school_nid']['id'] = 'field_school_nid';
+  $handler->display->display_options['relationships']['field_school_nid']['table'] = 'field_data_field_school';
+  $handler->display->display_options['relationships']['field_school_nid']['field'] = 'field_school_nid';
+  $handler->display->display_options['relationships']['field_school_nid']['required'] = 1;
+  $handler->display->display_options['relationships']['field_school_nid']['delta'] = '-1';
   $handler->display->display_options['path'] = 'reports/mail-to-home/es-all.pdf';
 
   /* Display: All Preferring Home */
@@ -165,8 +167,10 @@ function patdb_views_views_default_views() {
 
   /* Display: Executive Board */
   $handler = $view->new_display('mailing', 'Executive Board', 'mailing_3');
-  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'mailing_avery';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -196,7 +200,8 @@ function patdb_views_views_default_views() {
 
   /* Display: Bargaining Committee */
   $handler = $view->new_display('mailing', 'Bargaining Committee', 'mailing_4');
-  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'mailing_avery';
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -969,7 +974,6 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
   $handler->display->display_options['sorts']['title']['field'] = 'title';
-  $handler->display->display_options['sorts']['title']['order'] = 'DESC';
   /* Contextual filter: Content: Committee Member (field_committee_member) */
   $handler->display->display_options['arguments']['field_committee_member_tid']['id'] = 'field_committee_member_tid';
   $handler->display->display_options['arguments']['field_committee_member_tid']['table'] = 'field_data_field_committee_member';
