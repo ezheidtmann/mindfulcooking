@@ -141,7 +141,8 @@ function _patdb_import_mdb($filename) {
 
     $member['committee_chair_tid']
       = _patdb_import_committee_tid($row[$index['LookuptoCommittee']]);
-    if ($member['committee_chair_tid']) {
+    if ($member['committee_chair_tid'] &&
+      !in_array($member['committee_chair_tid'], $member['committee_member_tids'])) {
       $member['committee_member_tids'][] = $member['committee_chair_tid'];
     }
 
