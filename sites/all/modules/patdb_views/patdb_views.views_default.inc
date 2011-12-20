@@ -815,11 +815,6 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'table';
-  /* Relationship: Content: Committee Member (field_committee_member) */
-  $handler->display->display_options['relationships']['field_committee_member_tid']['id'] = 'field_committee_member_tid';
-  $handler->display->display_options['relationships']['field_committee_member_tid']['table'] = 'field_data_field_committee_member';
-  $handler->display->display_options['relationships']['field_committee_member_tid']['field'] = 'field_committee_member_tid';
-  $handler->display->display_options['relationships']['field_committee_member_tid']['required'] = 1;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -1025,6 +1020,8 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['arguments']['field_roles_tid']['table'] = 'field_data_field_roles';
   $handler->display->display_options['arguments']['field_roles_tid']['field'] = 'field_roles_tid';
   $handler->display->display_options['arguments']['field_roles_tid']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_roles_tid']['title_enable'] = 1;
+  $handler->display->display_options['arguments']['field_roles_tid']['title'] = 'Role: %1';
   $handler->display->display_options['arguments']['field_roles_tid']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_roles_tid']['default_argument_skip_url'] = 0;
   $handler->display->display_options['arguments']['field_roles_tid']['summary']['number_of_records'] = '0';
@@ -1034,7 +1031,6 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['arguments']['field_roles_tid']['validate']['type'] = 'taxonomy_term';
   $handler->display->display_options['arguments']['field_roles_tid']['validate_options']['vocabularies'] = array(
     'roles' => 'roles',
-    'committees' => 0,
   );
   $handler->display->display_options['arguments']['field_roles_tid']['validate_options']['transform'] = 0;
   $handler->display->display_options['arguments']['field_roles_tid']['break_phrase'] = 0;
