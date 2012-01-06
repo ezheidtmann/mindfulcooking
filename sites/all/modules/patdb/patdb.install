@@ -14,6 +14,7 @@ function patdb_install() {
   _patdb_setup_users();
   _patdb_setup_sessions();
   _patdb_setup_cron();
+  _patdb_setup_add_member_block();
 }
 
 /**
@@ -28,4 +29,11 @@ function patdb_update_7000(&$sandbox) {
 */
 function patdb_update_7001(&$sandbox) {
   _patdb_setup_cron();
+}
+
+/**
+* Configure the "patdb_add_member" block
+*/
+function patdb_update_7002(&$sandbox) {
+  _patdb_setup_add_member_block();
 }
