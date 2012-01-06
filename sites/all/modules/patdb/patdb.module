@@ -192,6 +192,31 @@ function _patdb_setup_cron() {
   variable_set('cron_safe_threshold', 3600);
 }
 
+function _patdb_setup_add_member_block() {
+  _block_rehash(); // load block exported by this module
+
+  $q = db_select('block');
+  $q->addExpression('MAX(weight)');
+  $q->condition('region', 'content');
+  $max_weight = $q->execute()->fetchField();
+
+  // Place block below all others in content region
+  db_update('block')
+    ->fields(array(
+      'region' => 'content',
+      'status' => 1,
+      'weight' => $max_weight + 1, ))
+    ->condition('module', 'patdb')
+    ->condition('delta', 'patdb_add_member')
+    ->execute();
+
+  // Restrict block to show only on school node pages
+  db_merge('block_node_type')
+    ->key(array('module' => 'patdb', 'delta' => 'patdb_add_member'))
+    ->fields(array('type' => 'school'))
+    ->execute();
+}
+
 function patdb_node_validate($node) {
   if ($node->type == 'member') {
     $chair_tid = $node->field_committee_chair[$node->language][0]['tid'];
@@ -209,4 +234,55 @@ function patdb_node_validate($node) {
       t('A committee chair must also be a member of that committee. Please check your input.')
     );
   }
+}
+
+/* Block for member creation form on school pages
+*/
+function patdb_block_info() {
+  $blocks['patdb_add_member'] = array(
+    'info' => t('Add Member Form (with school pre-filled)'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+function patdb_block_view($delta = '') {
+  switch ($delta) {
+    case 'patdb_add_member':
+      return patdb_add_member_form_block();
+    break;
+  }
+}
+
+function patdb_add_member_form_block() {
+  // Get current school nid
+  $school_nid = NULL;
+  if (arg(0) == 'node' && is_numeric(arg(1))) {
+    $node = node_load(arg(1));
+    if ($node->type == 'school') {
+      $school_nid = $node->nid;
+    }
+  }
+
+  // borrowing from node_add() ...
+  global $user;
+  $node = (object) array(
+    'uid' => $user->uid,
+    'name' => (isset($user->name) ? $user->name : ''),
+    'type' => 'member',
+    'language' => LANGUAGE_NONE,
+  );
+
+  if ($school_nid) {
+    $node->field_school = array(LANGUAGE_NONE => array(0 => array('nid' => $school_nid)));
+  }
+
+  // include the node_form functions
+  module_load_include('inc', 'node', 'node.pages');
+  $form = drupal_get_form('member_node_form', $node);
+
+  $block = array();
+  $block['subject'] = t('Add member');
+  $block['content'] = $form;
+  return $block;
 }
