@@ -55,3 +55,6 @@
 [submodule "sites/all/modules/references"]
 	path = sites/all/modules/references
 	url = ./sites/all/modules/references
+[submodule "sites/all/modules/decounter"]
+	path = sites/all/modules/decounter
+	url = ./sites/all/modules/decounter
