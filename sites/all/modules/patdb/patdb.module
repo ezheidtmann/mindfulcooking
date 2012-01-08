@@ -236,6 +236,37 @@ function patdb_node_validate($node) {
   }
 }
 
+/**
+ * Implementation of hook_node_presave
+ *
+ * Recalculate total building count when a school is saved.
+ */
+function patdb_node_presave($node) {
+  if ($node->type == 'school') {
+    _patdb_update_building_count();
+  }
+}
+
+/**
+ * Implementation of hook_flush_caches
+ */
+function patdb_flush_caches() {
+  _patdb_update_building_count();
+}
+
+/**
+ * Compute the sum of all building count fields and save it for later
+ */
+function _patdb_update_building_count() {
+  $q = db_select('field_data_field_building_count');
+  $q->addExpression("SUM(field_building_count_value)");
+  $q->condition('deleted', 0)
+    ->condition('entity_type', 'node');
+  $count = $q->execute()->fetchField();
+
+  variable_set('patdb_total_building_count', $count);
+}
+
 /* Block for member creation form on school pages
 */
 function patdb_block_info() {
