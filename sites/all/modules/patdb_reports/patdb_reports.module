@@ -116,13 +116,18 @@ function patdb_reports_reps_by_cluster($filename) {
     print $q . "\n";
     $result = $q->execute();
 
+    // First, set up the report pdf object
+    patdb_reports_require_tcpdf();
+    $pdf = new rep_report_pdf();
+    $pdf->setCurrentDate(format_date(time()));
+    $pdf->setLastUpdate(format_date(_patdb_reports_last_update()));
+
     // Query results will contain duplicates because we are matching
     // two "role" tids. So we save members as we iterate, indexed by
     // nid to eliminate dupes. A helper function lets us easily
     // output & clear the $members array whenever we reach the end
     // of a school or cluster.
-    patdb_reports_require_tcpdf();
-    $pdf = new rep_report_pdf();
+
     $school = $cluster = NULL;
     $members = array();
     while ($member = $result->fetchObject()) {
@@ -180,14 +185,33 @@ function _patdb_reports_rbc_add_members(&$pdf, &$members) {
   }
 }
 
+/**
+* Implementation of hook_node_delete
+*
+* Clear the cached report when a node of any of our types is deleted
+*/
 function patdb_reports_node_delete($node) {
   if (in_array($node->type, array('member', 'school', 'cluster'))) {
     cache_clear_all('patdb_reports_reps_by_cluster', 'cache');
   }
 }
 
+/**
+* Implementation of hook_node_presave
+*
+* Clear the cached report when a node of any of our type is added or modified
+*/
 function patdb_reports_node_presave($node) {
   if (in_array($node->type, array('member', 'school', 'cluster'))) {
     cache_clear_all('patdb_reports_reps_by_cluster', 'cache');
   }
+}
+
+/**
+* @brief Get the UNIX timestamp for the most recent change to a node
+*/
+function _patdb_reports_last_update() {
+  $q = db_select('node');
+  $q->addExpression('MAX(changed)');
+  return $q->execute()->fetchField();
 }

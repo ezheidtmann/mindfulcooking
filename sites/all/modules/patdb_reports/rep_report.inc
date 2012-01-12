@@ -18,7 +18,7 @@ class rep_report_pdf extends TCPDF {
   function __construct() {
     // landscape, measurements in millimeters, letter size paper
     parent::__construct('L', 'mm', 'letter');
-    
+
     $this->SetMargins(PDF_MARGIN_LEFT, 18, PDF_MARGIN_RIGHT);
     $this->SetHeaderMargin(PDF_MARGIN_HEADER);
     $this->SetFooterMargin(PDF_MARGIN_FOOTER);
@@ -46,7 +46,7 @@ class rep_report_pdf extends TCPDF {
   }
 
   function Header() {
-    // TODO: set font, 
+    // TODO: set font,
     $font = $this->getFont();
 
     $left_text = 'PAT Association Representatives';
@@ -73,8 +73,22 @@ class rep_report_pdf extends TCPDF {
 
   function Footer() {
     // TODO: add current date "data current as of"
-    $page_num = 'Page '. $this->getAliasNumPage() .'/'. $this->getAliasNbPages();
-    $this->Cell(0, 5, $page_num, 0, false, 'C', 0, '', 0, false, 'T', 'M');
+    //$page_num = 'Page '. $this->getAliasNumPage() .'/'. $this->getAliasNbPages();
+    //$this->Cell(0, 5, $page_num, 0, false, 'C', 0, '', 0, false, 'T', 'M');
+    $font = $this->getFont();
+
+    $left_text = 'Report Generated: '. $this->current_formatted_date;
+    $center_text = 'Page '. $this->getAliasNumPage() .'/'. $this->getAliasNbPages();
+    $right_text = 'Last Update: '. $this->last_update_formatted_date;
+
+    $this->setFont('', '', 10);
+    $x = $this->getX();
+    $width = $this->printable_width;
+    $this->Cell($width, $this->getFontSize(), $left_text, 0, 0, 'L', false, NULL, 0, false, 'T', 'T');
+    $this->setX($x);
+    $this->Cell($width, $this->getFontSize(), $center_text, 0, 0, 'C', false, NULL, 0, false, 'T', 'T');
+    $this->setX($x);
+    $this->Cell($width, $this->getFontSize(), $right_text, 0, 0, 'R', false, NULL, 0, false, 'T', 'T');
   }
 
   function newSchool($school, $phone) {
@@ -89,7 +103,7 @@ class rep_report_pdf extends TCPDF {
     if (isset($this->school['name'])) {
       // print old school, ensuring it stays on one column, if possible
       $this->startTransaction();
-      if ($this->printSchoolBlock(TRUE)) { // wrapped column or page 
+      if ($this->printSchoolBlock(TRUE)) { // wrapped column or page
         $this->rollbackTransaction(TRUE); // TRUE => modify self
         $this->startTransaction();
         $this->nextColumn(); // try the next column (this page or next)
@@ -113,10 +127,18 @@ class rep_report_pdf extends TCPDF {
     );
   }
 
+  function setLastUpdate($formatted_date) {
+    $this->last_update_formatted_date = $formatted_date;
+  }
+
+  function setCurrentDate($formatted_date) {
+    $this->current_formatted_date = $formatted_date;
+  }
+
   private function nextColumn() {
     if ($this->getColumn() == 1) {
       $this->addPage();
-    } 
+    }
     else {
       $this->selectColumn(1);
     }
@@ -184,7 +206,7 @@ class rep_report_pdf extends TCPDF {
     $height = isset($this->line_height) ? $this->line_height : $this->getFontSize();
     $this->Cell($max_width, $height, $text,
       0, // border
-      $linebreak ? 1 : 0, // line break 
+      $linebreak ? 1 : 0, // line break
       'L', // left align (L, C, R, J)
       false, // leave background transparent (don't paint)
       NULL, // link identifier
