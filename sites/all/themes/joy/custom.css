@@ -14,11 +14,21 @@ body, #wrapper {
   margin-bottom: 1ex;
 }
 
-.field-name-body img,
+div.img,
 .field-name-field-recipe-photo img {
   float: right;
   margin-left: 1em;
   margin-bottom: 1ex;
+}
+
+div.img {
+  text-align: center;
+  padding: 1em;
+  font-size: 80%;
+}
+
+div.img span {
+  display: block;
 }
 
 textarea#edit-body-und-0-value {
