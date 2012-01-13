@@ -54,7 +54,15 @@ function joy_features_default_page_manager_pages() {
   $display = new panels_display;
   $display->layout = 'twocol_stacked';
   $display->layout_settings = array();
-  $display->panel_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'top' => NULL,
+      'left' => NULL,
+      'right' => NULL,
+      'bottom' => NULL,
+    ),
+  );
   $display->cache = array();
   $display->title = '';
   $display->content = array();
@@ -82,7 +90,9 @@ function joy_features_default_page_manager_pages() {
       'override_title_text' => '',
     );
     $pane->cache = array();
-    $pane->style = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
@@ -105,7 +115,9 @@ function joy_features_default_page_manager_pages() {
       'override_title_text' => '',
     );
     $pane->cache = array();
-    $pane->style = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
@@ -128,7 +140,9 @@ function joy_features_default_page_manager_pages() {
       'override_title_text' => 'Who we are',
     );
     $pane->cache = array();
-    $pane->style = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
@@ -151,12 +165,37 @@ function joy_features_default_page_manager_pages() {
       'override_title_text' => 'Why we are doing this',
     );
     $pane->cache = array();
-    $pane->style = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
     $display->content['new-4'] = $pane;
     $display->panels['top'][1] = 'new-4';
+    $pane = new stdClass;
+    $pane->pid = 'new-5';
+    $pane->panel = 'top';
+    $pane->type = 'custom';
+    $pane->subtype = 'custom';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'admin_title' => '',
+      'title' => 'Our Wider Reach',
+      'body' => 'An article about us and our project appeared in the <a href="http://www.mindfulnessbell.org/">Mindfulness Bell</a>: <a href="http://www.mindfulnessbell.org/articles/mb55-Heidtmann-OneRecipe.pdf">One Recipe at a Time</a>, by Eve Heidtmann, <a href="http://www.mindfulnessbell.org/articles/mb55-complete.pdf">Autumn 2010</a>',
+      'format' => '6',
+      'substitute' => TRUE,
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $display->content['new-5'] = $pane;
+    $display->panels['top'][2] = 'new-5';
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
