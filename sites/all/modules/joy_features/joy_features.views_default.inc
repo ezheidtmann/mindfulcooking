@@ -826,6 +826,14 @@ print $data->field_body[0][\'rendered\'][\'#markup\'];
   $handler->display->display_options['style_options']['columns'] = '5';
   $handler->display->display_options['style_options']['fill_single_line'] = 1;
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['empty'] = FALSE;
+  $handler->display->display_options['header']['area']['content'] = 'This page displays all recipes on the site, sorted by type of dish and ordered alphabetically. You may use the controls below to narrow the list, or scroll down the page to see all recipes.';
+  $handler->display->display_options['header']['area']['format'] = '1';
+  $handler->display->display_options['header']['area']['tokenize'] = 0;
   /* Relationship: Content: Dish Type (taxonomy_vocabulary_3) */
   $handler->display->display_options['relationships']['taxonomy_vocabulary_3_tid']['id'] = 'taxonomy_vocabulary_3_tid';
   $handler->display->display_options['relationships']['taxonomy_vocabulary_3_tid']['table'] = 'field_data_taxonomy_vocabulary_3';
@@ -908,6 +916,18 @@ print $data->field_body[0][\'rendered\'][\'#markup\'];
   $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['type'] = 'select';
   $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['vocabulary'] = 'vocabulary_3';
   $handler->display->display_options['filters']['taxonomy_vocabulary_3_tid']['error_message'] = 1;
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'node';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['operator'] = 'contains';
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Filter by recipe name';
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['required'] = 0;
+  $handler->display->display_options['filters']['title']['expose']['multiple'] = FALSE;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
@@ -1289,6 +1309,14 @@ print $data->field_body[0][\'rendered\'][\'#markup\'];
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'node';
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['empty'] = TRUE;
+  $handler->display->display_options['header']['area']['content'] = 'Use these fields to search for recipes by their attributes. Multiple fields work together to restrict results -- for example, selecting "white beans" and "Main Dish" will exclude any side dishes that use white beans.';
+  $handler->display->display_options['header']['area']['format'] = '1';
+  $handler->display->display_options['header']['area']['tokenize'] = 0;
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
