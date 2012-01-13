@@ -207,10 +207,11 @@ function joy_features_views_default_views() {
   $handler->display->display_options['footer']['text']['content'] = '<a href="/kitchen/add">Post new forum topic</a> - add your voice.';
   $handler->display->display_options['footer']['text']['format'] = '1';
   $handler->display->display_options['footer']['text']['tokenize'] = 0;
-  /* Relationship: Comment: Comments of the node */
-  $handler->display->display_options['relationships']['cid']['id'] = 'cid';
-  $handler->display->display_options['relationships']['cid']['table'] = 'node';
-  $handler->display->display_options['relationships']['cid']['field'] = 'cid';
+  /* Relationship: Comment: Last Comment */
+  $handler->display->display_options['relationships']['cid_1']['id'] = 'cid_1';
+  $handler->display->display_options['relationships']['cid_1']['table'] = 'node_comment_statistics';
+  $handler->display->display_options['relationships']['cid_1']['field'] = 'cid';
+  $handler->display->display_options['relationships']['cid_1']['required'] = 0;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -263,7 +264,7 @@ function joy_features_views_default_views() {
   $handler->display->display_options['fields']['comment']['id'] = 'comment';
   $handler->display->display_options['fields']['comment']['table'] = 'field_data_comment_body';
   $handler->display->display_options['fields']['comment']['field'] = 'comment_body';
-  $handler->display->display_options['fields']['comment']['relationship'] = 'cid';
+  $handler->display->display_options['fields']['comment']['relationship'] = 'cid_1';
   $handler->display->display_options['fields']['comment']['label'] = '';
   $handler->display->display_options['fields']['comment']['exclude'] = TRUE;
   $handler->display->display_options['fields']['comment']['alter']['alter_text'] = 0;
@@ -334,7 +335,7 @@ function joy_features_views_default_views() {
   $handler->display->display_options['fields']['php']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['php']['use_php_setup'] = 0;
   $handler->display->display_options['fields']['php']['php_output'] = '<?php
-if ($data->node_changed < $data->node_comment_statistics_last_comment_timestamp && isset($data->comment_node_cid)) {
+if ($data->node_changed < $data->node_comment_statistics_last_comment_timestamp && isset($data->comment_node_comment_statistics_cid)) {
 print $data->field_comment[0][\'rendered\'][\'#markup\'];
 } else {
 print $data->field_body[0][\'rendered\'][\'#markup\'];
