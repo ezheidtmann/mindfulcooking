@@ -43,3 +43,6 @@
 [submodule "sites/all/modules/session_expire"]
 	path = sites/all/modules/session_expire
 	url = ./sites/all/modules/session_expire
+[submodule "sites/all/modules/git_deploy"]
+	path = sites/all/modules/git_deploy
+	url = ./sites/all/modules/git_deploy
