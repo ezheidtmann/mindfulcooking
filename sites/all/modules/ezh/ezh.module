@@ -19,7 +19,7 @@ function ezh_filter_info() {
 
 function ezh_local_links_process($text, $filter, $format, $langcode, $cache, $cache_id) {
   global $base_url;
-  
+
   // Look for local URLs by $base_url
   // 1) Remove http[s]:// from $base_url
   $base = preg_replace("`^https?://`", '', $base_url);
@@ -35,14 +35,22 @@ function _ezh_url_parse_full_links($match) {
   $match[2] = decode_entities($match[2]);
   $url = check_url(decode_entities($match[2]));
   $path = drupal_get_normal_path($match[5]);
-  
+
   if (preg_match("#^node/([0-9]+)#", $path, $m)) {
     $node = node_load($m[1]);
     $caption = $node->title;
     return $match[1] .'<a href="'. $url .'" title="'. $match[5] .'">'. $caption .'</a>'. $match[6];
-  } 
+  }
   else {
     return $match[0];
+  }
+}
+
+function ezh_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+
+  if ($user->uid == 1) {
+    $form['#attributes']['class'][] = 'show-format-widgets';
   }
 }
 

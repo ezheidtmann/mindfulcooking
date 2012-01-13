@@ -38,3 +38,7 @@ textarea#edit-body-und-0-value {
 fieldset.filter-wrapper {
   display: none;
 }
+
+.show-format-widgets fieldset.filter-wrapper {
+  display: block;
+}
