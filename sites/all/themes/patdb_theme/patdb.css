@@ -19,3 +19,12 @@ td.views-field-field-address {
   width: 1em;
   white-space: nowrap;
 }
+
+/* Hide "add member" form block initially */
+#block-patdb-patdb-add-member .content {
+  display: none;
+}
+
+#block-patdb-patdb-add-member h2 a {
+  cursor: pointer;
+}

@@ -2,6 +2,7 @@ name = PAT-DB Theme
 description = Bartik sub-theme
 base theme = bartik
 stylesheets[all][] = patdb.css
+scripts[] = patdb.js
 version = VERSION
 core = 7.x
 
