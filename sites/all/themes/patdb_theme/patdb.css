@@ -1,2 +1,21 @@
-.submitted .updated {
+/* Prevent wrapping within role or committee name, and member or school name */
+td.views-field-field-roles a,
+td.views-field-field-committee-chair a,
+td.views-field-field-committee-member a,
+td.views-field-title {
+  white-space: nowrap;
+}
+
+/*
+* For building count, edit/delete links, and address columns,
+* we force a minimum width and prevent breaking.
+*/
+th.views-field-field-building-count,
+td.views-field-field-building-count,
+th.views-field-edit-node,
+td.views-field-edit-node,
+th.views-field-field-address,
+td.views-field-field-address {
+  width: 1em;
+  white-space: nowrap;
 }
