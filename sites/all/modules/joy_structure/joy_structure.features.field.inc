@@ -186,12 +186,7 @@ function joy_structure_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'srecipe',
-      'default_value' => array(
-        0 => array(
-          'value' => '',
-          '_error_element' => 'default_value_widget][field_ingredients_text][0][value',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Enter one ingredient per line as quantity, unit, and ingredient name. For example: "3 C water," "1 1/2 t salt." ',
       'display' => array(
@@ -226,19 +221,17 @@ function joy_structure_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_ingredients_text',
       'label' => 'Ingredients',
-      'required' => FALSE,
+      'required' => 0,
       'settings' => array(
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
       'weight' => '1',
       'widget' => array(
-        'active' => '0',
+        'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'default_value_php' => NULL,
           'rows' => '7',
-          'size' => 60,
         ),
         'type' => 'text_textarea',
         'weight' => '1',
@@ -281,13 +274,7 @@ function joy_structure_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'srecipe',
-      'default_value' => array(
-        0 => array(
-          'value' => '',
-          'format' => '1',
-          '_error_element' => 'default_value_widget][field_instructions][0][value',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Enter preparation instructions as prose. If there are no instructions, leave this field completely blank.',
       'display' => array(
@@ -322,19 +309,17 @@ function joy_structure_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_instructions',
       'label' => 'Instructions',
-      'required' => FALSE,
+      'required' => 0,
       'settings' => array(
         'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
       'weight' => '2',
       'widget' => array(
-        'active' => '0',
+        'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'default_value_php' => NULL,
           'rows' => '5',
-          'size' => 60,
         ),
         'type' => 'text_textarea',
         'weight' => '2',
