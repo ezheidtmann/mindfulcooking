@@ -525,7 +525,6 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['filters']['field_school_type_value']['relationship'] = 'field_school_nid';
   $handler->display->display_options['filters']['field_school_type_value']['operator'] = 'not in';
   $handler->display->display_options['filters']['field_school_type_value']['value'] = array(
-    'other' => 'other',
     'virtual' => 'virtual',
   );
   $handler->display->display_options['filters']['field_school_type_value']['group'] = 1;
@@ -792,7 +791,6 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['filters']['field_school_type_value']['relationship'] = 'field_school_nid';
   $handler->display->display_options['filters']['field_school_type_value']['operator'] = 'not in';
   $handler->display->display_options['filters']['field_school_type_value']['value'] = array(
-    'other' => 'other',
     'virtual' => 'virtual',
   );
   $handler->display->display_options['filters']['field_school_type_value']['group'] = 1;
@@ -1158,7 +1156,7 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Edit link */
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['label'] = '';
   $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
@@ -1180,7 +1178,7 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['edit_node']['text'] = '[edit]';
   /* Field: Content: Delete link */
   $handler->display->display_options['fields']['delete_node']['id'] = 'delete_node';
-  $handler->display->display_options['fields']['delete_node']['table'] = 'node';
+  $handler->display->display_options['fields']['delete_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['delete_node']['field'] = 'delete_node';
   $handler->display->display_options['fields']['delete_node']['label'] = '';
   $handler->display->display_options['fields']['delete_node']['alter']['alter_text'] = 0;
@@ -1644,7 +1642,7 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Edit link */
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['label'] = '';
   $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
@@ -1666,7 +1664,7 @@ This page allows you to preview which members will be printed on the labels. Sel
   $handler->display->display_options['fields']['edit_node']['text'] = '[edit]';
   /* Field: Content: Delete link */
   $handler->display->display_options['fields']['delete_node']['id'] = 'delete_node';
-  $handler->display->display_options['fields']['delete_node']['table'] = 'node';
+  $handler->display->display_options['fields']['delete_node']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['delete_node']['field'] = 'delete_node';
   $handler->display->display_options['fields']['delete_node']['label'] = '';
   $handler->display->display_options['fields']['delete_node']['alter']['alter_text'] = 0;
