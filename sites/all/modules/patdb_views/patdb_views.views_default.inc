@@ -11,6 +11,202 @@ function patdb_views_views_default_views() {
   $export = array();
 
   $view = new view;
+  $view->name = 'email_members';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Email Members';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Email Members';
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: PHP */
+  $handler->display->display_options['header']['php']['id'] = 'php';
+  $handler->display->display_options['header']['php']['table'] = 'views';
+  $handler->display->display_options['header']['php']['field'] = 'php';
+  $handler->display->display_options['header']['php']['label'] = 'Email links';
+  $handler->display->display_options['header']['php']['empty'] = TRUE;
+  $handler->display->display_options['header']['php']['php_output'] = '<?php 
+
+$addresses = array();
+foreach ($results as $result) {
+  $addresses[] = \'"\'. $result->node_title .\'" <\'. $result->field_field_email[0][\'rendered\'][\'#markup\'] .\'>\';
+} 
+
+$addresses_text = implode(\', \', $addresses);
+
+$to_href = \'mailto:\'. htmlentities($addresses_text);
+ ?>
+Use the filters below to choose the members to which you would like to send an email. Once you have made your choices, click Apply. You may then select the addresses listed, or click this link to open a blank email:<br>
+<a href="<?php echo $to_href; ?>">Email listed members</a>';
+  /* Relationship: Content: School (field_school) */
+  $handler->display->display_options['relationships']['field_school_nid']['id'] = 'field_school_nid';
+  $handler->display->display_options['relationships']['field_school_nid']['table'] = 'field_data_field_school';
+  $handler->display->display_options['relationships']['field_school_nid']['field'] = 'field_school_nid';
+  $handler->display->display_options['relationships']['field_school_nid']['required'] = 0;
+  $handler->display->display_options['relationships']['field_school_nid']['delta'] = '0';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 0;
+  /* Field: Content: Email Address */
+  $handler->display->display_options['fields']['field_email']['id'] = 'field_email';
+  $handler->display->display_options['fields']['field_email']['table'] = 'field_data_field_email';
+  $handler->display->display_options['fields']['field_email']['field'] = 'field_email';
+  $handler->display->display_options['fields']['field_email']['label'] = '';
+  $handler->display->display_options['fields']['field_email']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_email']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_email']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_email']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_email']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_email']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_email']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_email']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_email']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_email']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_email']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_email']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_email']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_email']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_email']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_email']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_email']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_email']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_email']['type'] = 'email_plain';
+  $handler->display->display_options['fields']['field_email']['field_api_classes'] = 0;
+  /* Field: Named address text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Named address text';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '"[title]" <[field_email]>,';
+  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['nothing']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['nothing']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['nothing']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nothing']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['nothing']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['nothing']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['nothing']['hide_alter_empty'] = 0;
+  /* Sort criterion: Content: Title */
+  $handler->display->display_options['sorts']['title']['id'] = 'title';
+  $handler->display->display_options['sorts']['title']['table'] = 'node';
+  $handler->display->display_options['sorts']['title']['field'] = 'title';
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'member' => 'member',
+  );
+  /* Filter criterion: Content: Roles (field_roles) */
+  $handler->display->display_options['filters']['field_roles_tid']['id'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['table'] = 'field_data_field_roles';
+  $handler->display->display_options['filters']['field_roles_tid']['field'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['value'] = array(
+    15 => '15',
+    10 => '10',
+    14 => '14',
+    17 => '17',
+    12 => '12',
+    16 => '16',
+    11 => '11',
+    13 => '13',
+  );
+  $handler->display->display_options['filters']['field_roles_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['operator_id'] = 'field_roles_tid_op';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['label'] = 'Role';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['operator'] = 'field_roles_tid_op';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['identifier'] = 'field_roles_tid';
+  $handler->display->display_options['filters']['field_roles_tid']['expose']['reduce'] = 0;
+  $handler->display->display_options['filters']['field_roles_tid']['reduce_duplicates'] = 0;
+  $handler->display->display_options['filters']['field_roles_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_roles_tid']['vocabulary'] = 'roles';
+  $handler->display->display_options['filters']['field_roles_tid']['error_message'] = 0;
+  /* Filter criterion: Content: Email Address (field_email) */
+  $handler->display->display_options['filters']['field_email_email']['id'] = 'field_email_email';
+  $handler->display->display_options['filters']['field_email_email']['table'] = 'field_data_field_email';
+  $handler->display->display_options['filters']['field_email_email']['field'] = 'field_email_email';
+  $handler->display->display_options['filters']['field_email_email']['operator'] = 'longerthan';
+  $handler->display->display_options['filters']['field_email_email']['value'] = '0';
+  /* Filter criterion: Content: School (field_school) */
+  $handler->display->display_options['filters']['field_school_nid']['id'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_nid']['table'] = 'field_data_field_school';
+  $handler->display->display_options['filters']['field_school_nid']['field'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_nid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_school_nid']['expose']['operator_id'] = 'field_school_nid_op';
+  $handler->display->display_options['filters']['field_school_nid']['expose']['label'] = 'School';
+  $handler->display->display_options['filters']['field_school_nid']['expose']['operator'] = 'field_school_nid_op';
+  $handler->display->display_options['filters']['field_school_nid']['expose']['identifier'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_nid']['expose']['remember'] = 1;
+  $handler->display->display_options['filters']['field_school_nid']['expose']['reduce'] = 0;
+  /* Filter criterion: Content: School Type (field_school_type) */
+  $handler->display->display_options['filters']['field_school_type_value']['id'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['table'] = 'field_data_field_school_type';
+  $handler->display->display_options['filters']['field_school_type_value']['field'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['relationship'] = 'field_school_nid';
+  $handler->display->display_options['filters']['field_school_type_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_school_type_value']['expose']['operator_id'] = 'field_school_type_value_op';
+  $handler->display->display_options['filters']['field_school_type_value']['expose']['label'] = 'School Type';
+  $handler->display->display_options['filters']['field_school_type_value']['expose']['operator'] = 'field_school_type_value_op';
+  $handler->display->display_options['filters']['field_school_type_value']['expose']['identifier'] = 'field_school_type_value';
+  $handler->display->display_options['filters']['field_school_type_value']['expose']['remember'] = 1;
+  $handler->display->display_options['filters']['field_school_type_value']['expose']['reduce'] = 0;
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'reports/email';
+  $export['email_members'] = $view;
+
+  $view = new view;
   $view->name = 'mail_to_home';
   $view->description = '';
   $view->tag = 'default';
