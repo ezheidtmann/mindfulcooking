@@ -1,9 +1,6 @@
 [submodule "sites/all/modules/captcha"]
 	path = sites/all/modules/captcha
 	url = ./sites/all/modules/captcha
-[submodule "sites/all/modules/cck"]
-	path = sites/all/modules/cck
-	url = ./sites/all/modules/cck
 [submodule "sites/all/modules/customerror"]
 	path = sites/all/modules/customerror
 	url = ./sites/all/modules/customerror
