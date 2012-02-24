@@ -61,3 +61,6 @@
 [submodule "sites/all/modules/auto_nodetitle"]
 	path = sites/all/modules/auto_nodetitle
 	url = ./sites/all/modules/auto_nodetitle
+[submodule "sites/all/modules/git_deploy"]
+	path = sites/all/modules/git_deploy
+	url = ./sites/all/modules/git_deploy
