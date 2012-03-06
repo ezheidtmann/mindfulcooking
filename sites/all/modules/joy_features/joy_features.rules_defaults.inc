@@ -20,15 +20,15 @@ function joy_features_default_rules_configuration() {
       "DO" : [
         { "mail" : {
             "to" : "eve@mindfulcooking.org",
-            "subject" : "mindfulcooking.org activity: \\"[node:title]\\"",
-            "message" : "Posted by [node:author]:\\r\\n\\r\\n[node:title]\\r\\n\\r\\n[node:body]\\r\\n\\r\\n[site:url]node\\/[node:nid]"
+            "subject" : "mindfulcooking.org activity: \\u0022[node:title]\\u0022",
+            "message" : "Posted by [node:author]:\\u000D\\u000A\\u000D\\u000A[node:title]\\u000D\\u000A\\u000D\\u000A[node:body]\\u000D\\u000A\\u000D\\u000A[site:url]node\\u002F[node:nid]"
           }
         }
       ]
     }
   }');
   $items['2'] = entity_import('rules_config', '{ "2" : {
-      "LABEL" : "Notify eve of new comments she didn\'t make",
+      "LABEL" : "Notify eve of new comments she didn\\u0027t make",
       "PLUGIN" : "reaction rule",
       "REQUIRES" : [ "rules", "comment" ],
       "ON" : [ "comment_presave" ],
@@ -38,8 +38,8 @@ function joy_features_default_rules_configuration() {
       "DO" : [
         { "mail" : {
             "to" : "eve@mindfulcooking.org",
-            "subject" : "mindfulcooking.org activity: \\"[comment:subject]\\"",
-            "message" : "Posted by [comment:author]: \\r\\n\\r\\n[comment:subject]\\r\\n\\r\\n[comment:body]\\r\\n\\r\\n[site:url]node\\/[comment:node:nid]#comment-[comment:cid]\\r\\n"
+            "subject" : "mindfulcooking.org activity: \\u0022[comment:subject]\\u0022",
+            "message" : "Posted by [comment:author]: \\u000D\\u000A\\u000D\\u000A[comment:subject]\\u000D\\u000A\\u000D\\u000A[comment:body]\\u000D\\u000A\\u000D\\u000A[site:url]node\\u002F[comment:node:nid]#comment-[comment:cid]\\u000D\\u000A"
           }
         }
       ]
@@ -52,7 +52,7 @@ function joy_features_default_rules_configuration() {
       "REQUIRES" : [ "php", "rules", "comment" ],
       "ON" : [ "comment_update" ],
       "IF" : [
-        { "php_eval" : { "code" : "return ($comment-\\u003estatus \\u0026\\u0026 !($comment_unchanged-\\u003estatus));" } },
+        { "php_eval" : { "code" : "return ($comment-\\u003Estatus \\u0026\\u0026 !($comment_unchanged-\\u003Estatus));" } },
         { "user_has_role" : {
             "account" : [ "site:current-user" ],
             "roles" : { "value" : { "6" : "6", "4" : "4", "5" : "5" } },
@@ -72,7 +72,7 @@ function joy_features_default_rules_configuration() {
             "roles" : { "value" : { "6" : "6" } }
           }
         },
-        { "drupal_message" : { "message" : "The user \\"[comment:author]\\" is now listed as a trusted user." } }
+        { "drupal_message" : { "message" : "The user \\u0022[comment:author]\\u0022 is now listed as a trusted user." } }
       ]
     }
   }');
@@ -98,7 +98,7 @@ function joy_features_default_rules_configuration() {
       ],
       "DO" : [
         { "user_block" : { "account" : [ "comment:author" ] } },
-        { "drupal_message" : { "message" : "User \\"[comment:author]\\" has been blocked." } }
+        { "drupal_message" : { "message" : "User \\u0022[comment:author]\\u0022 has been blocked." } }
       ]
     }
   }');
@@ -121,7 +121,7 @@ function joy_features_default_rules_configuration() {
       ]
     }
   }');
-  $items['6'] = entity_import('rules_config', '{ "rules_trust_users_whose_content_is_published_by_admin" : {
+  $items['6'] = entity_import('rules_config', '{ "6" : {
       "LABEL" : "Trust users whose content is published by admin",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "trusted users" ],
@@ -143,7 +143,7 @@ function joy_features_default_rules_configuration() {
       ]
     }
   }');
-  $items['7'] = entity_import('rules_config', '{ "rules_block_untrusted_users_whose_content_is_deleted_by_admin" : {
+  $items['7'] = entity_import('rules_config', '{ "7" : {
       "LABEL" : "Block untrusted users whose content is deleted by admin",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "trusted users" ],
