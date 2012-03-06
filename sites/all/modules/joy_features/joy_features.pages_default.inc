@@ -96,6 +96,7 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
+    $pane->locks = '';
     $display->content['new-1'] = $pane;
     $display->panels['left'][0] = 'new-1';
     $pane = new stdClass;
@@ -121,6 +122,7 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
+    $pane->locks = '';
     $display->content['new-2'] = $pane;
     $display->panels['right'][0] = 'new-2';
     $pane = new stdClass;
@@ -146,6 +148,7 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
+    $pane->locks = '';
     $display->content['new-3'] = $pane;
     $display->panels['top'][0] = 'new-3';
     $pane = new stdClass;
@@ -171,6 +174,7 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
+    $pane->locks = '';
     $display->content['new-4'] = $pane;
     $display->panels['top'][1] = 'new-4';
     $pane = new stdClass;
@@ -183,7 +187,7 @@ function joy_features_default_page_manager_pages() {
     $pane->configuration = array(
       'admin_title' => '',
       'title' => 'Our Wider Reach',
-      'body' => 'An article about us and our project appeared in the <a href="http://www.mindfulnessbell.org/">Mindfulness Bell</a>: <a href="http://www.mindfulnessbell.org/articles/mb55-Heidtmann-OneRecipe.pdf">One Recipe at a Time</a>, by Eve Heidtmann, <a href="http://www.mindfulnessbell.org/articles/mb55-complete.pdf">Autumn 2010</a>',
+      'body' => 'We\'ve been published! Last year, Eve wrote an article about us and our project for the Mindfulness Bell, and it was published in the Autumn 2010 issue. To read it, <a href="http://www.mindfulnessbell.org/articles/mb55-Heidtmann-OneRecipe.pdf">download the article</a> or <a href="http://www.mindfulnessbell.org/articles/mb55.pdf">download the full issue</a> and flip to page 40. The <a href="http://www.mindfulnessbell.org/">Mindfulness Bell</a> is a journal of the art of mindful living, and we are pleased to have been represented in this larger community space.',
       'format' => '6',
       'substitute' => TRUE,
     );
@@ -194,6 +198,7 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 2;
+    $pane->locks = '';
     $display->content['new-5'] = $pane;
     $display->panels['top'][2] = 'new-5';
   $display->hide_title = PANELS_TITLE_NONE;
@@ -253,7 +258,7 @@ function joy_features_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
-    $pane->pid = 'new-1';
+    $pane->pid = 'new-6';
     $pane->panel = 'bottom';
     $pane->type = 'node';
     $pane->subtype = 'node';
@@ -276,10 +281,11 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-1'] = $pane;
-    $display->panels['bottom'][0] = 'new-1';
+    $pane->locks = '';
+    $display->content['new-6'] = $pane;
+    $display->panels['bottom'][0] = 'new-6';
     $pane = new stdClass;
-    $pane->pid = 'new-2';
+    $pane->pid = 'new-7';
     $pane->panel = 'left';
     $pane->type = 'views';
     $pane->subtype = 'recipe_image';
@@ -308,10 +314,11 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-2'] = $pane;
-    $display->panels['left'][0] = 'new-2';
+    $pane->locks = '';
+    $display->content['new-7'] = $pane;
+    $display->panels['left'][0] = 'new-7';
     $pane = new stdClass;
-    $pane->pid = 'new-3';
+    $pane->pid = 'new-8';
     $pane->panel = 'left';
     $pane->type = 'views';
     $pane->subtype = 'forums_active';
@@ -340,10 +347,11 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
-    $display->content['new-3'] = $pane;
-    $display->panels['left'][1] = 'new-3';
+    $pane->locks = '';
+    $display->content['new-8'] = $pane;
+    $display->panels['left'][1] = 'new-8';
     $pane = new stdClass;
-    $pane->pid = 'new-4';
+    $pane->pid = 'new-9';
     $pane->panel = 'right';
     $pane->type = 'views';
     $pane->subtype = 'new_recipes';
@@ -372,10 +380,11 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-4'] = $pane;
-    $display->panels['right'][0] = 'new-4';
+    $pane->locks = '';
+    $display->content['new-9'] = $pane;
+    $display->panels['right'][0] = 'new-9';
     $pane = new stdClass;
-    $pane->pid = 'new-5';
+    $pane->pid = 'new-10';
     $pane->panel = 'right';
     $pane->type = 'views';
     $pane->subtype = 'nodequeue_1';
@@ -407,10 +416,11 @@ function joy_features_default_page_manager_pages() {
     );
     $pane->extras = array();
     $pane->position = 1;
-    $display->content['new-5'] = $pane;
-    $display->panels['right'][1] = 'new-5';
+    $pane->locks = '';
+    $display->content['new-10'] = $pane;
+    $display->panels['right'][1] = 'new-10';
     $pane = new stdClass;
-    $pane->pid = 'new-6';
+    $pane->pid = 'new-11';
     $pane->panel = 'right';
     $pane->type = 'custom';
     $pane->subtype = 'custom';
@@ -430,10 +440,11 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 2;
-    $display->content['new-6'] = $pane;
-    $display->panels['right'][2] = 'new-6';
+    $pane->locks = '';
+    $display->content['new-11'] = $pane;
+    $display->panels['right'][2] = 'new-11';
     $pane = new stdClass;
-    $pane->pid = 'new-7';
+    $pane->pid = 'new-12';
     $pane->panel = 'top';
     $pane->type = 'node';
     $pane->subtype = 'node';
@@ -458,8 +469,9 @@ function joy_features_default_page_manager_pages() {
     );
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-7'] = $pane;
-    $display->panels['top'][0] = 'new-7';
+    $pane->locks = '';
+    $display->content['new-12'] = $pane;
+    $display->panels['top'][0] = 'new-12';
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
@@ -520,7 +532,7 @@ function joy_features_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
-    $pane->pid = 'new-1';
+    $pane->pid = 'new-13';
     $pane->panel = 'middle';
     $pane->type = 'block';
     $pane->subtype = 'search-0';
@@ -537,10 +549,11 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-1'] = $pane;
-    $display->panels['middle'][0] = 'new-1';
+    $pane->locks = '';
+    $display->content['new-13'] = $pane;
+    $display->panels['middle'][0] = 'new-13';
     $pane = new stdClass;
-    $pane->pid = 'new-2';
+    $pane->pid = 'new-14';
     $pane->panel = 'middle';
     $pane->type = 'views';
     $pane->subtype = 'recipe_search';
@@ -569,8 +582,9 @@ function joy_features_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
-    $display->content['new-2'] = $pane;
-    $display->panels['middle'][1] = 'new-2';
+    $pane->locks = '';
+    $display->content['new-14'] = $pane;
+    $display->panels['middle'][1] = 'new-14';
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
