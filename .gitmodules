@@ -61,3 +61,6 @@
 [submodule "sites/all/modules/git_deploy"]
 	path = sites/all/modules/git_deploy
 	url = ./sites/all/modules/git_deploy
+[submodule "sites/all/modules/mc_units"]
+	path = sites/all/modules/mc_units
+	url = ./sites/all/modules/mc_units
