@@ -509,6 +509,7 @@ function joy_structure_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
+        'default_image' => 0,
         'file_directory' => 'recipe-images',
         'file_extensions' => 'png gif jpg jpeg',
         'max_filesize' => '',
@@ -566,12 +567,7 @@ function joy_structure_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'srecipe',
-      'default_value' => array(
-        0 => array(
-          'value' => '',
-          '_error_element' => 'default_value_widget][field_recipe_source][0][value',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Chef or Cook originally responsible for the recipe. For example: "Martha Stewart," "Prison Cooking by Martha Stewart," "Based on a recipe from The Joy of Cooking."',
       'display' => array(
@@ -606,18 +602,16 @@ function joy_structure_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_recipe_source',
       'label' => 'Source',
-      'required' => FALSE,
+      'required' => 0,
       'settings' => array(
-        'text_processing' => '0',
+        'text_processing' => '1',
         'user_register_form' => FALSE,
       ),
       'weight' => '-3',
       'widget' => array(
-        'active' => '0',
+        'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'default_value_php' => NULL,
-          'rows' => 5,
           'size' => '60',
         ),
         'type' => 'text_textfield',
