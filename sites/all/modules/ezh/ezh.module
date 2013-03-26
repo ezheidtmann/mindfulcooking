@@ -37,8 +37,10 @@ function _ezh_url_parse_full_links($match) {
   $path = drupal_get_normal_path($match[5]);
 
   if (preg_match("#^node/([0-9]+)#", $path, $m)) {
-    $node = node_load($m[1]);
-    $caption = $node->title;
+    // It would be cool to do a node_load() here, but that has the side
+    // effect of running all the filters for that node, which includes
+    // this filter right here. Infinite recursion results. Barf-o-rama.
+    $caption = db_query('SELECT title FROM {node} WHERE nid = :nid', array(':nid' => $m[1]))->fetchField();
     return $match[1] .'<a href="'. $url .'" title="'. $match[5] .'">'. $caption .'</a>'. $match[6];
   }
   else {
