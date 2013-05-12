@@ -1,0 +1,17 @@
+.mc-units-known .mc-units-system-metric,
+.mc-units-disclaimer {
+  display: none;
+}
+
+.mc-units-ops {
+  line-height: 1.3em;
+  font-size: 8pt;
+  color: gray;
+  padding-bottom: 1em;
+}
+
+.mc-units-ops a {
+  cursor: pointer;
+  color: #990009;
+}
+

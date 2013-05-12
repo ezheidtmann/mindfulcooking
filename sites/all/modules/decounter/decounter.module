@@ -1,0 +1,111 @@
+<?php
+
+/**
+ *  _menu
+ */
+function decounter_menu() {
+  $items = array();
+
+  $items['admin/config/system/statistics/statistics'] = array(
+    'title' => 'Statistics',
+    'access arguments' => array('administer statistics'),
+    'weight' => -10,
+    'type' => MENU_DEFAULT_LOCAL_TASK
+  );
+
+  $items['admin/config/system/statistics/decounter'] = array(
+    'title' => 'Decounter',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('decounter_settings_form'),
+    'access arguments' => array('administer statistics'),
+    'weight' => 10,
+    'type' => MENU_LOCAL_TASK
+  );
+
+  return $items;
+}
+
+
+/**
+ *  Decounter settings form
+ */
+function decounter_settings_form($form, &$form_state) {
+  if (!variable_get('statistics_count_content_views', 0)) {
+    drupal_set_message(t('You have to enable content viewing counter!'), 'warning');
+  }
+
+  $form['info']['#markup'] = '<p>'. t('Here you can set which users will be excluded from content viewing counter. You can specify users by role, id and authorship.') .'</p>';
+
+  $roles = user_roles();
+  $form['decounter_roles'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Exclude by role'),
+    '#options' => $roles,
+    '#default_value' => variable_get('decounter_roles', array())
+  );
+
+  $form['decounter_uids'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Exclude by UID'),
+    '#default_value' => variable_get('decounter_uids', 1),
+    '#description' => t('Exclude multiple users by typing theirs UIDs separated by comma. <b>For example: 1,2,3</b>')
+  );
+
+  $form['decounter_author'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Exclude by authorship'),
+    '#default_value' => variable_get('decounter_author', 0)
+  );
+
+  return system_settings_form($form);
+}
+
+
+/**
+ *  _exit
+ */
+function decounter_exit() {
+  if (variable_get('statistics_count_content_views', 0)) {
+    global $user;
+
+    if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
+      $exclroles = variable_get('decounter_roles', array());
+      $excluids = variable_get('decounter_uids', 1);
+      $exclauthor = variable_get('decounter_author', 0);
+      $exclude = FALSE;
+
+      // node_load is using static cache so we are not querying database twice
+      $node = node_load(arg(1));
+      if ($node->uid == $user->uid && $exclauthor == 1) {
+        $exclude = TRUE;
+      }
+
+      foreach ($exclroles AS $exclrole => $exclvalue) {
+        if ($exclvalue == $exclrole && isset($user->roles[$exclrole])) {
+          $exclude = TRUE;
+          break;
+        }
+      }
+
+      $excluids = str_replace(' ', '', $excluids);
+      $excluids = explode(',', $excluids);
+      if (!empty($excluids)) {
+        if (in_array($user->uid, $excluids)) {
+          $exclude = TRUE;
+        }
+      }
+
+      if ($exclude) {
+        db_merge('node_counter')
+          ->key(array('nid' => arg(1)))
+          ->fields(array(
+            'daycount' => 1,
+            'totalcount' => 1,
+          ))
+          ->expression('daycount', 'daycount - 1')
+          ->expression('totalcount', 'totalcount - 1')
+        ->execute();
+      }
+    }
+  }
+}

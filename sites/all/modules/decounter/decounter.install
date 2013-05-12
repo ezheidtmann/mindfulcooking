@@ -1,0 +1,18 @@
+<?php
+
+
+/**
+ *  _install
+ */
+function decounter_install() {
+  db_query("UPDATE {system} SET weight = 10 WHERE name = 'decounter'");
+}
+
+/**
+ *  _uninstall
+ */
+function decounter_uninstall() {
+  variable_del('decounter_roles');
+  variable_del('decounter_uids');
+  variable_del('decounter_author');
+}

@@ -1,0 +1,289 @@
+<?php
+
+define('MC_UNIT_CUP', 'cup');
+define('MC_UNIT_TEASPOON', 'tsp');
+define('MC_UNIT_TABLESPOON', 'tbsp');
+define('MC_UNIT_UNKNOWN', 'unknown');
+define('MC_UNIT_ML', 'ml');
+define('MC_UNIT_POUND', 'pound');
+define('MC_UNIT_OUNCE', 'ounce');
+define('MC_UNIT_KG', 'kg');
+define('MC_UNIT_GRAM', 'g');
+define('MC_UNIT_SYSTEM_ENGLISH', 'english');
+define('MC_UNIT_SYSTEM_METRIC', 'metric');
+define('MC_UNIT_TYPE_VOLUME', 'VOL');
+define('MC_UNIT_TYPE_WEIGHT', 'WEIGHT');
+
+class mc_unit_value {
+  private $original_unit;
+  private $original_value;
+
+  private $unit_code;
+  private $unit_system;
+  private $unit_type;
+  private $value;
+
+  // TODO: define unit constants
+
+  public static $english_volume = array(
+    MC_UNIT_CUP => array(
+      'singular' => 'cup',
+      'plural' => 'cups',
+      'abbrevs' => array('c', 'C'),
+      'teaspoons' => 48,
+    ),
+    MC_UNIT_TEASPOON => array(
+      'singular' => 'teaspoon',
+      'plural' => 'teaspoons',
+      'abbrevs' => array('t', 'tsp'),
+      'teaspoons' => 1,
+    ),
+    MC_UNIT_TABLESPOON => array(
+      'singular' => 'tablespoon',
+      'plural' => 'tablespoons',
+      'abbrevs' => array('T', 'Tbsp', 'tbsp', 'tblsp'),
+      'teaspoons' => 3,
+    ),
+  );
+
+  public static $metric_volume = array(
+    MC_UNIT_ML => array(
+      'singular' => 'milliliter',
+      'plural' => 'milliliters',
+      'abbrevs' => array('ml', 'mL', 'cc'),
+    ),
+  );
+
+  public static $english_weight = array(
+    MC_UNIT_POUND => array(
+      'singular' => 'pound',
+      'plural' => 'pounds',
+      'abbrevs' => array('lb', 'lbs', 'Lbs', 'Lb'),
+      'ounces' => 16,
+    ),
+    MC_UNIT_OUNCE => array(
+      'singular' => 'ounce',
+      'plural' => 'ounces',
+      'abbrevs' => array('oz', 'ozs'),
+      'ounces' => 1,
+    ),
+  );
+
+  public static $metric_weight = array(
+    MC_UNIT_KG => array(
+      'singular' => 'kilogram',
+      'plural' => 'kilograms',
+      'abbrevs' => array('kg', 'Kg'),
+      'grams' => 1000,
+    ),
+    MC_UNIT_GRAM => array(
+      'singular' => 'gram',
+      'plural' => 'grams',
+      'abbrevs' => array('g'),
+      'grams' => 1,
+    ),
+  );
+
+  public static $unit_tree; // initialized in constructor
+
+  public function __construct($value, $unit) {
+    $this->original_unit = $unit;
+    $this->original_value = $value;
+    self::$unit_tree = array(
+      MC_UNIT_TYPE_VOLUME => array(
+        MC_UNIT_SYSTEM_ENGLISH => self::$english_volume,
+        MC_UNIT_SYSTEM_METRIC => self::$metric_volume,
+      ),
+      MC_UNIT_TYPE_WEIGHT => array(
+        MC_UNIT_SYSTEM_ENGLISH => self::$english_weight,
+        MC_UNIT_SYSTEM_METRIC => self::$metric_weight,
+      ),
+    );
+
+    $this->value = self::parse_value($value);
+    $this->unit_code = $this->unit_type = $this->unit_system = MC_UNIT_UNKNOWN;
+
+
+    // Clean up the unit a little bit
+    $unit = preg_replace('#[.\s]+#', '', $unit);
+    foreach (self::$unit_tree as $type_id => $systems) {
+      foreach ($systems as $system_id => $units) {
+        foreach ($units as $unit_id => $unit_data) {
+          if (in_array($unit, $unit_data['abbrevs'])
+            || $unit == $unit_data['singular']
+            || $unit == $unit_data['plural']) {
+            // we have a match!
+            $this->unit_code = $unit_id;
+            $this->unit_type = $type_id;
+            $this->unit_system = $system_id;
+          }
+        }
+      }
+    }
+  }
+
+  public function toMetric() {
+    if ($this->unit_system == MC_UNIT_UNKNOWN) {
+      return FALSE; // can't convert if unknown system
+    }
+    elseif ($this->unit_system == MC_UNIT_SYSTEM_METRIC) {
+      return TRUE; // no need to convert if already metric
+    }
+
+    if ($this->unit_type == MC_UNIT_TYPE_VOLUME) {
+      $cc_per_tsp = 4.92892159;
+      $tsp = self::$unit_tree[$this->unit_type][$this->unit_system][$this->unit_code]['teaspoons'];
+      $cc = $cc_per_tsp * $tsp * $this->value;
+      $this->unit_system = MC_UNIT_SYSTEM_METRIC;
+      $this->unit_code = MC_UNIT_ML;
+      $this->value = $cc;
+    }
+    elseif ($this->unit_type == MC_UNIT_TYPE_WEIGHT) {
+      $g_per_oz = 28.3495231;
+      $oz = self::$unit_tree[$this->unit_type][$this->unit_system][$this->unit_code]['ounces'];
+      $g = $g_per_oz * $oz * $this->value;
+      $this->unit_system = MC_UNIT_SYSTEM_METRIC;
+      if ($g > 1200) {
+        $this->unit_code = MC_UNIT_KG;
+        $this->value = $g / 1000;
+      }
+      else {
+        $this->unit_code = MC_UNIT_GRAM;
+        $this->value = $g;
+      }
+    }
+  }
+
+  public function toEnglish() {
+
+  }
+
+  public function unitSystemToggle() {
+    if ($this->unit_system == MC_UNIT_SYSTEM_METRIC) {
+      $this->toEnglish();
+    }
+    elseif ($this->unit_system = MC_UNIT_SYSTEM_ENGLISH) {
+      $this->toMetric();
+    }
+  }
+
+  public function getValue() {
+    // TODO: format value using mixed fractions?
+    if ($this->unit_code == MC_UNIT_UNKNOWN) {
+      return '[unknown value]';
+    }
+
+    if ($this->value > 100) {
+      return round($this->value, -1);
+    }
+    else {
+      return round($this->value, 0);
+    }
+  }
+
+  public function getUnit() {
+    // TODO:
+    if ($this->unit_code == MC_UNIT_UNKNOWN) {
+      return '[unknown unit]';
+    }
+    return self::$unit_tree[$this->unit_type][$this->unit_system][$this->unit_code]['abbrevs'][0];
+  }
+
+  public function getSystemCode() {
+    return $this->unit_system;
+  }
+
+  public function isValid() {
+    return $this->unit_code != MC_UNIT_UNKNOWN;
+  }
+
+  public function parse_value($str) {
+    // match mixed fractions. I = integer, N = numerator, D = denominator
+    //                     (optional I )   (  & or 'and'  )        N     /    D
+    $retval = preg_match('#(\d++(?! */))? *(?:[-&]?|(?:and)?) *(?:(\d+) */ *(\d+))#', $str, $match);
+
+    // convert from unicode fractions to numbers
+    // TODO: modify regex to support these characters
+    $unicode_fractions = array(
+      '¼' => 0.25,
+      '½' => 0.5,
+      '¾' => 0.75,
+      '⅓' => 1.0/3.0,
+      '⅔' => 2.0/3.0,
+      '⅕' => 0.2,
+      '⅖' => 0.4,
+      '⅗' => 0.6,
+      '⅘' => 0.8,
+      '⅙' => 1.0/6.0,
+      '⅚' => 5.0/6.0,
+      '⅛' => 0.125,
+      '⅜' => 0.375,
+      '⅝' => 0.625,
+      '⅞' => 0.875,
+    );
+
+    foreach ($match as &$m) {
+      if (isset($unicode_fractions[$m])) {
+        $m = $unicode_fractions[$m];
+      }
+    }
+
+    if ($retval && $match[3] != 0) {
+      return $match[1] + $match[2] / $match[3];
+    }
+    return $str + 0;
+  }
+}
+
+function mc_units_filter_info() {
+  $filters['mc_units_converter'] = array(
+    'title' => t('Allow units in ingredient list to be converted by viewers'),
+    'description' => t('Place before line break converter for best results'),
+    'process callback' => 'mc_units_filter_converter_process',
+  );
+
+  return $filters;
+}
+
+function mc_units_filter_converter_process($text, $filter, $format, $langcode, $cache, $cache_id) {
+  // split into lines
+  $lines = explode("\n", $text);
+  foreach ($lines as &$line) {
+    $count = preg_match('#^([\d\s/&+]+)([A-Za-z.]+)#', $line, $match);
+    if ($count) {
+      // Valid match. Save the rest of the line for verbatim output
+      $rest_of_line = substr($line, strlen($match[0]));
+
+      // Let's see if we can decode the unit.
+      $val = new mc_unit_value($match[1], $match[2]);
+      if ($val->isValid()) {
+        $val->unitSystemToggle();
+        $val_string = $val->getValue() .' '. $val->getUnit();
+        $unit_class = 'mc-units-system-'. $val->getSystemCode();
+        $metric_html = '<span class="'. $unit_class .'">'. $val_string .'</span>';
+
+        $html = '<span class="mc-units-known">';
+        $html .= $metric_html;
+        $html .= '<span class="mc-units-original-text">'. $match[0] .'</span>';
+
+        $html .= '</span>'; // end .mc-units-known
+        $output[] = $html . $rest_of_line;
+      }
+      else {
+        // couldn't identify unit or value. we echo the original text and
+        // note that we don't understand it.
+        $output[] = '<span class="mc-units-unknown mc-units-original-text">'. $match[0] .'</span>'. $rest_of_line;
+      }
+    }
+    else {
+      // no match. mark the line as unknown
+      $output[] = '<span class="mc-units-unknown mc-units-original-text">'. $line .'</span>';
+    }
+  }
+
+  return '<span class="mc-units-ingredient-list">'. implode("\n", $output) .'</span>';
+}
+
+function mc_units_form_srecipe_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['field_ingredients_text']['und'][0]['#format'] = 'convertible_ingredients';
+}

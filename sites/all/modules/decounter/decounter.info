@@ -1,0 +1,5 @@
+name = Decounter
+description = Decreases contet view counter when user matching criteria is viewing a node.
+core = 7.x
+configure = admin/config/system/statistics/decounter
+dependencies[] = statistics

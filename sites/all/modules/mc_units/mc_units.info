@@ -1,0 +1,10 @@
+name = MC Unit Converter
+description = Provides spiffy CSS/JS-based unit conversion
+package = EZH
+core = 7.x
+
+scripts[] = mc_units.js
+;scripts[] = jquery.tools.min.js
+
+stylesheets[all][] = mc_units.css
+
