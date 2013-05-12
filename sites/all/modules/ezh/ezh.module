@@ -56,3 +56,34 @@ function ezh_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+/**
+ * Implements hook_menu()
+ */
+function ezh_menu() {
+  $items = array();
+  $items['join-mailing-list'] = array(
+    'page callback' => 'ezh_mailinglist_form',
+    'title' => t('Join the mailing list'),
+    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => array('access content'),
+  );
+  return $items;
+}
+
+function ezh_mailinglist_form() {
+  module_load_include('inc', 'contact', 'contact.pages');
+  $form = drupal_get_form('contact_site_form');
+
+  $form['header'] = array(
+    '#weight' => -10,
+    '#markup' => "<div>Would you like to receive a weekly update telling of new recipes and news of our project? <br> Just let us know your name and where you live (city, state, and country), and we'll introduce you to the group.</div>",
+  );
+
+  $form['subject']['#value'] = 'Somebody wants to join the mailing list';
+  $form['subject']['#access'] = FALSE;
+
+  $form['message']['#title'] = 'Geographic location';
+  $form['message']['#value'] = "City:\nState:\nCountry:";
+
+  return $form;
+}
