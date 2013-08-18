@@ -80,7 +80,9 @@ function ezh_mailinglist_form() {
   );
 
   $form['subject']['#value'] = 'Somebody wants to join the mailing list';
-  $form['subject']['#access'] = FALSE;
+  $form['subject']['#default_value'] = 'Somebody wants to join the mailing list';
+
+  $form['#attributes']['class'][] = 'mailing-list-form';
 
   $form['message']['#title'] = 'Geographic location';
   $form['message']['#value'] = "City:\nState:\nCountry:";

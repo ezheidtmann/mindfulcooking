@@ -42,3 +42,8 @@ fieldset.filter-wrapper {
 .show-format-widgets fieldset.filter-wrapper {
   display: block;
 }
+
+/** hide subject field in mailing list page **/
+.mailing-list-form .form-item-subject {
+  display: none;
+}
