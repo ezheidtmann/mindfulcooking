@@ -8,7 +8,7 @@
  * Implements hook_default_page_manager_pages().
  */
 function joy_features_default_page_manager_pages() {
-  $page = new stdClass;
+  $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
   $page->name = 'about';
@@ -35,7 +35,7 @@ function joy_features_default_page_manager_pages() {
   $page->arguments = array();
   $page->conf = array();
   $page->default_handlers = array();
-  $handler = new stdClass;
+  $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
   $handler->name = 'page_about_panel_context';
@@ -51,7 +51,7 @@ function joy_features_default_page_manager_pages() {
     'contexts' => array(),
     'relationships' => array(),
   );
-  $display = new panels_display;
+  $display = new panels_display();
   $display->layout = 'twocol_stacked';
   $display->layout_settings = array();
   $display->panel_settings = array(
@@ -67,7 +67,7 @@ function joy_features_default_page_manager_pages() {
   $display->title = '';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-1';
     $pane->panel = 'left';
     $pane->type = 'views';
@@ -99,7 +99,7 @@ function joy_features_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-1'] = $pane;
     $display->panels['left'][0] = 'new-1';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-2';
     $pane->panel = 'right';
     $pane->type = 'node';
@@ -125,7 +125,7 @@ function joy_features_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-2'] = $pane;
     $display->panels['right'][0] = 'new-2';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-3';
     $pane->panel = 'top';
     $pane->type = 'node';
@@ -151,7 +151,7 @@ function joy_features_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-3'] = $pane;
     $display->panels['top'][0] = 'new-3';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-4';
     $pane->panel = 'top';
     $pane->type = 'node';
@@ -177,7 +177,7 @@ function joy_features_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-4'] = $pane;
     $display->panels['top'][1] = 'new-4';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-5';
     $pane->panel = 'top';
     $pane->type = 'custom';
@@ -207,7 +207,7 @@ function joy_features_default_page_manager_pages() {
   $page->default_handlers[$handler->name] = $handler;
   $pages['about'] = $page;
 
-  $page = new stdClass;
+  $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
   $page->name = 'new_front';
@@ -220,7 +220,7 @@ function joy_features_default_page_manager_pages() {
   $page->arguments = array();
   $page->conf = array();
   $page->default_handlers = array();
-  $handler = new stdClass;
+  $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
   $handler->name = 'page_new_front_panel_context';
@@ -236,7 +236,7 @@ function joy_features_default_page_manager_pages() {
     'contexts' => array(),
     'relationships' => array(),
   );
-  $display = new panels_display;
+  $display = new panels_display();
   $display->layout = 'twocol_stacked';
   $display->layout_settings = array();
   $display->panel_settings = array(
@@ -257,7 +257,7 @@ function joy_features_default_page_manager_pages() {
   $display->title = 'The Front Page (PANEL TITLE)';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-6';
     $pane->panel = 'bottom';
     $pane->type = 'node';
@@ -284,7 +284,7 @@ function joy_features_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-6'] = $pane;
     $display->panels['bottom'][0] = 'new-6';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-7';
     $pane->panel = 'left';
     $pane->type = 'views';
@@ -317,7 +317,7 @@ function joy_features_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-7'] = $pane;
     $display->panels['left'][0] = 'new-7';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-8';
     $pane->panel = 'left';
     $pane->type = 'views';
@@ -350,8 +350,41 @@ function joy_features_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-8'] = $pane;
     $display->panels['left'][1] = 'new-8';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-9';
+    $pane->panel = 'right';
+    $pane->type = 'views';
+    $pane->subtype = 'blog_view';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_pager_settings' => 1,
+      'use_pager' => 0,
+      'nodes_per_page' => '1',
+      'pager_id' => '0',
+      'offset' => '0',
+      'more_link' => 0,
+      'feed_icons' => 0,
+      'panel_args' => 0,
+      'link_to_view' => 1,
+      'args' => '',
+      'url' => '',
+      'display' => 'block_1',
+      'override_title' => 1,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $display->content['new-9'] = $pane;
+    $display->panels['right'][0] = 'new-9';
+    $pane = new stdClass();
+    $pane->pid = 'new-10';
     $pane->panel = 'right';
     $pane->type = 'views';
     $pane->subtype = 'new_recipes';
@@ -379,12 +412,12 @@ function joy_features_default_page_manager_pages() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 0;
+    $pane->position = 1;
     $pane->locks = '';
-    $display->content['new-9'] = $pane;
-    $display->panels['right'][0] = 'new-9';
-    $pane = new stdClass;
-    $pane->pid = 'new-10';
+    $display->content['new-10'] = $pane;
+    $display->panels['right'][1] = 'new-10';
+    $pane = new stdClass();
+    $pane->pid = 'new-11';
     $pane->panel = 'right';
     $pane->type = 'views';
     $pane->subtype = 'nodequeue_1';
@@ -415,12 +448,12 @@ function joy_features_default_page_manager_pages() {
       'css_class' => '',
     );
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 2;
     $pane->locks = '';
-    $display->content['new-10'] = $pane;
-    $display->panels['right'][1] = 'new-10';
-    $pane = new stdClass;
-    $pane->pid = 'new-11';
+    $display->content['new-11'] = $pane;
+    $display->panels['right'][2] = 'new-11';
+    $pane = new stdClass();
+    $pane->pid = 'new-12';
     $pane->panel = 'right';
     $pane->type = 'custom';
     $pane->subtype = 'custom';
@@ -439,12 +472,12 @@ function joy_features_default_page_manager_pages() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 2;
+    $pane->position = 3;
     $pane->locks = '';
-    $display->content['new-11'] = $pane;
-    $display->panels['right'][2] = 'new-11';
-    $pane = new stdClass;
-    $pane->pid = 'new-12';
+    $display->content['new-12'] = $pane;
+    $display->panels['right'][3] = 'new-12';
+    $pane = new stdClass();
+    $pane->pid = 'new-13';
     $pane->panel = 'top';
     $pane->type = 'node';
     $pane->subtype = 'node';
@@ -470,15 +503,15 @@ function joy_features_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = '';
-    $display->content['new-12'] = $pane;
-    $display->panels['top'][0] = 'new-12';
+    $display->content['new-13'] = $pane;
+    $display->panels['top'][0] = 'new-13';
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['new_front'] = $page;
 
-  $page = new stdClass;
+  $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
   $page->name = 'recipe_finder';
@@ -502,7 +535,7 @@ function joy_features_default_page_manager_pages() {
   $page->arguments = array();
   $page->conf = array();
   $page->default_handlers = array();
-  $handler = new stdClass;
+  $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
   $handler->name = 'page_recipe_finder_panel_context';
@@ -518,7 +551,7 @@ function joy_features_default_page_manager_pages() {
     'contexts' => array(),
     'relationships' => array(),
   );
-  $display = new panels_display;
+  $display = new panels_display();
   $display->layout = 'onecol';
   $display->layout_settings = array();
   $display->panel_settings = array(
@@ -531,8 +564,8 @@ function joy_features_default_page_manager_pages() {
   $display->title = '';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass;
-    $pane->pid = 'new-13';
+    $pane = new stdClass();
+    $pane->pid = 'new-14';
     $pane->panel = 'middle';
     $pane->type = 'block';
     $pane->subtype = 'search-0';
@@ -550,10 +583,10 @@ function joy_features_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = '';
-    $display->content['new-13'] = $pane;
-    $display->panels['middle'][0] = 'new-13';
-    $pane = new stdClass;
-    $pane->pid = 'new-14';
+    $display->content['new-14'] = $pane;
+    $display->panels['middle'][0] = 'new-14';
+    $pane = new stdClass();
+    $pane->pid = 'new-15';
     $pane->panel = 'middle';
     $pane->type = 'views';
     $pane->subtype = 'recipe_search';
@@ -583,14 +616,14 @@ function joy_features_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 1;
     $pane->locks = '';
-    $display->content['new-14'] = $pane;
-    $display->panels['middle'][1] = 'new-14';
+    $display->content['new-15'] = $pane;
+    $display->panels['middle'][1] = 'new-15';
   $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['recipe_finder'] = $page;
 
- return $pages;
+  return $pages;
 
 }

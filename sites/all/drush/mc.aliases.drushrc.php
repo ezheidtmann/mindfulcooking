@@ -5,4 +5,5 @@ $aliases['prod'] = array(
   'root' => '/server/mindfulcooking/htdocs',
 
   'remote-host' => 'adams.ezheidtmann.com',
+  'ssh-options' => '-p 22421',
 );

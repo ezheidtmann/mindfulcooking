@@ -9,6 +9,14 @@
  */
 function joy_structure_node_info() {
   $items = array(
+    'blog' => array(
+      'name' => t('Blog Entry'),
+      'base' => 'node_content',
+      'description' => t('A newsletter or blog entry'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'fact' => array(
       'name' => t('Fact or quote'),
       'base' => 'node_content',

@@ -21,7 +21,7 @@ function joy_features_default_rules_configuration() {
         { "mail" : {
             "to" : "eve@mindfulcooking.org",
             "subject" : "mindfulcooking.org activity: \\u0022[node:title]\\u0022",
-            "message" : "Posted by [node:author]:\\u000D\\u000A\\u000D\\u000A[node:title]\\u000D\\u000A\\u000D\\u000A[node:body]\\u000D\\u000A\\u000D\\u000A[site:url]node\\u002F[node:nid]"
+            "message" : "Posted by [node:author]:\\r\\n\\r\\n[node:title]\\r\\n\\r\\n[node:body]\\r\\n\\r\\n[site:url]node\\/[node:nid]"
           }
         }
       ]
@@ -39,7 +39,7 @@ function joy_features_default_rules_configuration() {
         { "mail" : {
             "to" : "eve@mindfulcooking.org",
             "subject" : "mindfulcooking.org activity: \\u0022[comment:subject]\\u0022",
-            "message" : "Posted by [comment:author]: \\u000D\\u000A\\u000D\\u000A[comment:subject]\\u000D\\u000A\\u000D\\u000A[comment:body]\\u000D\\u000A\\u000D\\u000A[site:url]node\\u002F[comment:node:nid]#comment-[comment:cid]\\u000D\\u000A"
+            "message" : "Posted by [comment:author]: \\r\\n\\r\\n[comment:subject]\\r\\n\\r\\n[comment:body]\\r\\n\\r\\n[site:url]node\\/[comment:node:nid]#comment-[comment:cid]\\r\\n"
           }
         }
       ]

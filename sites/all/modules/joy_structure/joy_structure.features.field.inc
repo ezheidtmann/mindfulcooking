@@ -10,7 +10,72 @@
 function joy_structure_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-fact-upload'
+  // Exported field: 'node-blog-body'.
+  $fields['node-blog-body'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(
+        0 => 'node',
+      ),
+      'field_name' => 'body',
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_with_summary',
+    ),
+    'field_instance' => array(
+      'bundle' => 'blog',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(
+            'trim_length' => 600,
+          ),
+          'type' => 'text_summary_or_trimmed',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'body',
+      'label' => 'Body',
+      'required' => FALSE,
+      'settings' => array(
+        'display_summary' => TRUE,
+        'text_processing' => 1,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'module' => 'text',
+        'settings' => array(
+          'rows' => 20,
+          'summary_rows' => 5,
+        ),
+        'type' => 'text_textarea_with_summary',
+        'weight' => 31,
+      ),
+    ),
+  );
+
+  // Exported field: 'node-fact-upload'.
   $fields['node-fact-upload'] = array(
     'field_config' => array(
       'active' => '1',
@@ -23,6 +88,7 @@ function joy_structure_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'file',
       'settings' => array(
         'default_file' => 0,
@@ -89,7 +155,7 @@ function joy_structure_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-srecipe-body'
+  // Exported field: 'node-srecipe-body'.
   $fields['node-srecipe-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -104,6 +170,7 @@ function joy_structure_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -152,7 +219,7 @@ function joy_structure_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-srecipe-field_ingredients_text'
+  // Exported field: 'node-srecipe-field_ingredients_text'.
   $fields['node-srecipe-field_ingredients_text'] = array(
     'field_config' => array(
       'active' => '1',
@@ -173,6 +240,7 @@ function joy_structure_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -240,7 +308,7 @@ function joy_structure_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-srecipe-field_instructions'
+  // Exported field: 'node-srecipe-field_instructions'.
   $fields['node-srecipe-field_instructions'] = array(
     'field_config' => array(
       'active' => '1',
@@ -261,6 +329,7 @@ function joy_structure_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -328,7 +397,7 @@ function joy_structure_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-srecipe-field_recipe_notes'
+  // Exported field: 'node-srecipe-field_recipe_notes'.
   $fields['node-srecipe-field_recipe_notes'] = array(
     'field_config' => array(
       'active' => '1',
@@ -349,6 +418,7 @@ function joy_structure_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -423,7 +493,7 @@ function joy_structure_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-srecipe-field_recipe_photo'
+  // Exported field: 'node-srecipe-field_recipe_photo'.
   $fields['node-srecipe-field_recipe_photo'] = array(
     'field_config' => array(
       'active' => '1',
@@ -444,6 +514,7 @@ function joy_structure_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -533,7 +604,7 @@ function joy_structure_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-srecipe-field_recipe_source'
+  // Exported field: 'node-srecipe-field_recipe_source'.
   $fields['node-srecipe-field_recipe_source'] = array(
     'field_config' => array(
       'active' => '1',
@@ -554,6 +625,7 @@ function joy_structure_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'allowed_values' => '',
@@ -621,7 +693,7 @@ function joy_structure_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-srecipe-taxonomy_vocabulary_1'
+  // Exported field: 'node-srecipe-taxonomy_vocabulary_1'.
   $fields['node-srecipe-taxonomy_vocabulary_1'] = array(
     'field_config' => array(
       'active' => '1',
@@ -634,6 +706,7 @@ function joy_structure_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -687,7 +760,7 @@ function joy_structure_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-srecipe-taxonomy_vocabulary_2'
+  // Exported field: 'node-srecipe-taxonomy_vocabulary_2'.
   $fields['node-srecipe-taxonomy_vocabulary_2'] = array(
     'field_config' => array(
       'active' => '1',
@@ -700,6 +773,7 @@ function joy_structure_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -737,24 +811,27 @@ function joy_structure_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'taxonomy_vocabulary_2',
       'label' => 'Seasons',
-      'required' => '0',
+      'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'options',
-        'settings' => array(),
+        'settings' => array(
+          'apply_chosen' => 1,
+        ),
         'type' => 'options_select',
         'weight' => '8',
       ),
     ),
   );
 
-  // Exported field: 'node-srecipe-taxonomy_vocabulary_3'
+  // Exported field: 'node-srecipe-taxonomy_vocabulary_3'.
   $fields['node-srecipe-taxonomy_vocabulary_3'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '3',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'taxonomy_vocabulary_3',
@@ -763,6 +840,7 @@ function joy_structure_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -799,13 +877,16 @@ function joy_structure_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'taxonomy_vocabulary_3',
       'label' => 'Dish Type',
-      'required' => '1',
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'options',
-        'settings' => array(),
+        'settings' => array(
+          'apply_chosen' => 1,
+        ),
         'type' => 'options_select',
         'weight' => '7',
       ),
@@ -817,6 +898,7 @@ function joy_structure_field_default_fields() {
   t('A good photo of a dish can make a recipe much more appealing!');
   t('A simple recipe content type. Ingredients are entered free-form in a textarea.');
   t('Any other notes regarding this recipe, such as good pairings or simply an enthusiastic closing.');
+  t('Body');
   t('Chef or Cook originally responsible for the recipe. For example: "Martha Stewart," "Prison Cooking by Martha Stewart," "Based on a recipe from The Joy of Cooking."');
   t('Choose the best season(s) for this recipe, based on seasonality of ingredients.');
   t('Description');

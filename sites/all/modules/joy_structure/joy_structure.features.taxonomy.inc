@@ -29,7 +29,7 @@ function joy_structure_taxonomy_default_vocabularies() {
       'name' => 'Dish Type',
       'machine_name' => 'vocabulary_3',
       'description' => '',
-      'hierarchy' => '1',
+      'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '-10',
     ),
