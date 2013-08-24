@@ -215,7 +215,10 @@ function joy_features_default_page_manager_pages() {
   $page->admin_title = 'Front Page';
   $page->admin_description = 'This is the front "splash" page with pictures, links, and a recipe of the week.';
   $page->path = 'front';
-  $page->access = array();
+  $page->access = array(
+    'type' => 'none',
+    'settings' => NULL,
+  );
   $page->menu = array();
   $page->arguments = array();
   $page->conf = array();
@@ -519,7 +522,10 @@ function joy_features_default_page_manager_pages() {
   $page->admin_title = 'Recipe Finder';
   $page->admin_description = 'Contains the taxonomy-based search as well as a keyword search';
   $page->path = 'find';
-  $page->access = array();
+  $page->access = array(
+    'type' => 'none',
+    'settings' => NULL,
+  );
   $page->menu = array(
     'type' => 'normal',
     'title' => 'Find a recipe',

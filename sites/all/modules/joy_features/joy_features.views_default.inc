@@ -91,6 +91,7 @@ function joy_features_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
+  $handler->display->display_options['defaults']['empty'] = FALSE;
   $export['blog_view'] = $view;
 
   $view = new view();
