@@ -85,7 +85,7 @@ function ezh_mailinglist_form() {
   $form['#attributes']['class'][] = 'mailing-list-form';
 
   $form['message']['#title'] = 'Geographic location';
-  $form['message']['#value'] = "City:\nState:\nCountry:";
+  $form['message']['#value'] = "City:\nState or Country:";
 
   return $form;
 }
