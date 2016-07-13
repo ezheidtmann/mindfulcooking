@@ -32,7 +32,7 @@ function wysiwyg_wymeditor_editor() {
     'themes callback' => 'wysiwyg_wymeditor_themes',
     'settings form callback' => 'wysiwyg_wymeditor_settings_form',
     'settings callback' => 'wysiwyg_wymeditor_settings',
-    'plugin callback' => 'wysiwyg_wymeditor_plugins',
+    'plugin callback' => '_wysiwyg_wymeditor_plugins',
     'versions' => array(
       '0.5-rc1' => array(
         'js files' => array('wymeditor.js'),
@@ -128,7 +128,11 @@ function wysiwyg_wymeditor_settings($editor, $config, $theme) {
     'wymPath' => $editor['libraries'][$library]['files'][0],
     // @todo Does not work in Drupal; jQuery can live anywhere.
     'jQueryPath' => base_path() . 'misc/jquery.js',
-    'updateSelector' => '.form-submit',
+    // WYMeditor's update event handler will revert the field contents if
+    // changes were made after it was detached. Wysiwyg takes care of submit
+    // events anyway so make sure WYMeditor does not bind it anywhere.
+    'updateSelector' => '#wysiwyg-no-element',
+    'updateEvent' => 'wysiwyg-no-event',
     'skin' => $theme,
   );
 
@@ -212,7 +216,7 @@ function wysiwyg_wymeditor_settings($editor, $config, $theme) {
 /**
  * Return internal plugins for this editor; semi-implementation of hook_wysiwyg_plugin().
  */
-function wysiwyg_wymeditor_plugins($editor) {
+function _wysiwyg_wymeditor_plugins($editor) {
   $plugins = array(
     'default' => array(
       'buttons' => array(

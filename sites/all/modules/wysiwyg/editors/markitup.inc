@@ -24,11 +24,12 @@ function wysiwyg_markitup_editor() {
         'files' => array('markitup/jquery.markitup.pack.js'),
       ),
     ),
+    'install note callback' => 'wysiwyg_markitup_install_note',
     'version callback' => 'wysiwyg_markitup_version',
     'themes callback' => 'wysiwyg_markitup_themes',
     'settings form callback' => 'wysiwyg_markitup_settings_form',
     'settings callback' => 'wysiwyg_markitup_settings',
-    'plugin callback' => 'wysiwyg_markitup_plugins',
+    'plugin callback' => '_wysiwyg_markitup_plugins',
     'versions' => array(
       '1.1.5' => array(
         'js files' => array('markitup.js'),
@@ -36,6 +37,13 @@ function wysiwyg_markitup_editor() {
     ),
   );
   return $editor;
+}
+
+/**
+ * Return an install note.
+ */
+function wysiwyg_markitup_install_note() {
+  return '<p class="warning">' . t('Only rename the extracted folder from "latest" to "markitup", no other changes needed.') . '</p>';
 }
 
 /**
@@ -180,7 +188,7 @@ function wysiwyg_markitup_settings($editor, $config, $theme) {
 /**
  * Return internal plugins for this editor; semi-implementation of hook_wysiwyg_plugin().
  */
-function wysiwyg_markitup_plugins($editor) {
+function _wysiwyg_markitup_plugins($editor) {
   return array(
     'default' => array(
       'buttons' => array(

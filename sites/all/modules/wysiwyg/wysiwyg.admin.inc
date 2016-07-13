@@ -23,6 +23,7 @@ function wysiwyg_profile_form($form, &$form_state, $profile) {
     'default' => TRUE,
     'user_choose' => FALSE,
     'show_toggle' => TRUE,
+    'add_to_summaries' => TRUE,
     'theme' => '',
     'language' => 'en',
     'buttons' => array(),
@@ -69,6 +70,14 @@ function wysiwyg_profile_form($form, &$form_state, $profile) {
     '#default_value' => $settings['show_toggle'],
     '#return_value' => 1,
     '#description' => t('Whether or not to show the <em>enable/disable rich text</em> toggle link below a textarea. If disabled, the user setting or global default is used (see above).'),
+  );
+
+  $form['basic']['add_to_summaries'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable on summary fields'),
+    '#default_value' => $settings['add_to_summaries'],
+    '#return_value' => 1,
+    '#description' => t('Attach the editor to summary fields of textareas.'),
   );
 
   $form['basic']['theme'] = array(
@@ -358,7 +367,7 @@ function wysiwyg_profile_overview($form, &$form_state) {
     '#title' => t('Installation instructions'),
     '#collapsible' => TRUE,
     '#collapsed' => !isset($show_instructions),
-    '#description' => (!$count ? t('There are no editor libraries installed currently. The following list contains a list of currently supported editors:') : ''),
+    '#description' => t('A complete list of <a href="@url">supported editor versions</a> for all Wysiwyg module versions can be found on drupal.org.', array('@url' => url('https://www.drupal.org/node/596966'))) . (!$count ? ' ' . t('There are no editor libraries installed currently. The following list contains a list of currently supported editors:') : ''),
     '#weight' => 10,
   );
   $form['status']['report'] = array('#markup' => theme('status_report', array('requirements' => $status)));
